@@ -3,6 +3,7 @@ import { AnimatePresence } from 'framer-motion';
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { NavigationProvider } from '@/lib/NavigationContext';
 import PageNotFound from './lib/PageNotFound';
 import Home from './pages/Home';
 import AccountSettings from './pages/AccountSettings';
@@ -38,13 +39,15 @@ const AuthenticatedApp = () => {
 
   // Render the main app
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageTransition><MobileHeader /><Home /><BottomNav /></PageTransition>} />
-        <Route path="/account" element={<PageTransition><MobileHeader /><AccountSettings /><BottomNav /></PageTransition>} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-    </AnimatePresence>
+    <NavigationProvider>
+      <AnimatePresence mode="wait" initial={false}>
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<PageTransition><MobileHeader /><Home /><BottomNav /></PageTransition>} />
+          <Route path="/account" element={<PageTransition><MobileHeader /><AccountSettings /><BottomNav /></PageTransition>} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </AnimatePresence>
+    </NavigationProvider>
   );
 };
 
