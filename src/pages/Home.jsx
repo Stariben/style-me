@@ -13,6 +13,7 @@ export default function Home() {
   const [outfitImage, setOutfitImage] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState(null);
+  const [generatedImage, setGeneratedImage] = useState(null);
 
   const canAnalyze = personImage && outfitImage && !isAnalyzing;
 
@@ -20,8 +21,9 @@ export default function Home() {
     setIsAnalyzing(true);
     setResult(null);
 
-    const analysis = await base44.integrations.Core.InvokeLLM({
-      prompt: `You are a professional fashion stylist and image consultant. 
+    const [analysis, imageResult] = await Promise.all([
+      base44.integrations.Core.InvokeLLM({
+        prompt: `You are a professional fashion stylist and image consultant. 
       
 I'm providing two images:
 1. A photo of a person (selfie/portrait)
@@ -35,38 +37,58 @@ Analyze how well this outfit would look on this person. Consider:
 - Overall aesthetic compatibility
 
 Provide a comprehensive but concise style assessment.`,
-      file_urls: [personImage, outfitImage],
-      response_json_schema: {
-        type: 'object',
-        properties: {
-          match_score: {
-            type: 'number',
-            description: 'Score from 1-10 of how well the outfit matches the person',
-          },
-          verdict: {
-            type: 'string',
-            description: 'A short 3-6 word verdict like "Perfect Match!" or "Could Work Better"',
-          },
-          pros: {
-            type: 'array',
-            items: { type: 'string' },
-            description: '2-3 positive aspects of this outfit on this person',
-          },
-          cons: {
-            type: 'array',
-            items: { type: 'string' },
-            description: '1-2 things to consider or potential issues',
-          },
-          styling_tips: {
-            type: 'array',
-            items: { type: 'string' },
-            description: '2-3 tips to make this outfit work even better',
+        file_urls: [personImage, outfitImage],
+        response_json_schema: {
+          type: 'object',
+          properties: {
+            match_score: {
+              type: 'number',
+              description: 'Score from 1-10 of how well the outfit matches the person',
+            },
+            verdict: {
+              type: 'string',
+              description: 'A short 3-6 word verdict like "Perfect Match!" or "Could Work Better"',
+            },
+            pros: {
+              type: 'array',
+              items: { type: 'string' },
+              description: '2-3 positive aspects of this outfit on this person',
+            },
+            cons: {
+              type: 'array',
+              items: { type: 'string' },
+              description: '1-2 things to consider or potential issues',
+            },
+            styling_tips: {
+              type: 'array',
+              items: { type: 'string' },
+              description: '2-3 tips to make this outfit work even better',
+            },
+            person_description: {
+              type: 'string',
+              description: 'Brief physical description of the person: skin tone, hair color, body type, approximate age range',
+            },
+            outfit_description: {
+              type: 'string',
+              description: 'Brief description of the clothing item: type, color, style, fabric if visible',
+            },
           },
         },
-      },
-      model: 'gpt_5',
+        model: 'gpt_5',
+      }),
+      base44.integrations.Core.InvokeLLM({
+        prompt: `Look at these two images: first is a person's photo, second is a clothing item. Describe in one sentence: the person's appearance (skin tone, hair color/style, face features, body build) and in another sentence: the clothing item details (type, color, pattern, style). Be specific and visual.`,
+        file_urls: [personImage, outfitImage],
+        model: 'gpt_5',
+      }),
+    ]);
+
+    const imageGen = await base44.integrations.Core.GenerateImage({
+      prompt: `A realistic fashion photo of a person wearing the outfit. ${imageResult}. The person is wearing the clothing item naturally, full body or 3/4 shot, clean neutral background, professional fashion photography style, high quality.`,
+      existing_image_urls: [personImage, outfitImage],
     });
 
+    setGeneratedImage(imageGen.url);
     setResult(analysis);
     setIsAnalyzing(false);
   };
@@ -75,6 +97,7 @@ Provide a comprehensive but concise style assessment.`,
     setPersonImage(null);
     setOutfitImage(null);
     setResult(null);
+    setGeneratedImage(null);
   };
 
   return (
@@ -148,7 +171,7 @@ Provide a comprehensive but concise style assessment.`,
 
       {/* Results */}
       <AnimatePresence>
-        {result && <ResultCard result={result} onReset={handleReset} />}
+        {result && <ResultCard result={result} generatedImage={generatedImage} onReset={handleReset} />}
       </AnimatePresence>
     </div>
   );
