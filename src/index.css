@@ -93,4 +93,8 @@
     user-select: none;
     -webkit-user-select: none;
   }
+
+  button, [role="tab"], input, select, textarea {
+    min-height: 44px;
+  }
 }

@@ -21,7 +21,7 @@ export default function AccountSettings() {
 
   const handleDeleteAccount = async () => {
     setIsDeleting(true);
-    await base44.auth.logout();
+    await base44.auth.deleteAccount();
   };
 
   const handleLogout = () => {

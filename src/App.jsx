@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import AccountSettings from './pages/AccountSettings';
 import BottomNav from './components/BottomNav';
 import PageTransition from './components/PageTransition';
+import MobileHeader from './components/MobileHeader';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 // Add page imports here
@@ -39,8 +40,8 @@ const AuthenticatedApp = () => {
   return (
     <AnimatePresence mode="wait" initial={false}>
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageTransition><Home /><BottomNav /></PageTransition>} />
-        <Route path="/account" element={<PageTransition><AccountSettings /><BottomNav /></PageTransition>} />
+        <Route path="/" element={<PageTransition><MobileHeader /><Home /><BottomNav /></PageTransition>} />
+        <Route path="/account" element={<PageTransition><MobileHeader /><AccountSettings /><BottomNav /></PageTransition>} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </AnimatePresence>
