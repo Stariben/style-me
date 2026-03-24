@@ -1,13 +1,12 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
-
-const NO_BACK = ['/', '/account'];
+import { useNavigation } from '@/lib/NavigationContext';
 
 export default function MobileHeader({ title }) {
-  const { pathname } = useLocation();
   const navigate = useNavigate();
+  const { canGoBack } = useNavigation();
 
-  if (NO_BACK.includes(pathname)) return null;
+  if (!canGoBack) return null;
 
   return (
     <div className="flex items-center gap-2 px-4 pt-safe pt-4 pb-2 bg-background border-b border-border sticky top-0 z-40">
