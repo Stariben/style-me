@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { Sparkles } from 'lucide-react';
+import { useState, useCallback } from 'react';
+import { Sparkles, RefreshCw } from 'lucide-react';
+import usePullToRefresh from '../hooks/usePullToRefresh';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -11,6 +12,16 @@ import AnalyzingOverlay from '../components/AnalyzingOverlay';
 export default function Home() {
   const [personImage, setPersonImage] = useState(null);
   const [outfitImage, setOutfitImage] = useState(null);
+  const handleRefresh = useCallback(async () => {
+    // Reset state on pull-to-refresh
+    setPersonImage(null);
+    setOutfitImage(null);
+    setResult(null);
+    setGeneratedImage(null);
+  }, []);
+
+  const { pullDistance, refreshing, onTouchStart, onTouchMove, onTouchEnd, threshold } = usePullToRefresh(handleRefresh);
+
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState(null);
   const [generatedImage, setGeneratedImage] = useState(null);
@@ -101,7 +112,29 @@ Provide a comprehensive but concise style assessment.`,
   };
 
   return (
-    <div className="min-h-screen bg-background pb-28">
+    <div
+      className="min-h-screen bg-background pb-28"
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+    >
+      {/* Pull-to-refresh indicator */}
+      {pullDistance > 0 && (
+        <div
+          className="flex items-center justify-center overflow-hidden transition-all"
+          style={{ height: pullDistance }}
+        >
+          <RefreshCw
+            className={`h-5 w-5 text-primary transition-transform ${refreshing ? 'animate-spin' : ''}`}
+            style={{ transform: `rotate(${(pullDistance / threshold) * 180}deg)` }}
+          />
+        </div>
+      )}
+      {refreshing && (
+        <div className="flex items-center justify-center h-10">
+          <RefreshCw className="h-5 w-5 text-primary animate-spin" />
+        </div>
+      )}
       <AnimatePresence>{isAnalyzing && <AnalyzingOverlay />}</AnimatePresence>
 
       <Header />
