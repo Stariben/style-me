@@ -4,6 +4,8 @@ import { queryClientInstance } from '@/lib/query-client'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import Home from './pages/Home';
+import AccountSettings from './pages/AccountSettings';
+import BottomNav from './components/BottomNav';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 // Add page imports here
@@ -34,7 +36,8 @@ const AuthenticatedApp = () => {
   // Render the main app
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<><Home /><BottomNav /></>} />
+      <Route path="/account" element={<><AccountSettings /><BottomNav /></>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

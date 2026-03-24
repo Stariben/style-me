@@ -85,5 +85,12 @@
 
   body {
     @apply bg-background text-foreground font-inter;
+    overscroll-behavior: none;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  button, [role="tab"], a {
+    user-select: none;
+    -webkit-user-select: none;
   }
 }
