@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Star, ThumbsUp, ThumbsDown, Lightbulb, RefreshCw } from 'lucide-react';
+import { ThumbsUp, ThumbsDown, Lightbulb, RefreshCw, Wand2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 function ScoreRing({ score }) {
@@ -42,7 +42,7 @@ function ScoreRing({ score }) {
   );
 }
 
-export default function ResultCard({ result, onReset }) {
+export default function ResultCard({ result, generatedImage, onReset }) {
   if (!result) return null;
 
   return (
@@ -53,6 +53,22 @@ export default function ResultCard({ result, onReset }) {
       className="mx-6 mt-6 mb-8"
     >
       <div className="bg-card rounded-3xl border border-border p-6 shadow-sm">
+        {/* Generated image */}
+        {generatedImage && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2 }}
+            className="mb-5 rounded-2xl overflow-hidden border border-border"
+          >
+            <div className="flex items-center gap-2 px-4 py-2.5 bg-muted/50 border-b border-border">
+              <Wand2 className="h-4 w-4 text-primary" />
+              <span className="text-sm font-semibold">AI Preview — You in this outfit</span>
+            </div>
+            <img src={generatedImage} alt="AI generated outfit preview" className="w-full object-cover" />
+          </motion.div>
+        )}
+
         {/* Score */}
         <div className="flex flex-col items-center mb-6">
           <ScoreRing score={result.match_score} />
