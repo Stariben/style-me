@@ -101,7 +101,7 @@ Provide a comprehensive but concise style assessment.`,
   };
 
   return (
-    <div className="min-h-screen bg-background pb-8">
+    <div className="min-h-screen bg-background pb-28">
       <AnimatePresence>{isAnalyzing && <AnalyzingOverlay />}</AnimatePresence>
 
       <Header />
