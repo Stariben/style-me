@@ -1,4 +1,5 @@
 import { Toaster } from "@/components/ui/toaster"
+import { AnimatePresence } from 'framer-motion';
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -6,6 +7,7 @@ import PageNotFound from './lib/PageNotFound';
 import Home from './pages/Home';
 import AccountSettings from './pages/AccountSettings';
 import BottomNav from './components/BottomNav';
+import PageTransition from './components/PageTransition';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 // Add page imports here
@@ -35,11 +37,13 @@ const AuthenticatedApp = () => {
 
   // Render the main app
   return (
-    <Routes>
-      <Route path="/" element={<><Home /><BottomNav /></>} />
-      <Route path="/account" element={<><AccountSettings /><BottomNav /></>} />
-      <Route path="*" element={<PageNotFound />} />
-    </Routes>
+    <AnimatePresence mode="wait" initial={false}>
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<PageTransition><Home /><BottomNav /></PageTransition>} />
+        <Route path="/account" element={<PageTransition><AccountSettings /><BottomNav /></PageTransition>} />
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </AnimatePresence>
   );
 };
 
