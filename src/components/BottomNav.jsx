@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Sparkles, User } from 'lucide-react';
 
 const tabs = [
@@ -8,6 +8,7 @@ const tabs = [
 
 export default function BottomNav() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border flex"
@@ -15,9 +16,9 @@ export default function BottomNav() {
       {tabs.map(({ path, label, icon: Icon }) => {
         const active = pathname === path;
         return (
-          <Link
+          <button
             key={path}
-            to={path}
+            onClick={() => navigate(path, { replace: active })}
             className="flex-1 flex flex-col items-center justify-center py-3 gap-1 transition-colors select-none"
             style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
           >
@@ -25,7 +26,7 @@ export default function BottomNav() {
             <span className={`text-[10px] font-medium transition-colors ${active ? 'text-primary' : 'text-muted-foreground'}`}>
               {label}
             </span>
-          </Link>
+          </button>
         );
       })}
     </nav>
