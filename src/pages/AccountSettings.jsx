@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Trash2, UserCircle, LogOut } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Trash2, UserCircle, LogOut, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import {
@@ -18,6 +19,7 @@ import { useAuth } from '@/lib/AuthContext';
 export default function AccountSettings() {
   const { user } = useAuth();
   const [isDeleting, setIsDeleting] = useState(false);
+  const navigate = useNavigate();
 
   const handleDeleteAccount = async () => {
     setIsDeleting(true);
@@ -49,6 +51,15 @@ export default function AccountSettings() {
 
       {/* Actions */}
       <div className="mx-6 space-y-3">
+        <Button
+          variant="outline"
+          className="w-full h-12 rounded-xl justify-start gap-3 select-none"
+          onClick={() => navigate('/history')}
+        >
+          <Clock className="h-4 w-4 text-muted-foreground" />
+          <span>Analysis History</span>
+        </Button>
+
         <Button
           variant="outline"
           className="w-full h-12 rounded-xl justify-start gap-3 select-none"

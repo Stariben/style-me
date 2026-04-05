@@ -82,6 +82,15 @@ Provide a comprehensive but concise style assessment.`,
     onSuccess: ({ analysis, imageUrl }) => {
       setResult(analysis);
       setGeneratedImage(imageUrl);
+      // Persist to history
+      base44.entities.AnalysisHistory.create({
+        person_image: personImage,
+        outfit_image: outfitImage,
+        generated_image: imageUrl,
+        match_score: analysis.match_score,
+        verdict: analysis.verdict,
+        result_json: JSON.stringify(analysis),
+      });
     },
   });
 
