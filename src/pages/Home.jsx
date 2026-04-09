@@ -57,13 +57,21 @@ FACIAL & PERSONAL FEATURES — study carefully:
 - Face shape and how the outfit's neckline/collar/silhouette frames the face
 - Overall personal style vibe inferred from their look (classic, edgy, casual, sporty, etc.)
 
+BODY CHARACTERISTICS — analyze in detail:
+- Apparent body shape (hourglass, pear, apple, rectangle, inverted triangle, etc.)
+- Height impression (petite, average, tall) based on proportions visible
+- Shoulder width relative to hips
+- Torso vs leg length proportions
+- How the outfit's cut, silhouette, waistline, and hem length will specifically flatter or challenge their body shape
+- Whether the outfit's structure (fitted, oversized, cropped, flowy) suits their proportions
+
 OUTFIT ANALYSIS:
-- Colors and whether they harmonize with the person's specific undertone and features
-- Cut and silhouette in relation to their apparent body proportions
+- Colors and whether they harmonize with the person's skin undertone and features
+- Cut and silhouette in relation to their specific body shape and proportions
 - Style category and whether it matches the person's inferred aesthetic
 - Fabric/texture feel and how it suits their overall presence
 
-Give a highly personalized, specific assessment — NOT generic fashion advice. Reference the actual features you see in the photo.`,
+Give a highly personalized, specific assessment — NOT generic fashion advice. Reference the actual facial features AND body characteristics you see in the photo.`,
           file_urls: [personImg, outfitImg],
           response_json_schema: {
             type: 'object',
