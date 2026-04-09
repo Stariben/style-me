@@ -24,9 +24,9 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
   };
 
   return (
-    <div className="flex-1">
-      <p className="text-sm font-semibold text-foreground mb-1.5">{label}</p>
-      <p className="text-xs text-muted-foreground mb-3">{hint}</p>
+    <div className="flex-1 flex flex-col">
+      <p className="text-sm font-semibold text-foreground mb-1">{label}</p>
+      <p className="text-xs text-muted-foreground mb-3 min-h-[2.5rem] leading-tight">{hint}</p>
 
       <AnimatePresence mode="wait">
         {imageUrl ? (
