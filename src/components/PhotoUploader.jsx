@@ -1,12 +1,13 @@
 import { useState, useRef } from 'react';
-import { Camera, Upload, X, User, Shirt } from 'lucide-react';
+import { Camera, ImagePlus, X, User, Shirt } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear }) {
   const [isUploading, setIsUploading] = useState(false);
-  const fileInputRef = useRef(null);
+  const cameraInputRef = useRef(null);
+  const galleryInputRef = useRef(null);
 
   const isPersonPhoto = type === 'person';
   const Icon = isPersonPhoto ? User : Shirt;
@@ -16,7 +17,6 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
   const handleFileSelect = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
     setIsUploading(true);
     const { file_url } = await base44.integrations.Core.UploadFile({ file });
     onImageUploaded(file_url);
@@ -50,37 +50,54 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
             </button>
           </motion.div>
         ) : (
-          <motion.button
+          <motion.div
             key="upload"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => fileInputRef.current?.click()}
-            disabled={isUploading}
-            className="w-full aspect-[3/4] rounded-2xl border-2 border-dashed border-border hover:border-primary/40 bg-muted/50 hover:bg-muted transition-all flex flex-col items-center justify-center gap-3 group"
+            className="w-full aspect-[3/4] rounded-2xl border-2 border-dashed border-border bg-muted/50 flex flex-col items-center justify-center gap-4 p-4"
           >
             {isUploading ? (
               <div className="w-8 h-8 border-3 border-muted-foreground/30 border-t-primary rounded-full animate-spin" />
             ) : (
               <>
-                <div className="h-14 w-14 rounded-2xl bg-background border border-border flex items-center justify-center group-hover:border-primary/30 transition-colors shadow-sm">
-                  <Icon className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
+                <div className="h-14 w-14 rounded-2xl bg-background border border-border flex items-center justify-center shadow-sm">
+                  <Icon className="h-6 w-6 text-muted-foreground" />
                 </div>
-                <div className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
-                  <Camera className="h-3.5 w-3.5" />
-                  <span>Tap to upload</span>
+                <div className="flex flex-col gap-2 w-full">
+                  <button
+                    onClick={() => cameraInputRef.current?.click()}
+                    className="w-full flex items-center justify-center gap-2 h-10 rounded-xl bg-primary text-primary-foreground text-sm font-medium transition-opacity active:opacity-80"
+                  >
+                    <Camera className="h-4 w-4" />
+                    Take Photo
+                  </button>
+                  <button
+                    onClick={() => galleryInputRef.current?.click()}
+                    className="w-full flex items-center justify-center gap-2 h-10 rounded-xl bg-background border border-border text-sm font-medium text-foreground transition-opacity active:opacity-80"
+                  >
+                    <ImagePlus className="h-4 w-4" />
+                    Choose from Gallery
+                  </button>
                 </div>
               </>
             )}
-          </motion.button>
+          </motion.div>
         )}
       </AnimatePresence>
 
       <input
-        ref={fileInputRef}
+        ref={cameraInputRef}
         type="file"
         accept="image/*"
         capture="environment"
+        onChange={handleFileSelect}
+        className="hidden"
+      />
+      <input
+        ref={galleryInputRef}
+        type="file"
+        accept="image/*"
         onChange={handleFileSelect}
         className="hidden"
       />
