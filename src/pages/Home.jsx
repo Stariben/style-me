@@ -136,9 +136,6 @@ Describe very specifically: the person's facial features (skin undertone, eye co
   return (
     <div
       className="min-h-screen bg-background pb-28"
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
     >
       {/* Pull-to-refresh indicator */}
       {pullDistance > 0 && (
