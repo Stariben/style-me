@@ -23,6 +23,18 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
     setIsUploading(false);
   };
 
+  const handleCameraClick = async () => {
+    // Request camera permission explicitly (required by iOS/Android)
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      // Stop the stream immediately — we just needed the permission grant
+      stream.getTracks().forEach(t => t.stop());
+    } catch (err) {
+      // Permission denied or not supported — fall back to input click anyway
+    }
+    cameraInputRef.current?.click();
+  };
+
   return (
     <div className="flex-1 flex flex-col">
       <p className="text-sm font-semibold text-foreground mb-1">{label}</p>
@@ -66,7 +78,7 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
                 </div>
                 <div className="flex flex-col gap-2 w-full">
                   <button
-                    onClick={() => cameraInputRef.current?.click()}
+                    onClick={handleCameraClick}
                     className="w-full flex items-center justify-center gap-2 h-10 rounded-xl bg-primary text-primary-foreground text-sm font-medium transition-opacity active:opacity-80"
                   >
                     <Camera className="h-4 w-4" />
@@ -90,7 +102,7 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
         ref={cameraInputRef}
         type="file"
         accept="image/*"
-        capture="environment"
+        capture={isPersonPhoto ? 'user' : 'environment'}
         onChange={handleFileSelect}
         className="hidden"
       />

@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigationType } from 'react-router-dom';
 
-const TAB_ROOTS = ['/', '/account'];
+const TAB_ROOTS = ['/', '/account', '/history'];
 
 const NavigationContext = createContext({ canGoBack: false });
 
