@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react';
 import { Camera, ImagePlus, X, User, Shirt } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -17,6 +16,8 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
   const handleFileSelect = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    // Reset input so same file can be selected again
+    e.target.value = '';
     setIsUploading(true);
     const { file_url } = await base44.integrations.Core.UploadFile({ file });
     onImageUploaded(file_url);
@@ -24,15 +25,29 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
   };
 
   const handleCameraClick = async () => {
-    // Request camera permission explicitly (required by iOS/Android)
+    // Explicitly request camera permission before opening the native camera
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      // Stop the stream immediately — we just needed the permission grant
+      const facingMode = isPersonPhoto ? 'user' : 'environment';
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode } });
       stream.getTracks().forEach(t => t.stop());
     } catch (err) {
-      // Permission denied or not supported — fall back to input click anyway
+      // User denied or browser doesn't support — the input will handle it
     }
     cameraInputRef.current?.click();
+  };
+
+  const handleGalleryClick = async () => {
+    // Explicitly request media/photos permission before opening the gallery
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      try {
+        // Requesting video triggers the media permission dialog on iOS/Android
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        stream.getTracks().forEach(t => t.stop());
+      } catch (err) {
+        // Proceed even if denied — the file picker may still work
+      }
+    }
+    galleryInputRef.current?.click();
   };
 
   return (
@@ -85,7 +100,7 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
                     Take Photo
                   </button>
                   <button
-                    onClick={() => galleryInputRef.current?.click()}
+                    onClick={handleGalleryClick}
                     className="w-full flex items-center justify-center gap-2 h-10 rounded-xl bg-background border border-border text-sm font-medium text-foreground transition-opacity active:opacity-80"
                   >
                     <ImagePlus className="h-4 w-4" />
@@ -98,6 +113,7 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
         )}
       </AnimatePresence>
 
+      {/* Camera input — uses native camera with correct facing mode */}
       <input
         ref={cameraInputRef}
         type="file"
@@ -106,6 +122,7 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
         onChange={handleFileSelect}
         className="hidden"
       />
+      {/* Gallery input — no capture attribute so it opens the photo library */}
       <input
         ref={galleryInputRef}
         type="file"
