@@ -2,10 +2,11 @@ import { useState, useRef } from 'react';
 import { Camera, ImagePlus, X, User, Shirt } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
+import CameraCapture from './CameraCapture';
 
 export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear }) {
   const [isUploading, setIsUploading] = useState(false);
-  const cameraInputRef = useRef(null);
+  const [showCamera, setShowCamera] = useState(false);
   const galleryInputRef = useRef(null);
 
   const isPersonPhoto = type === 'person';
@@ -24,34 +25,29 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
     setIsUploading(false);
   };
 
-  const handleCameraClick = async () => {
-    // Explicitly request camera permission before opening the native camera
-    try {
-      const facingMode = isPersonPhoto ? 'user' : 'environment';
-      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode } });
-      stream.getTracks().forEach(t => t.stop());
-    } catch (err) {
-      // User denied or browser doesn't support — the input will handle it
-    }
-    cameraInputRef.current?.click();
+  const handleCameraCapture = async (file) => {
+    setShowCamera(false);
+    setIsUploading(true);
+    const { file_url } = await base44.integrations.Core.UploadFile({ file });
+    onImageUploaded(file_url);
+    setIsUploading(false);
   };
 
-  const handleGalleryClick = async () => {
-    // Explicitly request media/photos permission before opening the gallery
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      try {
-        // Requesting video triggers the media permission dialog on iOS/Android
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        stream.getTracks().forEach(t => t.stop());
-      } catch (err) {
-        // Proceed even if denied — the file picker may still work
-      }
-    }
+  const handleGalleryClick = () => {
     galleryInputRef.current?.click();
   };
 
   return (
     <div className="flex-1 flex flex-col">
+      <AnimatePresence>
+        {showCamera && (
+          <CameraCapture
+            facingMode={isPersonPhoto ? 'user' : 'environment'}
+            onCapture={handleCameraCapture}
+            onClose={() => setShowCamera(false)}
+          />
+        )}
+      </AnimatePresence>
       <p className="text-sm font-semibold text-foreground mb-1">{label}</p>
       <p className="text-xs text-muted-foreground mb-3 min-h-[2.5rem] leading-tight">{hint}</p>
 
@@ -93,7 +89,7 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
                 </div>
                 <div className="flex flex-col gap-2 w-full">
                   <button
-                    onClick={handleCameraClick}
+                    onClick={() => setShowCamera(true)}
                     className="w-full flex items-center justify-center gap-2 h-10 rounded-xl bg-primary text-primary-foreground text-sm font-medium transition-opacity active:opacity-80"
                   >
                     <Camera className="h-4 w-4" />
@@ -113,15 +109,6 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
         )}
       </AnimatePresence>
 
-      {/* Camera input — uses native camera with correct facing mode */}
-      <input
-        ref={cameraInputRef}
-        type="file"
-        accept="image/*"
-        capture={isPersonPhoto ? 'user' : 'environment'}
-        onChange={handleFileSelect}
-        className="hidden"
-      />
       {/* Gallery input — no capture attribute so it opens the photo library */}
       <input
         ref={galleryInputRef}
