@@ -23,10 +23,13 @@ export default function AccountSettings() {
 
   const handleDeleteAccount = async () => {
     setIsDeleting(true);
-    // Delete all user's analysis history records first
-    const records = await base44.entities.AnalysisHistory.list();
-    await Promise.all(records.map(r => base44.entities.AnalysisHistory.delete(r.id)));
-    // Then delete the account
+    try {
+      // Delete all user's analysis history records first
+      const records = await base44.entities.AnalysisHistory.list();
+      await Promise.all(records.map(r => base44.entities.AnalysisHistory.delete(r.id)));
+    } catch (e) {
+      // Continue even if cleanup fails
+    }
     await base44.auth.deleteAccount();
   };
 
