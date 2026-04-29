@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Trash2, UserCircle, LogOut, Clock, Shield, Mail, CheckCircle2 } from 'lucide-react';
+import { Trash2, UserCircle, LogOut, Clock, Shield, Mail, CheckCircle2, X } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -22,9 +24,12 @@ export default function AccountSettings() {
   const { t } = useLang();
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleted, setDeleted] = useState(false);
+  const [showContactForm, setShowContactForm] = useState(false);
+  const [contactForm, setContactForm] = useState({ subject: '', message: '' });
+  const [sendingContact, setSendingContact] = useState(false);
   const navigate = useNavigate();
 
-  const ADMIN_EMAIL = 'ai.unjd5@passmail.net';
+  const ADMIN_EMAIL = 'support@stylematch.app';
 
   const handleDeleteAccount = async () => {
     setIsDeleting(true);
@@ -41,6 +46,24 @@ export default function AccountSettings() {
 
   const handleLogout = () => {
     base44.auth.logout();
+  };
+
+  const handleContactSubmit = async () => {
+    if (!contactForm.subject.trim() || !contactForm.message.trim()) return;
+    setSendingContact(true);
+    try {
+      await base44.integrations.Core.SendEmail({
+        to: user?.email || '',
+        subject: `[StyleMatch Contact] ${contactForm.subject}`,
+        body: `Message from ${user?.full_name}:\n\n${contactForm.message}`,
+        from_name: 'StyleMatch Support',
+      });
+      setContactForm({ subject: '', message: '' });
+      setShowContactForm(false);
+    } catch (e) {
+      console.error('Error sending contact email:', e);
+    }
+    setSendingContact(false);
   };
 
   if (deleted) {
@@ -104,7 +127,7 @@ export default function AccountSettings() {
         <Button
           variant="outline"
           className="w-full h-12 rounded-xl justify-start gap-3 select-none"
-          onClick={() => window.location.href = 'mailto:ai.unjd5@passmail.net'}
+          onClick={() => setShowContactForm(true)}
         >
           <Mail className="h-4 w-4 text-muted-foreground" />
           <span>{t('contactUs')}</span>
@@ -154,6 +177,52 @@ export default function AccountSettings() {
           </AlertDialogContent>
         </AlertDialog>
       </div>
+
+      {showContactForm && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex flex-col justify-end">
+          <div className="bg-background rounded-t-3xl max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-background flex items-center justify-between px-6 pt-5 pb-3 border-b border-border">
+              <h2 className="font-bold text-lg">{t('contactUs')}</h2>
+              <button
+                onClick={() => setShowContactForm(false)}
+                className="h-9 w-9 rounded-full bg-muted flex items-center justify-center"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <div className="p-6 space-y-4">
+              <Input
+                placeholder="Sujet"
+                value={contactForm.subject}
+                onChange={(e) => setContactForm({ ...contactForm, subject: e.target.value })}
+                className="rounded-xl"
+              />
+              <Textarea
+                placeholder="Votre message..."
+                value={contactForm.message}
+                onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
+                className="rounded-xl h-32"
+              />
+              <div className="flex gap-3 pt-4">
+                <Button
+                  variant="outline"
+                  className="flex-1 rounded-xl"
+                  onClick={() => setShowContactForm(false)}
+                >
+                  {t('cancel')}
+                </Button>
+                <Button
+                  className="flex-1 rounded-xl"
+                  onClick={handleContactSubmit}
+                  disabled={sendingContact || !contactForm.subject.trim() || !contactForm.message.trim()}
+                >
+                  {sendingContact ? 'Envoi...' : 'Envoyer'}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
