@@ -8,10 +8,10 @@ export default function Header() {
           <Sparkles className="h-5 w-5 text-primary" />
         </div>
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-foreground">StyleMatch</h1>
+          <h1 className="text-xl font-bold tracking-tight text-foreground">StyleMe</h1>
           <p className="text-xs text-muted-foreground font-medium">AI Outfit Advisor</p>
         </div>
       </div>
-    </header>
-  );
+    </header>);
+
 }
