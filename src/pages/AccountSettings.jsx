@@ -109,7 +109,7 @@ export default function AccountSettings() {
         <Button
           variant="outline"
           className="w-full h-12 rounded-xl justify-start gap-3 select-none"
-          onClick={() => window.location.href = 'mailto:contact@stylematch.app'}
+          onClick={() => window.location.href = 'mailto:ai.unjd5@passmail.net'}
         >
           <Mail className="h-4 w-4 text-muted-foreground" />
           <span>{t('contactUs')}</span>
