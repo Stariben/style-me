@@ -24,21 +24,16 @@ export default function AccountSettings() {
   const [deleted, setDeleted] = useState(false);
   const navigate = useNavigate();
 
+  const ADMIN_EMAIL = 'ai.unjd5@passmail.net';
+
   const handleDeleteAccount = async () => {
     setIsDeleting(true);
     try {
-      // Find admin users to notify
-      const allUsers = await base44.entities.User.list();
-      const admins = allUsers.filter(u => u.role === 'admin');
-
-      // Send deletion request email to each admin
-      await Promise.all(admins.map(admin =>
-        base44.integrations.Core.SendEmail({
-          to: admin.email,
-          subject: `[StyleMatch] Demande de suppression de compte`,
-          body: `Bonjour,\n\nL'utilisateur suivant a demandé la suppression de son compte :\n\nNom : ${user?.full_name || 'N/A'}\nEmail : ${user?.email}\n\nConformément à notre politique de confidentialité, la suppression sera effectuée dans un délai de 30 jours.\n\nVeuillez traiter cette demande.\n\nStyleMatch`,
-        })
-      ));
+      await base44.integrations.Core.SendEmail({
+        to: ADMIN_EMAIL,
+        subject: `[StyleMatch] Demande de suppression de compte`,
+        body: `Bonjour,\n\nL'utilisateur suivant a demandé la suppression de son compte :\n\nNom : ${user?.full_name || 'N/A'}\nEmail : ${user?.email}\n\nConformément à notre politique de confidentialité, la suppression sera effectuée dans un délai de 30 jours.\n\nVeuillez traiter cette demande.\n\nStyleMatch`,
+      });
     } catch (e) {}
     setIsDeleting(false);
     setDeleted(true);
