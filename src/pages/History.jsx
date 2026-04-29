@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
+import { useLang } from '@/lib/i18n';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, ChevronRight, X, GitCompare, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ResultCard from '../components/ResultCard';
 
 function HistoryItemModal({ item, onClose }) {
+  const { t } = useLang();
   const result = JSON.parse(item.result_json || '{}');
   return (
     <motion.div
@@ -25,7 +27,7 @@ function HistoryItemModal({ item, onClose }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sticky top-0 bg-background flex items-center justify-between px-6 pt-5 pb-3 border-b border-border">
-          <h2 className="font-bold text-lg">Analysis Details</h2>
+          <h2 className="font-bold text-lg">{t('analysisDetails')}</h2>
           <button onClick={onClose} className="h-9 w-9 rounded-full bg-muted flex items-center justify-center">
             <X className="h-4 w-4" />
           </button>
@@ -45,6 +47,7 @@ function HistoryItemModal({ item, onClose }) {
 }
 
 function CompareView({ itemA, itemB, onClose }) {
+  const { t } = useLang();
   const resultA = JSON.parse(itemA.result_json || '{}');
   const resultB = JSON.parse(itemB.result_json || '{}');
 
@@ -71,7 +74,7 @@ function CompareView({ itemA, itemB, onClose }) {
       </div>
       {result.pros?.length > 0 && (
         <div>
-          <p className="text-xs font-semibold text-green-500 mb-1">✓ What Works</p>
+          <p className="text-xs font-semibold text-green-500 mb-1">{t('whatWorks')}</p>
           <ul className="space-y-1">
             {result.pros.map((p, i) => <li key={i} className="text-xs text-muted-foreground leading-snug">• {p}</li>)}
           </ul>
@@ -79,9 +82,9 @@ function CompareView({ itemA, itemB, onClose }) {
       )}
       {result.styling_tips?.length > 0 && (
         <div>
-          <p className="text-xs font-semibold text-accent mb-1">💡 Tips</p>
+          <p className="text-xs font-semibold text-accent mb-1">{t('tips')}</p>
           <ul className="space-y-1">
-            {result.styling_tips.map((t, i) => <li key={i} className="text-xs text-muted-foreground leading-snug">• {t}</li>)}
+            {result.styling_tips.map((tip, i) => <li key={i} className="text-xs text-muted-foreground leading-snug">• {tip}</li>)}
           </ul>
         </div>
       )}

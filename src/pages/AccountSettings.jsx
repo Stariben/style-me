@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Trash2, UserCircle, LogOut, Clock, Shield, Mail, CheckCircle2 } from 'lucide-react';
+import { useLang } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import {
@@ -18,6 +19,7 @@ import { useAuth } from '@/lib/AuthContext';
 
 export default function AccountSettings() {
   const { user } = useAuth();
+  const { t } = useLang();
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleted, setDeleted] = useState(false);
   const navigate = useNavigate();
@@ -49,9 +51,9 @@ export default function AccountSettings() {
           <CheckCircle2 className="h-10 w-10 text-green-500" />
         </div>
         <div>
-          <h2 className="text-xl font-bold">Compte supprimé</h2>
+          <h2 className="text-xl font-bold">{t('accountDeleted')}</h2>
           <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
-            Votre compte et toutes vos données ont été supprimés avec succès. Vous allez être déconnecté dans quelques secondes…
+            {t('accountDeletedMsg')}
           </p>
         </div>
       </div>
@@ -62,8 +64,8 @@ export default function AccountSettings() {
     <div className="min-h-screen bg-background pb-28">
       {/* Header */}
       <div className="px-6 pt-10 pb-6">
-        <h1 className="text-2xl font-bold tracking-tight">Account Settings</h1>
-        <p className="text-sm text-muted-foreground mt-1">Manage your account preferences</p>
+        <h1 className="text-2xl font-bold tracking-tight">{t('accountSettings')}</h1>
+        <p className="text-sm text-muted-foreground mt-1">{t('manageAccount')}</p>
       </div>
 
       {/* Profile card */}
@@ -85,7 +87,7 @@ export default function AccountSettings() {
           onClick={() => navigate('/privacy')}
         >
           <Shield className="h-4 w-4 text-muted-foreground" />
-          <span>Politique de confidentialité</span>
+          <span>{t('privacyPolicy')}</span>
         </Button>
 
         <Button
@@ -94,7 +96,7 @@ export default function AccountSettings() {
           onClick={() => navigate('/history')}
         >
           <Clock className="h-4 w-4 text-muted-foreground" />
-          <span>Analysis History</span>
+          <span>{t('analysisHistory')}</span>
         </Button>
 
         <Button
@@ -103,7 +105,7 @@ export default function AccountSettings() {
           onClick={() => window.location.href = 'mailto:contact@stylematch.app'}
         >
           <Mail className="h-4 w-4 text-muted-foreground" />
-          <span>Contactez-nous</span>
+          <span>{t('contactUs')}</span>
         </Button>
 
         <Button
@@ -113,7 +115,7 @@ export default function AccountSettings() {
           onClick={handleLogout}
         >
           <LogOut className="h-4 w-4 text-muted-foreground" />
-          <span>Log Out</span>
+          <span>{t('logOut')}</span>
         </Button>
 
         <AlertDialog>
@@ -124,24 +126,24 @@ export default function AccountSettings() {
               style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
             >
               <Trash2 className="h-4 w-4" />
-              <span>Delete Account</span>
+              <span>{t('deleteAccount')}</span>
             </Button>
           </AlertDialogTrigger>
           <AlertDialogContent className="rounded-2xl mx-4">
             <AlertDialogHeader>
-              <AlertDialogTitle>Delete Account</AlertDialogTitle>
+              <AlertDialogTitle>{t('deleteAccountTitle')}</AlertDialogTitle>
               <AlertDialogDescription>
-                This action cannot be undone. Your account and all associated data will be permanently deleted.
+                {t('deleteAccountDesc')}
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel className="rounded-xl">Cancel</AlertDialogCancel>
+              <AlertDialogCancel className="rounded-xl">{t('cancel')}</AlertDialogCancel>
               <AlertDialogAction
                 onClick={handleDeleteAccount}
                 disabled={isDeleting}
                 className="rounded-xl bg-destructive text-destructive-foreground hover:bg-destructive/90"
               >
-                {isDeleting ? 'Deleting...' : 'Delete Account'}
+                {isDeleting ? t('deleting') : t('deleteAccount')}
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>

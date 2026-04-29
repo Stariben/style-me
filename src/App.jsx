@@ -14,6 +14,8 @@ import PageTransition from './components/PageTransition';
 import MobileHeader from './components/MobileHeader';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
+import { LangProvider } from '@/lib/i18n';
+import LanguagePicker from '@/components/LanguagePicker';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -60,14 +62,17 @@ const AuthenticatedApp = () => {
 function App() {
 
   return (
-    <AuthProvider>
-      <QueryClientProvider client={queryClientInstance}>
-        <Router>
-          <AuthenticatedApp />
-        </Router>
-        <Toaster />
-      </QueryClientProvider>
-    </AuthProvider>
+    <LangProvider>
+      <AuthProvider>
+        <QueryClientProvider client={queryClientInstance}>
+          <Router>
+            <LanguagePicker />
+            <AuthenticatedApp />
+          </Router>
+          <Toaster />
+        </QueryClientProvider>
+      </AuthProvider>
+    </LangProvider>
   )
 }
 

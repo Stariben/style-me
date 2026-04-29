@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useMutation } from '@tanstack/react-query';
+import { useLang } from '@/lib/i18n';
 import { Sparkles, RefreshCw } from 'lucide-react';
 import usePullToRefresh from '../hooks/usePullToRefresh';
 import { Button } from '@/components/ui/button';
@@ -11,6 +12,7 @@ import ResultCard from '../components/ResultCard';
 import AnalyzingOverlay from '../components/AnalyzingOverlay';
 
 export default function Home() {
+  const { t } = useLang();
   const [personImage, setPersonImage] = useState(null);
   const [outfitImage, setOutfitImage] = useState(null);
   const [result, setResult] = useState(null);
@@ -166,12 +168,12 @@ Describe very specifically: the person's facial features (skin undertone, eye co
         className="px-6 mb-6"
       >
         <h2 className="text-2xl font-bold tracking-tight leading-tight">
-          Does this outfit
+          {t('doesThisOutfit')}
           <br />
-          <span className="text-primary">suit you?</span>
+          <span className="text-primary">{t('suitYou')}</span>
         </h2>
         <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
-          Upload a photo of yourself and the outfit you're considering. Our AI will tell you if it's a match.
+          {t('homeSubtitle')}
         </p>
       </motion.div>
 
@@ -212,12 +214,12 @@ Describe very specifically: the person's facial features (skin undertone, eye co
           size="lg"
         >
           <Sparkles className="h-5 w-5" />
-          Analyze My Look
+          {t('analyzeMyLook')}
         </Button>
 
         {!personImage && !outfitImage && (
           <p className="text-xs text-center text-muted-foreground mt-3">
-            Upload both photos to get started
+            {t('uploadBothPhotos')}
           </p>
         )}
       </motion.div>

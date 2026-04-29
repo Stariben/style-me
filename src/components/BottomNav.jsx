@@ -1,14 +1,16 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Sparkles, User } from 'lucide-react';
-
-const tabs = [
-  { path: '/', label: 'StyleMatch', icon: Sparkles },
-  { path: '/account', label: 'Account', icon: User },
-];
+import { useLang } from '@/lib/i18n';
 
 export default function BottomNav() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const { t } = useLang();
+
+  const tabs = [
+    { path: '/', label: 'StyleMatch', icon: Sparkles },
+    { path: '/account', label: t('account'), icon: User },
+  ];
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border flex"

@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { Camera, ImagePlus, X, User, Shirt } from 'lucide-react';
+import { useLang } from '@/lib/i18n';
 import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
 import CameraCapture from './CameraCapture';
@@ -8,11 +9,12 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
   const [isUploading, setIsUploading] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
   const galleryInputRef = useRef(null);
+  const { t } = useLang();
 
   const isPersonPhoto = type === 'person';
   const Icon = isPersonPhoto ? User : Shirt;
-  const label = isPersonPhoto ? 'Your Photo' : 'Outfit Photo';
-  const hint = isPersonPhoto ? 'Upload a clear selfie or portrait' : 'Upload the clothing item';
+  const label = isPersonPhoto ? t('yourPhoto') : t('outfitPhoto');
+  const hint = isPersonPhoto ? t('uploadSelfie') : t('uploadOutfit');
 
   const handleFileSelect = async (e) => {
     const file = e.target.files?.[0];
@@ -93,14 +95,14 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
                     className="w-full flex items-center justify-center gap-2 h-10 rounded-xl bg-primary text-primary-foreground text-sm font-medium transition-opacity active:opacity-80"
                   >
                     <Camera className="h-4 w-4" />
-                    Take Photo
+                    {t('takePhoto')}
                   </button>
                   <button
                     onClick={handleGalleryClick}
                     className="w-full flex items-center justify-center gap-2 h-10 rounded-xl bg-background border border-border text-sm font-medium text-foreground transition-opacity active:opacity-80"
                   >
                     <ImagePlus className="h-4 w-4" />
-                    Choose from Gallery
+                    {t('chooseFromGallery')}
                   </button>
                 </div>
               </>
