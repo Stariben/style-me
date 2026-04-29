@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, X } from 'lucide-react';
+import { Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLang } from '@/lib/i18n';
 
 const CONSENT_KEY = 'stylematch_gdpr_consent_v1';
 
 export default function ConsentBanner() {
+  const { t } = useLang();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -35,11 +37,11 @@ export default function ConsentBanner() {
                 <Shield className="h-4 w-4 text-primary" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-foreground mb-1">Vos données, votre contrôle</p>
+                <p className="text-sm font-semibold text-foreground mb-1">{t('consentTitle')}</p>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  Vos photos ne servent jamais à entraîner l'IA. Elles sont analysées uniquement pour vous.{' '}
+                  {t('consentDesc')}{' '}
                   <Link to="/privacy" className="text-primary underline underline-offset-2">
-                    En savoir plus
+                    {t('learnMore')}
                   </Link>
                 </p>
               </div>
@@ -50,11 +52,11 @@ export default function ConsentBanner() {
                 size="sm"
                 className="flex-1 rounded-xl h-9 text-xs"
               >
-                J'accepte
+                {t('consentAccept')}
               </Button>
               <Link to="/privacy" className="flex-1">
                 <Button variant="outline" size="sm" className="w-full rounded-xl h-9 text-xs">
-                  En savoir plus
+                  {t('learnMore')}
                 </Button>
               </Link>
             </div>

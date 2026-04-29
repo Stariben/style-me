@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useLang } from '@/lib/i18n';
+import { useLang, translations } from '@/lib/i18n';
 
 const LANGUAGES = [
   { code: 'fr', label: 'Français', flag: '🇫🇷' },
@@ -12,8 +12,11 @@ const LANGUAGES = [
 ];
 
 export default function LanguagePicker() {
-  const { langChosen, setLang, t } = useLang();
+  const { langChosen, setLang } = useLang();
   const [selected, setSelected] = useState('fr');
+
+  // Live translation from the selected language (before confirming)
+  const tPreview = (key) => translations[selected]?.[key] ?? translations['fr'][key] ?? key;
 
   if (langChosen) return null;
 
@@ -34,8 +37,8 @@ export default function LanguagePicker() {
         >
           <div className="flex flex-col items-center text-center mb-6">
             <div className="text-4xl mb-3">🌍</div>
-            <h2 className="text-xl font-bold">{t('chooseLanguage')}</h2>
-            <p className="text-sm text-muted-foreground mt-1">{t('languageSubtitle')}</p>
+            <h2 className="text-xl font-bold">{tPreview('chooseLanguage')}</h2>
+            <p className="text-sm text-muted-foreground mt-1">{tPreview('languageSubtitle')}</p>
           </div>
 
           <div className="grid grid-cols-2 gap-3 mb-6">
@@ -59,7 +62,7 @@ export default function LanguagePicker() {
             onClick={() => setLang(selected)}
             className="w-full h-12 rounded-2xl bg-primary text-primary-foreground font-semibold text-base transition-opacity active:opacity-80"
           >
-            {t('confirm')}
+            {tPreview('confirm')}
           </button>
         </motion.div>
       </motion.div>
