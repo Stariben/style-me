@@ -129,7 +129,7 @@ function CompareView({ itemA, itemB, onClose }) {
           </div>
         </div>
 
-        <div className="mx-6 mb-8 mt-4 rounded-2xl bg-primary/10 border border-primary/20 p-4 text-center">
+        <div className="mx-6 mb-28 mt-4 rounded-2xl bg-primary/10 border border-primary/20 p-4 text-center">
           <p className="text-xs text-muted-foreground mb-1">{t('betterMatch')}</p>
           <p className="font-bold text-primary text-base">
             {resultA.match_score >= resultB.match_score ? t('outfit1Wins') : t('outfit2Wins')}
