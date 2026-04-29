@@ -27,17 +27,21 @@ export default function AccountSettings() {
   const handleDeleteAccount = async () => {
     setIsDeleting(true);
     try {
-      const records = await base44.entities.AnalysisHistory.list();
-      await Promise.all(records.map(r => base44.entities.AnalysisHistory.delete(r.id)));
-    } catch (e) {}
-    try {
-      await base44.auth.deleteAccount();
+      // Find admin users to notify
+      const allUsers = await base44.entities.User.list();
+      const admins = allUsers.filter(u => u.role === 'admin');
+
+      // Send deletion request email to each admin
+      await Promise.all(admins.map(admin =>
+        base44.integrations.Core.SendEmail({
+          to: admin.email,
+          subject: `[StyleMatch] Demande de suppression de compte`,
+          body: `Bonjour,\n\nL'utilisateur suivant a demandé la suppression de son compte :\n\nNom : ${user?.full_name || 'N/A'}\nEmail : ${user?.email}\n\nConformément à notre politique de confidentialité, la suppression sera effectuée dans un délai de 30 jours.\n\nVeuillez traiter cette demande.\n\nStyleMatch`,
+        })
+      ));
     } catch (e) {}
     setIsDeleting(false);
     setDeleted(true);
-    setTimeout(() => {
-      base44.auth.logout();
-    }, 3000);
   };
 
   const handleLogout = () => {
@@ -51,11 +55,14 @@ export default function AccountSettings() {
           <CheckCircle2 className="h-10 w-10 text-green-500" />
         </div>
         <div>
-          <h2 className="text-xl font-bold">{t('accountDeleted')}</h2>
+          <h2 className="text-xl font-bold">{t('deletionRequestedTitle')}</h2>
           <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
-            {t('accountDeletedMsg')}
+            {t('deletionRequestedMsg')}
           </p>
         </div>
+        <Button variant="outline" className="rounded-xl" onClick={handleLogout}>
+          {t('logOut')}
+        </Button>
       </div>
     );
   }
@@ -132,8 +139,11 @@ export default function AccountSettings() {
           <AlertDialogContent className="rounded-2xl mx-4">
             <AlertDialogHeader>
               <AlertDialogTitle>{t('deleteAccountTitle')}</AlertDialogTitle>
-              <AlertDialogDescription>
-                {t('deleteAccountDesc')}
+              <AlertDialogDescription asChild>
+                <div className="space-y-2 text-sm text-muted-foreground">
+                  <p>{t('deleteAccountDesc')}</p>
+                  <p className="font-medium text-foreground">{t('deleteAccount30days')}</p>
+                </div>
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
@@ -143,7 +153,7 @@ export default function AccountSettings() {
                 disabled={isDeleting}
                 className="rounded-xl bg-destructive text-destructive-foreground hover:bg-destructive/90"
               >
-                {isDeleting ? t('deleting') : t('deleteAccount')}
+                {isDeleting ? t('deleting') : t('sendDeletionRequest')}
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
