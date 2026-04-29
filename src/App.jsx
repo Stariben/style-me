@@ -44,6 +44,7 @@ const AuthenticatedApp = () => {
   // Render the main app
   return (
     <NavigationProvider>
+      <LanguagePicker />
       <ConsentBanner />
       <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>
@@ -66,7 +67,6 @@ function App() {
       <AuthProvider>
         <QueryClientProvider client={queryClientInstance}>
           <Router>
-            <LanguagePicker />
             <AuthenticatedApp />
           </Router>
           <Toaster />
