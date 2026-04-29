@@ -100,7 +100,7 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
                     className="w-full flex items-center justify-center gap-2 h-10 rounded-xl bg-primary text-primary-foreground text-sm font-medium transition-opacity active:opacity-80"
                   >
                     <Camera className="h-4 w-4" />
-                    {t('takePhoto')}
+                    Photo
                   </button>
                   <button
                     onClick={handleGalleryClick}
