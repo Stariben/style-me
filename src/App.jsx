@@ -7,7 +7,7 @@ import { NavigationProvider } from '@/lib/NavigationContext';
 import PageNotFound from './lib/PageNotFound';
 import Home from './pages/Home';
 import AccountSettings from './pages/AccountSettings';
-import History from './pages/History';
+import History from './pages/History.jsx';
 import PrivacyPolicy from './pages/PrivacyPolicy';import BottomNav from './components/BottomNav';
 import ConsentBanner from './components/ConsentBanner';
 import PageTransition from './components/PageTransition';
