@@ -26,7 +26,7 @@ export default function ConsentBannerAndroid() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
-          className="fixed bottom-0 left-0 right-0 z-40 px-4 pb-6"
+          className="fixed bottom-0 left-0 right-0 z-[101] px-4 pb-6"
           style={{ paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom))' }}
         >
           <div className="rounded-2xl bg-white border border-gray-200 p-5 space-y-4 shadow-md">
