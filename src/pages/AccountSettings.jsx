@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Trash2, UserCircle, LogOut, Clock } from 'lucide-react';
+import { Trash2, UserCircle, LogOut, Clock, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import {
@@ -58,6 +58,15 @@ export default function AccountSettings() {
 
       {/* Actions */}
       <div className="mx-6 space-y-3">
+        <Button
+          variant="outline"
+          className="w-full h-12 rounded-xl justify-start gap-3 select-none"
+          onClick={() => navigate('/privacy')}
+        >
+          <Shield className="h-4 w-4 text-muted-foreground" />
+          <span>Politique de confidentialité</span>
+        </Button>
+
         <Button
           variant="outline"
           className="w-full h-12 rounded-xl justify-start gap-3 select-none"
