@@ -77,10 +77,10 @@ export default function CameraCapture({ facingMode = 'environment', onCapture, o
         <RefreshCw className="h-5 w-5" />
       </button>
 
-      {/* Video feed */}
-      <div className="flex-1 flex items-center justify-center overflow-hidden">
+      {/* Video feed — full screen */}
+      <div className="absolute inset-0">
         {error ? (
-          <p className="text-white text-center px-8 text-sm">{error}</p>
+          <p className="text-white text-center px-8 text-sm absolute inset-0 flex items-center justify-center">{error}</p>
         ) : (
           <video
             ref={videoRef}
@@ -93,13 +93,13 @@ export default function CameraCapture({ facingMode = 'environment', onCapture, o
         )}
       </div>
 
-      {/* Capture button */}
+      {/* Capture button — overlay */}
       {!error && (
-        <div className="flex items-center justify-center pb-10 pt-6 bg-black">
+        <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center pb-12 pt-6">
           <button
             onClick={handleCapture}
             disabled={!ready}
-            className="h-18 w-18 rounded-full border-4 border-white bg-white/20 flex items-center justify-center disabled:opacity-40 active:scale-95 transition-transform"
+            className="rounded-full border-4 border-white bg-white/20 flex items-center justify-center disabled:opacity-40 active:scale-95 transition-transform"
             style={{ width: 72, height: 72 }}
           >
             <Camera className="h-8 w-8 text-white" />
