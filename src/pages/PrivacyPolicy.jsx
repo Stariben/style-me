@@ -39,10 +39,7 @@ const sections = [
     title: "9. Partage des données",
     content: "Vos données ne sont jamais vendues ni partagées à des fins commerciales. Elles sont uniquement transmises au fournisseur d'IA pour le traitement de l'analyse, sous contrat de confidentialité et dans le strict respect du RGPD."
   },
-  {
-    title: "10. Cookies et traceurs",
-    content: "L'application utilise uniquement des cookies strictement nécessaires à son fonctionnement (authentification, session). Aucun cookie publicitaire ou de suivi tiers n'est utilisé."
-  }
+
 ];
 
 export default function PrivacyPolicy() {

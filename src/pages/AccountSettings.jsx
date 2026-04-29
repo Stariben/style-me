@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Trash2, UserCircle, LogOut, Clock, Shield } from 'lucide-react';
+import { Trash2, UserCircle, LogOut, Clock, Shield, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import {
@@ -74,6 +74,15 @@ export default function AccountSettings() {
         >
           <Clock className="h-4 w-4 text-muted-foreground" />
           <span>Analysis History</span>
+        </Button>
+
+        <Button
+          variant="outline"
+          className="w-full h-12 rounded-xl justify-start gap-3 select-none"
+          onClick={() => window.location.href = 'mailto:contact@stylematch.app'}
+        >
+          <Mail className="h-4 w-4 text-muted-foreground" />
+          <span>Contactez-nous</span>
         </Button>
 
         <Button
