@@ -8,16 +8,15 @@ import PageNotFound from './lib/PageNotFound';
 import Home from './pages/Home';
 import AccountSettings from './pages/AccountSettings';
 import History from './pages/History.jsx';
-import PrivacyPolicy from './pages/PrivacyPolicy';import BottomNavWrapper from './components/BottomNavWrapper';
-import ConsentBannerWrapper from './components/ConsentBannerWrapper';
+import PrivacyPolicy from './pages/PrivacyPolicy';import BottomNav from './components/BottomNav';
+import ConsentBanner from './components/ConsentBanner';
 import PageTransition from './components/PageTransition';
-import MobileHeaderWrapper from './components/MobileHeaderWrapper';
+import MobileHeader from './components/MobileHeader';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import { LangProvider } from '@/lib/i18n';
 import LanguagePicker from '@/components/LanguagePicker';
 import { CameraProvider } from '@/lib/CameraContext';
-import { PlatformProvider } from '@/lib/PlatformContext';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -47,12 +46,12 @@ const AuthenticatedApp = () => {
   return (
     <NavigationProvider>
       <LanguagePicker />
-      <ConsentBannerWrapper />
+      <ConsentBanner />
       <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<PageTransition><MobileHeaderWrapper /><Home /><BottomNavWrapper /></PageTransition>} />
-          <Route path="/account" element={<PageTransition><MobileHeaderWrapper /><AccountSettings /><BottomNavWrapper /></PageTransition>} />
-          <Route path="/history" element={<PageTransition><MobileHeaderWrapper /><History /><BottomNavWrapper /></PageTransition>} />
+          <Route path="/" element={<PageTransition><MobileHeader /><Home /><BottomNav /></PageTransition>} />
+          <Route path="/account" element={<PageTransition><MobileHeader /><AccountSettings /><BottomNav /></PageTransition>} />
+          <Route path="/history" element={<PageTransition><MobileHeader /><History /><BottomNav /></PageTransition>} />
           <Route path="/privacy" element={<PageTransition><PrivacyPolicy /></PageTransition>} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
@@ -65,20 +64,18 @@ const AuthenticatedApp = () => {
 function App() {
 
   return (
-    <PlatformProvider>
-      <LangProvider>
-        <CameraProvider>
-        <AuthProvider>
-          <QueryClientProvider client={queryClientInstance}>
-            <Router>
-              <AuthenticatedApp />
-            </Router>
-            <Toaster />
-          </QueryClientProvider>
-        </AuthProvider>
-        </CameraProvider>
-      </LangProvider>
-    </PlatformProvider>
+    <LangProvider>
+      <CameraProvider>
+      <AuthProvider>
+        <QueryClientProvider client={queryClientInstance}>
+          <Router>
+            <AuthenticatedApp />
+          </Router>
+          <Toaster />
+        </QueryClientProvider>
+      </AuthProvider>
+      </CameraProvider>
+    </LangProvider>
   )
 }
 

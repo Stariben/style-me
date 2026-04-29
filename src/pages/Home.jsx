@@ -7,8 +7,8 @@ import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { AnimatePresence, motion } from 'framer-motion';
 import Header from '../components/Header';
-import PhotoUploaderWrapper from '../components/PhotoUploaderWrapper';
-import ResultCardWrapper from '../components/ResultCardWrapper';
+import PhotoUploader from '../components/PhotoUploader';
+import ResultCard from '../components/ResultCard';
 import AnalyzingOverlay from '../components/AnalyzingOverlay';
 
 export default function Home() {
@@ -192,13 +192,13 @@ Describe very specifically: the person's facial features (skin undertone, eye co
         className="px-6"
       >
         <div className="flex gap-4">
-          <PhotoUploaderWrapper
+          <PhotoUploader
             type="person"
             imageUrl={personImage}
             onImageUploaded={setPersonImage}
             onClear={() => setPersonImage(null)}
           />
-          <PhotoUploaderWrapper
+          <PhotoUploader
             type="outfit"
             imageUrl={outfitImage}
             onImageUploaded={setOutfitImage}
@@ -233,7 +233,7 @@ Describe very specifically: the person's facial features (skin undertone, eye co
 
       {/* Results */}
       <AnimatePresence>
-        {result && <ResultCardWrapper result={result} generatedImage={generatedImage} onReset={handleReset} />}
+        {result && <ResultCard result={result} generatedImage={generatedImage} onReset={handleReset} />}
       </AnimatePresence>
     </div>
   );
