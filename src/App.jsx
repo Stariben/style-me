@@ -8,7 +8,8 @@ import PageNotFound from './lib/PageNotFound';
 import Home from './pages/Home';
 import AccountSettings from './pages/AccountSettings';
 import History from './pages/History.jsx';
-import PrivacyPolicy from './pages/PrivacyPolicy';import BottomNav from './components/BottomNav';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import AdminHistory from './pages/AdminHistory';import BottomNav from './components/BottomNav';
 import ConsentBanner from './components/ConsentBanner';
 import PageTransition from './components/PageTransition';
 import MobileHeader from './components/MobileHeader';
@@ -53,6 +54,7 @@ const AuthenticatedApp = () => {
           <Route path="/account" element={<PageTransition><MobileHeader /><AccountSettings /><BottomNav /></PageTransition>} />
           <Route path="/history" element={<PageTransition><MobileHeader /><History /><BottomNav /></PageTransition>} />
           <Route path="/privacy" element={<PageTransition><PrivacyPolicy /></PageTransition>} />
+          <Route path="/admin" element={<PageTransition><AdminHistory /></PageTransition>} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </AnimatePresence>
