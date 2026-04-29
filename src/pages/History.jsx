@@ -107,21 +107,21 @@ function CompareView({ itemA, itemB, onClose }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sticky top-0 bg-background flex items-center justify-between px-6 pt-5 pb-3 border-b border-border z-10">
-          <h2 className="font-bold text-lg">Side-by-Side Comparison</h2>
+          <h2 className="font-bold text-lg">{t('sideBySide')}</h2>
           <button onClick={onClose} className="h-9 w-9 rounded-full bg-muted flex items-center justify-center">
             <X className="h-4 w-4" />
           </button>
         </div>
 
         <div className="px-6 pt-4 pb-2">
-          <p className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wide">Your Look</p>
+          <p className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wide">{t('yourLook')}</p>
           <div className="w-24 mx-auto rounded-2xl overflow-hidden border border-border aspect-[3/4]">
             <img src={itemA.person_image} alt="Person" className="w-full h-full object-cover" />
           </div>
         </div>
 
         <div className="px-6 pb-2">
-          <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase tracking-wide">Outfits Compared</p>
+          <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase tracking-wide">{t('outfitsCompared')}</p>
           <div className="flex gap-3">
             <ColCard item={itemA} result={resultA} />
             <div className="w-px bg-border shrink-0 self-stretch" />
@@ -130,9 +130,9 @@ function CompareView({ itemA, itemB, onClose }) {
         </div>
 
         <div className="mx-6 mb-8 mt-4 rounded-2xl bg-primary/10 border border-primary/20 p-4 text-center">
-          <p className="text-xs text-muted-foreground mb-1">Better match</p>
+          <p className="text-xs text-muted-foreground mb-1">{t('betterMatch')}</p>
           <p className="font-bold text-primary text-base">
-            {resultA.match_score >= resultB.match_score ? 'Outfit #1 wins 🎉' : 'Outfit #2 wins 🎉'}
+            {resultA.match_score >= resultB.match_score ? t('outfit1Wins') : t('outfit2Wins')}
           </p>
         </div>
       </motion.div>
@@ -141,6 +141,7 @@ function CompareView({ itemA, itemB, onClose }) {
 }
 
 export default function History() {
+  const { t } = useLang();
   const [selected, setSelected] = useState(null);
   const [compareMode, setCompareMode] = useState(false);
   const [compareItems, setCompareItems] = useState([]);
@@ -183,13 +184,13 @@ export default function History() {
     <div className="min-h-screen bg-background pb-28">
       <div className="px-6 pt-10 pb-4 flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Analysis History</h1>
-          <p className="text-sm text-muted-foreground mt-1">Your past outfit analyses</p>
+          <h1 className="text-2xl font-bold tracking-tight">{t('historyTitle')}</h1>
+          <p className="text-sm text-muted-foreground mt-1">{t('historySubtitle')}</p>
         </div>
         {!compareMode && items.length >= 2 && (
           <Button variant="outline" size="sm" className="rounded-xl gap-2 mt-1" onClick={() => setCompareMode(true)}>
             <GitCompare className="h-4 w-4" />
-            Compare
+            {t('compare')}
           </Button>
         )}
       </div>
@@ -203,14 +204,14 @@ export default function History() {
             className="mx-6 mb-4 rounded-2xl bg-primary/10 border border-primary/20 p-4 flex items-center justify-between gap-3"
           >
             <p className="text-sm font-medium text-primary">
-              {compareItems.length === 0 && 'Select 2 analyses to compare'}
-              {compareItems.length === 1 && 'Select 1 more'}
-              {compareItems.length === 2 && 'Ready to compare!'}
+              {compareItems.length === 0 && t('select2')}
+              {compareItems.length === 1 && t('select1More')}
+              {compareItems.length === 2 && t('readyToCompare')}
             </p>
             <div className="flex gap-2">
-              <Button size="sm" variant="ghost" className="rounded-xl h-8 px-3" onClick={cancelCompare}>Cancel</Button>
+              <Button size="sm" variant="ghost" className="rounded-xl h-8 px-3" onClick={cancelCompare}>{t('cancel')}</Button>
               {compareItems.length === 2 && (
-                <Button size="sm" className="rounded-xl h-8 px-3" onClick={handleStartCompare}>Compare</Button>
+                <Button size="sm" className="rounded-xl h-8 px-3" onClick={handleStartCompare}>{t('compare')}</Button>
               )}
             </div>
           </motion.div>
@@ -228,8 +229,8 @@ export default function History() {
           <div className="h-16 w-16 rounded-3xl bg-muted flex items-center justify-center">
             <Clock className="h-7 w-7 text-muted-foreground" />
           </div>
-          <p className="font-semibold">No analyses yet</p>
-          <p className="text-sm text-muted-foreground">Your outfit analyses will appear here once you use StyleMatch.</p>
+          <p className="font-semibold">{t('noAnalysesYet')}</p>
+          <p className="text-sm text-muted-foreground">{t('noAnalysesMsg')}</p>
         </div>
       )}
 
