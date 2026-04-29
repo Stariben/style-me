@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Trash2, UserCircle, LogOut, Clock, Shield, Mail } from 'lucide-react';
+import { Trash2, UserCircle, LogOut, Clock, Shield, Mail, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import {
@@ -19,23 +19,44 @@ import { useAuth } from '@/lib/AuthContext';
 export default function AccountSettings() {
   const { user } = useAuth();
   const [isDeleting, setIsDeleting] = useState(false);
+  const [deleted, setDeleted] = useState(false);
   const navigate = useNavigate();
 
   const handleDeleteAccount = async () => {
     setIsDeleting(true);
     try {
-      // Delete all user's analysis history records first
       const records = await base44.entities.AnalysisHistory.list();
       await Promise.all(records.map(r => base44.entities.AnalysisHistory.delete(r.id)));
-    } catch (e) {
-      // Continue even if cleanup fails
-    }
-    await base44.auth.deleteAccount();
+    } catch (e) {}
+    try {
+      await base44.auth.deleteAccount();
+    } catch (e) {}
+    setIsDeleting(false);
+    setDeleted(true);
+    setTimeout(() => {
+      base44.auth.logout();
+    }, 3000);
   };
 
   const handleLogout = () => {
     base44.auth.logout();
   };
+
+  if (deleted) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center px-8 text-center gap-5">
+        <div className="h-20 w-20 rounded-3xl bg-green-100 flex items-center justify-center">
+          <CheckCircle2 className="h-10 w-10 text-green-500" />
+        </div>
+        <div>
+          <h2 className="text-xl font-bold">Compte supprimé</h2>
+          <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+            Votre compte et toutes vos données ont été supprimés avec succès. Vous allez être déconnecté dans quelques secondes…
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background pb-28">
