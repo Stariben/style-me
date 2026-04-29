@@ -1,11 +1,15 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Sparkles, User } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
+import { useCamera } from '@/lib/CameraContext';
 
 export default function BottomNav() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { t } = useLang();
+  const { isCameraOpen } = useCamera();
+
+  if (isCameraOpen) return null;
 
   const tabs = [
     { path: '/', label: 'StyleMatch', icon: Sparkles },

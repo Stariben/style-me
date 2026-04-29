@@ -4,11 +4,13 @@ import { useLang } from '@/lib/i18n';
 import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
 import CameraCapture from './CameraCapture';
+import { useCamera } from '@/lib/CameraContext';
 
 export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear }) {
   const [isUploading, setIsUploading] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
   const galleryInputRef = useRef(null);
+  const { setIsCameraOpen } = useCamera();
   const { t } = useLang();
 
   const isPersonPhoto = type === 'person';
@@ -27,8 +29,11 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
     setIsUploading(false);
   };
 
+  const openCamera = () => { setShowCamera(true); setIsCameraOpen(true); };
+  const closeCamera = () => { setShowCamera(false); setIsCameraOpen(false); };
+
   const handleCameraCapture = async (file) => {
-    setShowCamera(false);
+    closeCamera();
     setIsUploading(true);
     const { file_url } = await base44.integrations.Core.UploadFile({ file });
     onImageUploaded(file_url);
@@ -46,7 +51,7 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
           <CameraCapture
             facingMode={isPersonPhoto ? 'user' : 'environment'}
             onCapture={handleCameraCapture}
-            onClose={() => setShowCamera(false)}
+            onClose={closeCamera}
           />
         )}
       </AnimatePresence>
@@ -91,7 +96,7 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
                 </div>
                 <div className="flex flex-col gap-2 w-full">
                   <button
-                    onClick={() => setShowCamera(true)}
+                    onClick={openCamera}
                     className="w-full flex items-center justify-center gap-2 h-10 rounded-xl bg-primary text-primary-foreground text-sm font-medium transition-opacity active:opacity-80"
                   >
                     <Camera className="h-4 w-4" />

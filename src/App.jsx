@@ -16,6 +16,7 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import { LangProvider } from '@/lib/i18n';
 import LanguagePicker from '@/components/LanguagePicker';
+import { CameraProvider } from '@/lib/CameraContext';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -64,6 +65,7 @@ function App() {
 
   return (
     <LangProvider>
+      <CameraProvider>
       <AuthProvider>
         <QueryClientProvider client={queryClientInstance}>
           <Router>
@@ -72,6 +74,7 @@ function App() {
           <Toaster />
         </QueryClientProvider>
       </AuthProvider>
+      </CameraProvider>
     </LangProvider>
   )
 }
