@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { ThumbsUp, ThumbsDown, Lightbulb, RefreshCw, Wand2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useLang } from '@/lib/i18n';
 
 function ScoreRing({ score }) {
   const radius = 40;
@@ -43,6 +44,7 @@ function ScoreRing({ score }) {
 }
 
 export default function ResultCard({ result, generatedImage, onReset }) {
+  const { t } = useLang();
   if (!result) return null;
 
   return (
@@ -63,7 +65,7 @@ export default function ResultCard({ result, generatedImage, onReset }) {
           >
             <div className="flex items-center gap-2 px-4 py-2.5 bg-muted/50 border-b border-border">
               <Wand2 className="h-4 w-4 text-primary" />
-              <span className="text-sm font-semibold">AI Preview — You in this outfit</span>
+              <span className="text-sm font-semibold">{t('aiPreview')}</span>
             </div>
             <img src={generatedImage} alt="AI generated outfit preview" className="w-full object-cover" />
           </motion.div>
@@ -80,7 +82,7 @@ export default function ResultCard({ result, generatedImage, onReset }) {
           <div className="mb-4">
             <div className="flex items-center gap-2 mb-2">
               <ThumbsUp className="h-4 w-4 text-green-500" />
-              <span className="text-sm font-semibold">What Works</span>
+              <span className="text-sm font-semibold">{t('resultWhatWorks')}</span>
             </div>
             <ul className="space-y-1.5">
               {result.pros.map((pro, i) => (
@@ -103,7 +105,7 @@ export default function ResultCard({ result, generatedImage, onReset }) {
           <div className="mb-4">
             <div className="flex items-center gap-2 mb-2">
               <ThumbsDown className="h-4 w-4 text-red-400" />
-              <span className="text-sm font-semibold">Consider</span>
+              <span className="text-sm font-semibold">{t('resultConsider')}</span>
             </div>
             <ul className="space-y-1.5">
               {result.cons.map((con, i) => (
@@ -126,7 +128,7 @@ export default function ResultCard({ result, generatedImage, onReset }) {
           <div className="mb-5">
             <div className="flex items-center gap-2 mb-2">
               <Lightbulb className="h-4 w-4 text-accent" />
-              <span className="text-sm font-semibold">Style Tips</span>
+              <span className="text-sm font-semibold">{t('resultStyleTips')}</span>
             </div>
             <ul className="space-y-1.5">
               {result.styling_tips.map((tip, i) => (
@@ -146,7 +148,7 @@ export default function ResultCard({ result, generatedImage, onReset }) {
 
         <Button onClick={onReset} variant="outline" className="w-full rounded-xl h-11 gap-2">
           <RefreshCw className="h-4 w-4" />
-          Try Another Outfit
+          {t('tryAnotherOutfit')}
         </Button>
       </div>
     </motion.div>
