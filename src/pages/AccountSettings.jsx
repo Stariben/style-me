@@ -29,7 +29,7 @@ export default function AccountSettings() {
   const [sendingContact, setSendingContact] = useState(false);
   const navigate = useNavigate();
 
-  const ADMIN_EMAIL = 'ai.unjd5@passmail.net';
+  const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL;
 
   const handleDeleteAccount = async () => {
     setIsDeleting(true);
