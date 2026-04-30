@@ -213,16 +213,20 @@ export default function History() {
           <h1 className="text-2xl font-bold tracking-tight">{t('historyTitle')}</h1>
           <p className="text-sm text-muted-foreground mt-1">{t('historySubtitle')}</p>
         </div>
-        {!compareMode && !deleteMode && items.length >= 2 && (
-          <Button variant="outline" size="sm" className="rounded-xl gap-2 mt-1" onClick={() => setCompareMode(true)}>
-            <GitCompare className="h-4 w-4" />
-            {t('compare')}
-          </Button>
-        )}
-        {!compareMode && !deleteMode && items.length > 0 && (
-          <Button variant="outline" size="sm" className="rounded-xl gap-2 mt-1 border-destructive/30 text-destructive hover:bg-destructive/5" onClick={() => setDeleteMode(true)}>
-            <Trash2 className="h-4 w-4" />
-          </Button>
+        {!compareMode && !deleteMode && (
+          <div className="flex gap-2 mt-1">
+            {items.length >= 2 && (
+              <Button variant="outline" size="sm" className="rounded-xl gap-2" onClick={() => setCompareMode(true)}>
+                <GitCompare className="h-4 w-4" />
+                {t('compare')}
+              </Button>
+            )}
+            {items.length > 0 && (
+              <Button variant="outline" size="sm" className="rounded-xl border-destructive/30 text-destructive hover:bg-destructive/5" onClick={() => setDeleteMode(true)}>
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
         )}
       </div>
 
@@ -291,7 +295,7 @@ export default function History() {
           const isDeleteSelected = deleteItems.some((d) => d.id === item.id);
           const isSelected = compareMode ? isCompareSelected : isDeleteSelected;
           return (
-            <motion.button
+            <motion.div
               key={item.id}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -301,7 +305,7 @@ export default function History() {
                 else if (deleteMode) toggleDeleteSelect(item);
                 else setSelected(item);
               }}
-              className={`w-full bg-card border rounded-2xl p-4 flex items-center gap-4 text-left active:scale-[0.98] transition-all ${
+              className={`w-full bg-card border rounded-2xl p-4 flex items-center gap-4 text-left cursor-pointer active:scale-[0.98] transition-all ${
                 deleteMode && isDeleteSelected ? 'border-destructive ring-2 ring-destructive/20' :
                 compareMode && isCompareSelected ? 'border-primary ring-2 ring-primary/20' : 'border-border'
               } ${compareMode && compareItems.length === 2 && !isCompareSelected ? 'opacity-40' : ''}`}
@@ -332,7 +336,7 @@ export default function History() {
                 <span className={`text-lg font-bold ${getScoreColor(item.match_score)}`}>{item.match_score}</span>
                 {!compareMode && !deleteMode && <ChevronRight className="h-4 w-4 text-muted-foreground" />}
               </div>
-            </motion.button>
+            </motion.div>
           );
         })}
       </div>
