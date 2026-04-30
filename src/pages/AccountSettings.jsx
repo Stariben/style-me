@@ -190,7 +190,7 @@ export default function AccountSettings() {
                 <X className="h-4 w-4" />
               </button>
             </div>
-            <div className="p-6 space-y-4">
+            <div className="p-6 space-y-4 pb-6">
               <Input
                 placeholder="Sujet"
                 value={contactForm.subject}
@@ -203,7 +203,7 @@ export default function AccountSettings() {
                 onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
                 className="rounded-xl h-32"
               />
-              <div className="flex gap-3 pt-4">
+              <div className="flex gap-3 pt-4 pb-2">
                 <Button
                   variant="outline"
                   className="flex-1 rounded-xl"
