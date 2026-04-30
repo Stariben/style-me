@@ -135,7 +135,6 @@ Describe very specifically: the person's facial features (skin undertone, eye co
   };
 
   const handleReset = () => {
-    setPersonImage(null);
     setOutfitImage(null);
     setResult(null);
     setGeneratedImage(null);
