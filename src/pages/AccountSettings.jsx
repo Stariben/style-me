@@ -27,6 +27,7 @@ export default function AccountSettings() {
   const [showContactForm, setShowContactForm] = useState(false);
   const [contactForm, setContactForm] = useState({ subject: '', message: '' });
   const [sendingContact, setSendingContact] = useState(false);
+  const [contactSent, setContactSent] = useState(false);
   const navigate = useNavigate();
 
   const handleDeleteAccount = async () => {
@@ -56,7 +57,11 @@ export default function AccountSettings() {
         message: contactForm.message,
       });
       setContactForm({ subject: '', message: '' });
-      setShowContactForm(false);
+      setContactSent(true);
+      setTimeout(() => {
+        setContactSent(false);
+        setShowContactForm(false);
+      }, 2500);
     } catch (e) {
       console.error('Error sending contact email:', e);
     }
@@ -187,6 +192,12 @@ export default function AccountSettings() {
                 <X className="h-4 w-4" />
               </button>
             </div>
+            {contactSent && (
+              <div className="mx-6 mt-4 flex items-center gap-3 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-xl px-4 py-3">
+                <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0" />
+                <p className="text-sm font-medium text-green-700 dark:text-green-300">Message envoyé avec succès !</p>
+              </div>
+            )}
             <div className="p-6 space-y-4 pb-6">
               <Input
                 placeholder="Sujet"
