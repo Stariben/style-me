@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { useLang } from '@/lib/i18n';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Clock, ChevronRight, X, GitCompare, CheckCircle2 } from 'lucide-react';
+import { Clock, ChevronRight, X, GitCompare, CheckCircle2, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ResultCard from '../components/ResultCard';
 
@@ -146,6 +146,10 @@ export default function History() {
   const [compareMode, setCompareMode] = useState(false);
   const [compareItems, setCompareItems] = useState([]);
   const [comparing, setComparing] = useState(null);
+  const [deleteMode, setDeleteMode] = useState(false);
+  const [deleteItems, setDeleteItems] = useState([]);
+  const [deleting, setDeleting] = useState(false);
+  const queryClient = useQueryClient();
 
   const { data: items = [], isLoading } = useQuery({
     queryKey: ['analysis-history'],
@@ -180,6 +184,28 @@ export default function History() {
     setCompareItems([]);
   };
 
+  const toggleDeleteSelect = (item) => {
+    setDeleteItems((prev) => {
+      const exists = prev.find((i) => i.id === item.id);
+      return exists ? prev.filter((i) => i.id !== item.id) : [...prev, item];
+    });
+  };
+
+  const handleDelete = async () => {
+    if (deleteItems.length === 0) return;
+    setDeleting(true);
+    await Promise.all(deleteItems.map((item) => base44.entities.AnalysisHistory.delete(item.id)));
+    queryClient.invalidateQueries({ queryKey: ['analysis-history'] });
+    setDeleteItems([]);
+    setDeleteMode(false);
+    setDeleting(false);
+  };
+
+  const cancelDelete = () => {
+    setDeleteMode(false);
+    setDeleteItems([]);
+  };
+
   return (
     <div className="min-h-screen bg-background pb-28">
       <div className="px-6 pt-10 pb-4 flex items-start justify-between">
@@ -187,10 +213,15 @@ export default function History() {
           <h1 className="text-2xl font-bold tracking-tight">{t('historyTitle')}</h1>
           <p className="text-sm text-muted-foreground mt-1">{t('historySubtitle')}</p>
         </div>
-        {!compareMode && items.length >= 2 && (
+        {!compareMode && !deleteMode && items.length >= 2 && (
           <Button variant="outline" size="sm" className="rounded-xl gap-2 mt-1" onClick={() => setCompareMode(true)}>
             <GitCompare className="h-4 w-4" />
             {t('compare')}
+          </Button>
+        )}
+        {!compareMode && !deleteMode && items.length > 0 && (
+          <Button variant="outline" size="sm" className="rounded-xl gap-2 mt-1 border-destructive/30 text-destructive hover:bg-destructive/5" onClick={() => setDeleteMode(true)}>
+            <Trash2 className="h-4 w-4" />
           </Button>
         )}
       </div>
@@ -216,6 +247,26 @@ export default function History() {
             </div>
           </motion.div>
         )}
+        {deleteMode && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="mx-6 mb-4 rounded-2xl bg-destructive/10 border border-destructive/20 p-4 flex items-center justify-between gap-3"
+          >
+            <p className="text-sm font-medium text-destructive">
+              {deleteItems.length === 0 ? 'Sélectionnez des analyses' : `${deleteItems.length} sélectionnée${deleteItems.length > 1 ? 's' : ''}`}
+            </p>
+            <div className="flex gap-2">
+              <Button size="sm" variant="ghost" className="rounded-xl h-8 px-3" onClick={cancelDelete}>{t('cancel')}</Button>
+              {deleteItems.length > 0 && (
+                <Button size="sm" className="rounded-xl h-8 px-3 bg-destructive text-white hover:bg-destructive/90" onClick={handleDelete} disabled={deleting}>
+                  {deleting ? '...' : <><Trash2 className="h-3.5 w-3.5 mr-1" />Supprimer</>}
+                </Button>
+              )}
+            </div>
+          </motion.div>
+        )}
       </AnimatePresence>
 
       {isLoading && (
@@ -236,21 +287,29 @@ export default function History() {
 
       <div className="px-6 space-y-3">
         {items.map((item, i) => {
-          const isSelected = compareItems.some((c) => c.id === item.id);
+          const isCompareSelected = compareItems.some((c) => c.id === item.id);
+          const isDeleteSelected = deleteItems.some((d) => d.id === item.id);
+          const isSelected = compareMode ? isCompareSelected : isDeleteSelected;
           return (
             <motion.button
               key={item.id}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
-              onClick={() => compareMode ? toggleCompareSelect(item) : setSelected(item)}
+              onClick={() => {
+                if (compareMode) toggleCompareSelect(item);
+                else if (deleteMode) toggleDeleteSelect(item);
+                else setSelected(item);
+              }}
               className={`w-full bg-card border rounded-2xl p-4 flex items-center gap-4 text-left active:scale-[0.98] transition-all ${
-                isSelected ? 'border-primary ring-2 ring-primary/20' : 'border-border'
-              } ${compareMode && compareItems.length === 2 && !isSelected ? 'opacity-40' : ''}`}
+                deleteMode && isDeleteSelected ? 'border-destructive ring-2 ring-destructive/20' :
+                compareMode && isCompareSelected ? 'border-primary ring-2 ring-primary/20' : 'border-border'
+              } ${compareMode && compareItems.length === 2 && !isCompareSelected ? 'opacity-40' : ''}`}
             >
-              {compareMode && (
+              {(compareMode || deleteMode) && (
                 <div className={`h-6 w-6 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${
-                  isSelected ? 'border-primary bg-primary' : 'border-muted-foreground'
+                  deleteMode && isDeleteSelected ? 'border-destructive bg-destructive' :
+                  compareMode && isCompareSelected ? 'border-primary bg-primary' : 'border-muted-foreground'
                 }`}>
                   {isSelected && <CheckCircle2 className="h-4 w-4 text-white" />}
                 </div>
@@ -271,7 +330,7 @@ export default function History() {
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 <span className={`text-lg font-bold ${getScoreColor(item.match_score)}`}>{item.match_score}</span>
-                {!compareMode && <ChevronRight className="h-4 w-4 text-muted-foreground" />}
+                {!compareMode && !deleteMode && <ChevronRight className="h-4 w-4 text-muted-foreground" />}
               </div>
             </motion.button>
           );
