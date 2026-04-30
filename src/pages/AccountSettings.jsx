@@ -180,7 +180,7 @@ export default function AccountSettings() {
 
       {showContactForm && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex flex-col justify-end">
-          <div className="bg-background rounded-t-3xl max-h-[90vh] overflow-y-auto">
+          <div className="bg-background rounded-t-3xl max-h-[90vh] overflow-y-auto" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
             <div className="sticky top-0 bg-background flex items-center justify-between px-6 pt-5 pb-3 border-b border-border">
               <h2 className="font-bold text-lg">{t('contactUs')}</h2>
               <button
@@ -203,7 +203,7 @@ export default function AccountSettings() {
                 onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
                 className="rounded-xl h-32"
               />
-              <div className="flex gap-3 pt-4 pb-2">
+              <div className="flex gap-3 pt-4 pb-20">
                 <Button
                   variant="outline"
                   className="flex-1 rounded-xl"
