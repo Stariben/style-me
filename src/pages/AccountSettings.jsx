@@ -29,15 +29,13 @@ export default function AccountSettings() {
   const [sendingContact, setSendingContact] = useState(false);
   const navigate = useNavigate();
 
-  const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL;
-
   const handleDeleteAccount = async () => {
     setIsDeleting(true);
     try {
-      await base44.integrations.Core.SendEmail({
-        to: ADMIN_EMAIL,
-        subject: `[StyleMatch] Demande de suppression de compte`,
-        body: `Bonjour,\n\nL'utilisateur suivant a demandé la suppression de son compte :\n\nNom : ${user?.full_name || 'N/A'}\nEmail : ${user?.email}\n\nConformément à notre politique de confidentialité, la suppression sera effectuée dans un délai de 30 jours.\n\nVeuillez traiter cette demande.\n\nStyleMatch`,
+      await base44.functions.invoke('sendContactEmail', {
+        type: 'delete',
+        subject: '',
+        message: '',
       });
     } catch (e) {}
     setIsDeleting(false);
@@ -52,11 +50,10 @@ export default function AccountSettings() {
     if (!contactForm.subject.trim() || !contactForm.message.trim()) return;
     setSendingContact(true);
     try {
-      await base44.integrations.Core.SendEmail({
-        to: ADMIN_EMAIL,
-        subject: `[StyleMatch Contact] ${contactForm.subject}`,
-        body: `Message from ${user?.full_name}:\n\n${contactForm.message}`,
-        from_name: 'StyleMatch Support',
+      await base44.functions.invoke('sendContactEmail', {
+        type: 'contact',
+        subject: contactForm.subject,
+        message: contactForm.message,
       });
       setContactForm({ subject: '', message: '' });
       setShowContactForm(false);
