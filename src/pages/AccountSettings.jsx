@@ -183,51 +183,57 @@ export default function AccountSettings() {
       {showContactForm && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex flex-col justify-end">
           <div className="bg-background rounded-t-3xl max-h-[90vh] overflow-y-auto" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
-            <div className="sticky top-0 bg-background flex items-center justify-between px-6 pt-5 pb-3 border-b border-border">
-              <h2 className="font-bold text-lg">{t('contactUs')}</h2>
-              <button
-                onClick={() => setShowContactForm(false)}
-                className="h-9 w-9 rounded-full bg-muted flex items-center justify-center"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
-            {contactSent && (
-              <div className="mx-6 mt-4 flex items-center gap-3 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-xl px-4 py-3">
-                <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0" />
-                <p className="text-sm font-medium text-green-700 dark:text-green-300">Message envoyé avec succès !</p>
+            {contactSent ? (
+              <div className="flex flex-col items-center justify-center gap-4 py-16 px-8 text-center">
+                <div className="h-16 w-16 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
+                  <CheckCircle2 className="h-8 w-8 text-green-500" />
+                </div>
+                <p className="font-semibold text-lg">Message envoyé !</p>
+                <p className="text-sm text-muted-foreground">Nous vous répondrons dans les plus brefs délais.</p>
               </div>
+            ) : (
+              <>
+                <div className="sticky top-0 bg-background flex items-center justify-between px-6 pt-5 pb-3 border-b border-border">
+                  <h2 className="font-bold text-lg">{t('contactUs')}</h2>
+                  <button
+                    onClick={() => setShowContactForm(false)}
+                    className="h-9 w-9 rounded-full bg-muted flex items-center justify-center"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+                <div className="p-6 space-y-4 pb-6">
+                  <Input
+                    placeholder="Sujet"
+                    value={contactForm.subject}
+                    onChange={(e) => setContactForm({ ...contactForm, subject: e.target.value })}
+                    className="rounded-xl"
+                  />
+                  <Textarea
+                    placeholder="Votre message..."
+                    value={contactForm.message}
+                    onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
+                    className="rounded-xl h-32"
+                  />
+                  <div className="flex gap-3 pt-4 pb-20">
+                    <Button
+                      variant="outline"
+                      className="flex-1 rounded-xl"
+                      onClick={() => setShowContactForm(false)}
+                    >
+                      {t('cancel')}
+                    </Button>
+                    <Button
+                      className="flex-1 rounded-xl"
+                      onClick={handleContactSubmit}
+                      disabled={sendingContact || !contactForm.subject.trim() || !contactForm.message.trim()}
+                    >
+                      {sendingContact ? 'Envoi...' : 'Envoyer'}
+                    </Button>
+                  </div>
+                </div>
+              </>
             )}
-            <div className="p-6 space-y-4 pb-6">
-              <Input
-                placeholder="Sujet"
-                value={contactForm.subject}
-                onChange={(e) => setContactForm({ ...contactForm, subject: e.target.value })}
-                className="rounded-xl"
-              />
-              <Textarea
-                placeholder="Votre message..."
-                value={contactForm.message}
-                onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
-                className="rounded-xl h-32"
-              />
-              <div className="flex gap-3 pt-4 pb-20">
-                <Button
-                  variant="outline"
-                  className="flex-1 rounded-xl"
-                  onClick={() => setShowContactForm(false)}
-                >
-                  {t('cancel')}
-                </Button>
-                <Button
-                  className="flex-1 rounded-xl"
-                  onClick={handleContactSubmit}
-                  disabled={sendingContact || !contactForm.subject.trim() || !contactForm.message.trim()}
-                >
-                  {sendingContact ? 'Envoi...' : 'Envoyer'}
-                </Button>
-              </div>
-            </div>
           </div>
         </div>
       )}
