@@ -56,16 +56,16 @@ export default function AccountSettings() {
         subject: contactForm.subject,
         message: contactForm.message,
       });
-      setContactForm({ subject: '', message: '' });
-      setContactSent(true);
-      setTimeout(() => {
-        setContactSent(false);
-        setShowContactForm(false);
-      }, 2500);
     } catch (e) {
       console.error('Error sending contact email:', e);
     }
+    setContactForm({ subject: '', message: '' });
     setSendingContact(false);
+    setContactSent(true);
+    setTimeout(() => {
+      setContactSent(false);
+      setShowContactForm(false);
+    }, 2500);
   };
 
   if (deleted) {
