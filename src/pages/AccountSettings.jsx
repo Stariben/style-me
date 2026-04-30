@@ -29,7 +29,7 @@ export default function AccountSettings() {
   const [sendingContact, setSendingContact] = useState(false);
   const navigate = useNavigate();
 
-  const ADMIN_EMAIL = 'support@stylematch.app';
+  const ADMIN_EMAIL = 'ai.unjd5@passmail.net';
 
   const handleDeleteAccount = async () => {
     setIsDeleting(true);
@@ -53,7 +53,7 @@ export default function AccountSettings() {
     setSendingContact(true);
     try {
       await base44.integrations.Core.SendEmail({
-        to: user?.email || '',
+        to: ADMIN_EMAIL,
         subject: `[StyleMatch Contact] ${contactForm.subject}`,
         body: `Message from ${user?.full_name}:\n\n${contactForm.message}`,
         from_name: 'StyleMatch Support',
