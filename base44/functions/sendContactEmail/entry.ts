@@ -9,11 +9,6 @@ Deno.serve(async (req) => {
     }
 
     const { subject, message, type } = await req.json();
-    const ADMIN_EMAIL = Deno.env.get('ADMIN_EMAIL');
-
-    if (!ADMIN_EMAIL) {
-      return Response.json({ error: 'Admin email not configured' }, { status: 500 });
-    }
 
     let emailSubject, emailBody;
 
@@ -27,12 +22,28 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Invalid type' }, { status: 400 });
     }
 
+    // Send confirmation email to the user who made the request
     await base44.integrations.Core.SendEmail({
-      to: ADMIN_EMAIL,
+      to: user.email,
       subject: emailSubject,
       body: emailBody,
       from_name: 'StyleMatch',
     });
+
+    // Also notify all admin users
+    const admins = await base44.asServiceRole.entities.User.filter({ role: 'admin' });
+    await Promise.all(
+      admins
+        .filter(a => a.email !== user.email)
+        .map(admin =>
+          base44.asServiceRole.integrations.Core.SendEmail({
+            to: admin.email,
+            subject: emailSubject,
+            body: emailBody,
+            from_name: 'StyleMatch',
+          })
+        )
+    );
 
     return Response.json({ success: true });
   } catch (error) {
