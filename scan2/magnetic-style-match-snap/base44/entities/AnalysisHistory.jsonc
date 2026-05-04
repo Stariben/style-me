@@ -1,0 +1,31 @@
+{
+  "name": "AnalysisHistory",
+  "type": "object",
+  "properties": {
+    "person_image": {
+      "type": "string",
+      "title": "Person Image URL"
+    },
+    "outfit_image": {
+      "type": "string",
+      "title": "Outfit Image URL"
+    },
+    "generated_image": {
+      "type": "string",
+      "title": "Generated Image URL"
+    },
+    "match_score": {
+      "type": "number",
+      "title": "Match Score"
+    },
+    "verdict": {
+      "type": "string",
+      "title": "Verdict"
+    },
+    "result_json": {
+      "type": "string",
+      "title": "Full Result JSON"
+    }
+  },
+  "required": []
+}
