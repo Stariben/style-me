@@ -10,6 +10,16 @@ Deno.serve(async (req) => {
 
     const { subject, message, type } = await req.json();
 
+    // Input validation
+    if (type === 'contact') {
+      if (!subject || typeof subject !== 'string' || subject.trim().length === 0 || subject.length > 200) {
+        return Response.json({ error: 'Invalid subject' }, { status: 400 });
+      }
+      if (!message || typeof message !== 'string' || message.trim().length === 0 || message.length > 2000) {
+        return Response.json({ error: 'Invalid message' }, { status: 400 });
+      }
+    }
+
     let emailSubject, emailBody;
 
     if (type === 'contact') {

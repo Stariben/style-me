@@ -18,11 +18,23 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
   const label = isPersonPhoto ? t('yourPhoto') : t('outfitPhoto');
   const hint = isPersonPhoto ? t('uploadSelfie') : t('uploadOutfit');
 
+  const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif'];
+  const MAX_SIZE_MB = 10;
+
   const handleFileSelect = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    // Reset input so same file can be selected again
     e.target.value = '';
+
+    if (!ALLOWED_TYPES.includes(file.type)) {
+      alert('Format non supporté. Utilisez JPG, PNG ou WEBP.');
+      return;
+    }
+    if (file.size > MAX_SIZE_MB * 1024 * 1024) {
+      alert(`La photo ne doit pas dépasser ${MAX_SIZE_MB} Mo.`);
+      return;
+    }
+
     setIsUploading(true);
     const { file_url } = await base44.integrations.Core.UploadFile({ file });
     onImageUploaded(file_url);
