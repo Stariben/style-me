@@ -1,11 +1,32 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
+// In-memory rate limit store: { email -> { count, windowStart } }
+const rateLimitStore = new Map();
+const RATE_LIMIT_MAX = 5;       // max requests
+const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour in ms
+
+function isRateLimited(email) {
+  const now = Date.now();
+  const entry = rateLimitStore.get(email);
+  if (!entry || now - entry.windowStart > RATE_LIMIT_WINDOW) {
+    rateLimitStore.set(email, { count: 1, windowStart: now });
+    return false;
+  }
+  if (entry.count >= RATE_LIMIT_MAX) return true;
+  entry.count++;
+  return false;
+}
+
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
     const user = await base44.auth.me();
     if (!user) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    if (isRateLimited(user.email)) {
+      return Response.json({ error: 'Too many requests. Please try again later.' }, { status: 429 });
     }
 
     const { subject, message, type } = await req.json();
@@ -22,12 +43,18 @@ Deno.serve(async (req) => {
 
     let emailSubject, emailBody;
 
+    // Sanitize user-provided fields to prevent injection
+    const safeName = (user.full_name || 'N/A').replace(/[<>&"']/g, '');
+    const safeEmail = (user.email || '').replace(/[<>&"']/g, '');
+    const safeSubject = type === 'contact' ? subject.replace(/[<>&"']/g, '') : '';
+    const safeMessage = type === 'contact' ? message.replace(/[<>&"']/g, '') : '';
+
     if (type === 'contact') {
-      emailSubject = `[StyleMatch Contact] ${subject}`;
-      emailBody = `Message de ${user.full_name} (${user.email}):\n\n${message}`;
+      emailSubject = `[StyleMatch Contact] ${safeSubject}`;
+      emailBody = `Message de ${safeName} (${safeEmail}):\n\n${safeMessage}`;
     } else if (type === 'delete') {
       emailSubject = `[StyleMatch] Demande de suppression de compte`;
-      emailBody = `Bonjour,\n\nL'utilisateur suivant a demandé la suppression de son compte :\n\nNom : ${user.full_name || 'N/A'}\nEmail : ${user.email}\n\nConformément à notre politique de confidentialité, la suppression sera effectuée dans un délai de 30 jours.\n\nVeuillez traiter cette demande.\n\nStyleMatch`;
+      emailBody = `Bonjour,\n\nL'utilisateur suivant a demandé la suppression de son compte :\n\nNom : ${safeName}\nEmail : ${safeEmail}\n\nConformément à notre politique de confidentialité, la suppression sera effectuée dans un délai de 30 jours.\n\nVeuillez traiter cette demande.\n\nStyleMatch`;
     } else {
       return Response.json({ error: 'Invalid type' }, { status: 400 });
     }
