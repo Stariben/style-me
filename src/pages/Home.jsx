@@ -108,10 +108,8 @@ Describe very specifically: the person's facial features (skin undertone, eye co
 
       console.log('Raw analysis response:', JSON.stringify(analysisRaw));
 
-      // Normalize: handle both direct object and wrapped responses
-      const analysis = analysisRaw?.match_score !== undefined
-        ? analysisRaw
-        : (analysisRaw?.result ?? analysisRaw?.output ?? analysisRaw?.data ?? analysisRaw);
+      // Normalize: unwrap "response" key if present
+      const analysis = analysisRaw?.response ?? analysisRaw;
 
       const imageGen = await base44.integrations.Core.GenerateImage({
         prompt: `A realistic fashion photo of a person wearing the outfit. ${imageResult}. The person is wearing the clothing item naturally, full body or 3/4 shot, clean neutral background, professional fashion photography style, high quality.`,
