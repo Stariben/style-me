@@ -41,7 +41,8 @@ export default function Home() {
       setGeneratedImage(null);
     },
     mutationFn: async ({ personImg, outfitImg }) => {
-      const [analysis, imageResult] = await Promise.all([
+      let analysisRaw, imageResult;
+      [analysisRaw, imageResult] = await Promise.all([
         base44.integrations.Core.InvokeLLM({
           prompt: `You are an elite personal stylist and color analyst. Your ONLY task is to deeply analyze how well a specific outfit suits a specific person based on their unique facial features, skin tone, and physical traits.
 
@@ -104,6 +105,13 @@ Describe very specifically: the person's facial features (skin undertone, eye co
           model: 'claude_sonnet_4_6',
         }),
       ]);
+
+      console.log('Raw analysis response:', JSON.stringify(analysisRaw));
+
+      // Normalize: handle both direct object and wrapped responses
+      const analysis = analysisRaw?.match_score !== undefined
+        ? analysisRaw
+        : (analysisRaw?.result ?? analysisRaw?.output ?? analysisRaw?.data ?? analysisRaw);
 
       const imageGen = await base44.integrations.Core.GenerateImage({
         prompt: `A realistic fashion photo of a person wearing the outfit. ${imageResult}. The person is wearing the clothing item naturally, full body or 3/4 shot, clean neutral background, professional fashion photography style, high quality.`,
