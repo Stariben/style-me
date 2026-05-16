@@ -1,0 +1,21 @@
+{
+  "name": "ContactRateLimit",
+  "type": "object",
+  "properties": {
+    "user_email": {
+      "type": "string",
+      "title": "User Email"
+    },
+    "request_type": {
+      "type": "string",
+      "title": "Request Type",
+      "enum": ["contact", "delete"]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Timestamp (ISO)"
+    }
+  },
+  "required": ["user_email", "request_type", "timestamp"]
+}
