@@ -57,6 +57,13 @@ export default function Home() {
   const paidCredits = userData?.analysis_credits || 0;
   const canUseApp = freeUsed < FREE_ANALYSES || paidCredits > 0;
 
+  const resetState = useCallback(() => {
+    setPersonImage(null);
+    setOutfitImage(null);
+    setResult(null);
+    setGeneratedImage(null);
+  }, []);
+
   const analyzeMutation = useMutation({
     onMutate: () => {
       setResult(null);
@@ -99,13 +106,9 @@ export default function Home() {
 
   // Pull-to-refresh resets everything
   const handleRefresh = useCallback(() => {
-    setPersonImage(null);
-    setOutfitImage(null);
-    setResult(null);
-    setGeneratedImage(null);
+    resetState();
     analyzeMutation.reset();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [resetState, analyzeMutation]);
 
   const { pullDistance, refreshing } = usePullToRefresh(handleRefresh);
 
