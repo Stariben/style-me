@@ -27,11 +27,11 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
     e.target.value = '';
 
     if (!ALLOWED_TYPES.includes(file.type)) {
-      alert('Format non supporté. Utilisez JPG, PNG ou WEBP.');
+      alert(t('photoFormatError'));
       return;
     }
     if (file.size > MAX_SIZE_MB * 1024 * 1024) {
-      alert(`La photo ne doit pas dépasser ${MAX_SIZE_MB} Mo.`);
+      alert(t('photoSizeError', MAX_SIZE_MB));
       return;
     }
 

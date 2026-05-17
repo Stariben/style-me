@@ -36,11 +36,19 @@ export default function Home() {
     };
     loadUser();
 
-    // Check if coming back from successful payment
+    // Check if coming back from successful payment — poll until credits appear
     const params = new URLSearchParams(window.location.search);
     if (params.get('payment') === 'success') {
       window.history.replaceState({}, '', '/');
-      setTimeout(loadUser, 2000); // Give webhook time to process
+      let attempts = 0;
+      const poll = async () => {
+        const u = await base44.auth.me();
+        setUserData(u);
+        if ((u?.analysis_credits || 0) > 0 || attempts >= 8) return;
+        attempts++;
+        setTimeout(poll, 1500);
+      };
+      setTimeout(poll, 1500);
     }
   }, []);
 
@@ -55,7 +63,8 @@ export default function Home() {
     setResult(null);
     setGeneratedImage(null);
     analyzeMutation.reset();
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [analyzeMutation.reset]);
 
   const { pullDistance, refreshing, onTouchStart, onTouchMove, onTouchEnd, threshold } = usePullToRefresh(handleRefresh);
 

@@ -188,8 +188,8 @@ export default function AccountSettings() {
                 <div className="h-16 w-16 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
                   <CheckCircle2 className="h-8 w-8 text-green-500" />
                 </div>
-                <p className="font-semibold text-lg">Message envoyé !</p>
-                <p className="text-sm text-muted-foreground">Nous vous répondrons dans les plus brefs délais.</p>
+                <p className="font-semibold text-lg">{t('contactMessageSent')}</p>
+                <p className="text-sm text-muted-foreground">{t('contactMessageSentDesc')}</p>
               </div>
             ) : (
               <>
@@ -204,16 +204,16 @@ export default function AccountSettings() {
                 </div>
                 <div className="p-6 space-y-4 pb-6">
                   <Input
-                    placeholder="Sujet"
-                    value={contactForm.subject}
-                    onChange={(e) => setContactForm({ ...contactForm, subject: e.target.value })}
-                    className="rounded-xl"
+                   placeholder={t('contactSubjectPlaceholder')}
+                   value={contactForm.subject}
+                   onChange={(e) => setContactForm({ ...contactForm, subject: e.target.value })}
+                   className="rounded-xl"
                   />
                   <Textarea
-                    placeholder="Votre message..."
-                    value={contactForm.message}
-                    onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
-                    className="rounded-xl h-32"
+                   placeholder={t('contactMessagePlaceholder')}
+                   value={contactForm.message}
+                   onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
+                   className="rounded-xl h-32"
                   />
                   <div className="flex gap-3 pt-4 pb-20">
                     <Button
@@ -228,7 +228,7 @@ export default function AccountSettings() {
                       onClick={handleContactSubmit}
                       disabled={sendingContact || !contactForm.subject.trim() || !contactForm.message.trim()}
                     >
-                      {sendingContact ? 'Envoi...' : 'Envoyer'}
+                      {sendingContact ? t('contactSending') : t('contactSend')}
                     </Button>
                   </div>
                 </div>

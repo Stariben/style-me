@@ -25,6 +25,7 @@ Deno.serve(async (req) => {
     const session = event.data.object;
     const userEmail = session.metadata?.user_email;
     const credits = parseInt(session.metadata?.credits || '0');
+    const sessionId = session.id;
 
     if (userEmail && credits > 0) {
       try {
@@ -32,9 +33,18 @@ Deno.serve(async (req) => {
         const users = await base44.asServiceRole.entities.User.filter({ email: userEmail });
         if (users.length > 0) {
           const user = users[0];
+
+          // Idempotence: check if this session was already processed
+          const processedSessions = user.processed_stripe_sessions || [];
+          if (processedSessions.includes(sessionId)) {
+            console.log(`Session ${sessionId} already processed for ${userEmail}, skipping.`);
+            return Response.json({ received: true });
+          }
+
           const currentCredits = user.analysis_credits || 0;
           await base44.asServiceRole.entities.User.update(user.id, {
             analysis_credits: currentCredits + credits,
+            processed_stripe_sessions: [...processedSessions, sessionId],
           });
           console.log(`Added ${credits} credits to ${userEmail}. Total: ${currentCredits + credits}`);
         }
