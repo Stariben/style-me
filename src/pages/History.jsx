@@ -9,7 +9,8 @@ import ResultCard from '../components/ResultCard';
 
 function HistoryItemModal({ item, onClose }) {
   const { t } = useLang();
-  const result = JSON.parse(item.result_json || '{}');
+  let result = {};
+  try { result = JSON.parse(item.result_json || '{}'); } catch (_) {}
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -48,8 +49,9 @@ function HistoryItemModal({ item, onClose }) {
 
 function CompareView({ itemA, itemB, onClose }) {
   const { t } = useLang();
-  const resultA = JSON.parse(itemA.result_json || '{}');
-  const resultB = JSON.parse(itemB.result_json || '{}');
+  let resultA = {}, resultB = {};
+  try { resultA = JSON.parse(itemA.result_json || '{}'); } catch (_) {}
+  try { resultB = JSON.parse(itemB.result_json || '{}'); } catch (_) {}
 
   const getScoreColor = (score) => {
     if (score >= 8) return 'text-green-500';
@@ -259,13 +261,13 @@ export default function History() {
             className="mx-6 mb-4 rounded-2xl bg-destructive/10 border border-destructive/20 p-4 flex items-center justify-between gap-3"
           >
             <p className="text-sm font-medium text-destructive">
-              {deleteItems.length === 0 ? 'Sélectionnez des analyses' : `${deleteItems.length} sélectionnée${deleteItems.length > 1 ? 's' : ''}`}
+              {deleteItems.length === 0 ? t('deleteSelectLabel') : t('deleteSelected', deleteItems.length)}
             </p>
             <div className="flex gap-2">
               <Button size="sm" variant="ghost" className="rounded-xl h-8 px-3" onClick={cancelDelete}>{t('cancel')}</Button>
               {deleteItems.length > 0 && (
                 <Button size="sm" className="rounded-xl h-8 px-3 bg-destructive text-white hover:bg-destructive/90" onClick={handleDelete} disabled={deleting}>
-                  {deleting ? '...' : <><Trash2 className="h-3.5 w-3.5 mr-1" />Supprimer</>}
+                  {deleting ? '...' : <><Trash2 className="h-3.5 w-3.5 mr-1" />{t('deleteBtn')}</>}
                 </Button>
               )}
             </div>

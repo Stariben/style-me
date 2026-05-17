@@ -2,7 +2,7 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
 const FREE_ANALYSES_MAX = 5;
 
-const LANG_NAMES: Record<string, string> = {
+const LANG_NAMES = {
   fr: 'French',
   en: 'English',
   es: 'Spanish',
@@ -121,7 +121,7 @@ Describe very specifically: the person's facial features (skin undertone, eye co
         }),
       ]);
 
-      const analysis = (analysisRaw as any)?.response ?? analysisRaw;
+      const analysis = analysisRaw?.response ?? analysisRaw;
 
       const imageGen = await base44.integrations.Core.GenerateImage({
         prompt: `A realistic fashion photo of a person wearing the outfit. ${imageResult}. The person is wearing the clothing item naturally, full body or 3/4 shot, clean neutral background, professional fashion photography style, high quality.`,
@@ -160,7 +160,7 @@ Describe very specifically: the person's facial features (skin undertone, eye co
         });
       }
       return Response.json(
-        { error: 'L\'analyse a échoué. Votre crédit a été remboursé.' },
+        { error: "L'analyse a échoué. Votre crédit a été remboursé." },
         { status: 500 }
       );
     }

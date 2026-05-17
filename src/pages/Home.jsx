@@ -32,15 +32,20 @@ export default function Home() {
     };
     loadUser();
 
-    // Check if coming back from successful payment — poll until credits appear
+    // Check if coming back from successful payment — poll until credits increase
     const params = new URLSearchParams(window.location.search);
     if (params.get('payment') === 'success') {
       window.history.replaceState({}, '', '/');
       let attempts = 0;
+      let creditsBefore = null;
       const poll = async () => {
         const u = await base44.auth.me();
         setUserData(u);
-        if ((u?.analysis_credits || 0) > 0 || attempts >= 8) return;
+        if (creditsBefore === null) {
+          creditsBefore = u?.analysis_credits || 0;
+        } else if ((u?.analysis_credits || 0) > creditsBefore || attempts >= 10) {
+          return;
+        }
         attempts++;
         setTimeout(poll, 1500);
       };
@@ -93,14 +98,14 @@ export default function Home() {
   });
 
   // Pull-to-refresh resets everything
-  const handleRefresh = useCallback(async () => {
+  const handleRefresh = useCallback(() => {
     setPersonImage(null);
     setOutfitImage(null);
     setResult(null);
     setGeneratedImage(null);
     analyzeMutation.reset();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [analyzeMutation.reset]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const { pullDistance, refreshing } = usePullToRefresh(handleRefresh);
 

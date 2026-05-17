@@ -38,9 +38,13 @@ export default function AccountSettings() {
         subject: '',
         message: '',
       });
-    } catch (e) {}
-    setIsDeleting(false);
-    setDeleted(true);
+      setDeleted(true);
+    } catch (e) {
+      console.error('Delete account error:', e);
+      alert(t('errorOccurred'));
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   const handleLogout = () => {

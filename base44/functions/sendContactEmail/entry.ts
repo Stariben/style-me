@@ -7,10 +7,10 @@ const RATE_LIMITS = {
 };
 
 // Échappe les caractères dangereux pour l'email tout en gardant les apostrophes/accents
-function sanitize(str: string, maxLen: number): string {
+function sanitize(str, maxLen) {
   return String(str || '')
-    .replace(/[\r\n]/g, ' ')     // pas de retour à la ligne ni null byte
-    .replace(/[<>]/g, '')             // pas de balises HTML
+    .replace(/[\r\n]/g, ' ')
+    .replace(/[<>]/g, '')
     .trim()
     .slice(0, maxLen);
 }
@@ -26,12 +26,12 @@ Deno.serve(async (req) => {
     const body = await req.json();
     const { subject, message, type } = body;
 
-    // 1. Validation du type (avant le rate limit pour ne pas pénaliser les erreurs de format)
+    // 1. Validation du type
     if (type !== 'contact' && type !== 'delete') {
       return Response.json({ error: 'Invalid type' }, { status: 400 });
     }
 
-    // 2. Validation des entrées (avant le rate limit)
+    // 2. Validation des entrées
     if (type === 'contact') {
       if (!subject || typeof subject !== 'string' || subject.trim().length === 0 || subject.length > 200) {
         return Response.json({ error: 'Sujet invalide (1-200 caractères requis)' }, { status: 400 });
@@ -41,7 +41,7 @@ Deno.serve(async (req) => {
       }
     }
 
-    // 3. Rate limit PERSISTANT via entité Base44 (survit aux redémarrages)
+    // 3. Rate limit PERSISTANT via entité Base44
     const limit = RATE_LIMITS[type];
     const since = new Date(Date.now() - limit.windowMs).toISOString();
 
@@ -62,13 +62,13 @@ Deno.serve(async (req) => {
       );
     }
 
-    // 4. Préparation de l'email (sanitization douce, garde accents/apostrophes)
+    // 4. Préparation de l'email
     const safeName    = sanitize(user.full_name || 'N/A', 100);
     const safeEmail   = sanitize(user.email || '', 200);
     const safeSubject = type === 'contact' ? sanitize(subject, 200) : '';
     const safeMessage = type === 'contact' ? sanitize(message, 2000) : '';
 
-    let emailSubject: string, emailBody: string;
+    let emailSubject, emailBody;
     if (type === 'contact') {
       emailSubject = `[StyleMatch Contact] ${safeSubject}`;
       emailBody = `Message de ${safeName} (${safeEmail}):\n\n${safeMessage}`;
@@ -77,14 +77,14 @@ Deno.serve(async (req) => {
       emailBody = `Bonjour,\n\nL'utilisateur suivant a demandé la suppression de son compte :\n\nNom : ${safeName}\nEmail : ${safeEmail}\n\nConformément à notre politique de confidentialité, la suppression sera effectuée dans un délai de 30 jours.\n\nStyleMatch`;
     }
 
-    // 5. Enregistrer la requête pour le rate limit
+    // 5. Enregistrer pour le rate limit
     await base44.asServiceRole.entities.ContactRateLimit.create({
       user_email: user.email,
       request_type: type,
       timestamp: new Date().toISOString(),
     });
 
-    // 6. Envoyer l'email de confirmation
+    // 6. Envoyer l'email de confirmation à l'utilisateur
     await base44.integrations.Core.SendEmail({
       to: user.email,
       subject: emailSubject,

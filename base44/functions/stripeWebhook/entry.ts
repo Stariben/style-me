@@ -42,9 +42,11 @@ Deno.serve(async (req) => {
           }
 
           const currentCredits = user.analysis_credits || 0;
+          // Keep only last 50 sessions to prevent unbounded growth
+          const updatedSessions = [...processedSessions, sessionId].slice(-50);
           await base44.asServiceRole.entities.User.update(user.id, {
             analysis_credits: currentCredits + credits,
-            processed_stripe_sessions: [...processedSessions, sessionId],
+            processed_stripe_sessions: updatedSessions,
           });
           console.log(`Added ${credits} credits to ${userEmail}. Total: ${currentCredits + credits}`);
         }
