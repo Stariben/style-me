@@ -281,11 +281,11 @@ Describe very specifically: the person's facial features (skin undertone, eye co
           <div className="mt-3 flex justify-center">
             {paidCredits > 0 ? (
               <span className="text-xs text-primary font-medium bg-primary/10 px-3 py-1 rounded-full">
-                ⚡ {paidCredits} {t('credit' + (paidCredits > 1 ? 's' : ''))} {t('remaining')}
+                ⚡ {paidCredits} {paidCredits > 1 ? t('creditsRemaining') : t('creditRemaining')}
               </span>
             ) : freeUsed < FREE_ANALYSES ? (
               <span className="text-xs text-muted-foreground bg-muted px-3 py-1 rounded-full">
-                {FREE_ANALYSES - freeUsed} {t('freeAnalyse' + (FREE_ANALYSES - freeUsed > 1 ? 's' : ''))} {t('remaining')}
+                {FREE_ANALYSES - freeUsed} {FREE_ANALYSES - freeUsed > 1 ? t('freeAnalysesRemaining') : t('freeAnalysisRemaining')}
               </span>
             ) : (
               <button onClick={() => setShowPaywall(true)} className="text-xs text-primary font-medium underline">
