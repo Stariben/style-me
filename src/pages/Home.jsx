@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useLang } from '@/lib/i18n';
 import { Sparkles, RefreshCw } from 'lucide-react';
@@ -10,6 +10,9 @@ import Header from '../components/Header';
 import PhotoUploader from '../components/PhotoUploader';
 import ResultCard from '../components/ResultCard';
 import AnalyzingOverlay from '../components/AnalyzingOverlay';
+import Paywall from '../components/Paywall';
+
+const FREE_ANALYSES = 5;
 
 export default function Home() {
   const { t, lang } = useLang();
@@ -22,6 +25,28 @@ export default function Home() {
   const [outfitImage, setOutfitImage] = useState(null);
   const [result, setResult] = useState(null);
   const [generatedImage, setGeneratedImage] = useState(null);
+  const [showPaywall, setShowPaywall] = useState(false);
+  const [userData, setUserData] = useState(null);
+
+  // Load user credits on mount & after payment success
+  useEffect(() => {
+    const loadUser = async () => {
+      const user = await base44.auth.me();
+      setUserData(user);
+    };
+    loadUser();
+
+    // Check if coming back from successful payment
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('payment') === 'success') {
+      window.history.replaceState({}, '', '/');
+      setTimeout(loadUser, 2000); // Give webhook time to process
+    }
+  }, []);
+
+  const freeUsed = userData?.free_analyses_used || 0;
+  const paidCredits = userData?.analysis_credits || 0;
+  const canUseApp = freeUsed < FREE_ANALYSES || paidCredits > 0;
 
   // Pull-to-refresh resets everything
   const handleRefresh = useCallback(async () => {
@@ -118,9 +143,20 @@ Describe very specifically: the person's facial features (skin undertone, eye co
 
       return { analysis, imageUrl: imageGen.url };
     },
-    onSuccess: ({ analysis, imageUrl }) => {
+    onSuccess: async ({ analysis, imageUrl }) => {
       setResult(analysis);
       setGeneratedImage(imageUrl);
+
+      // Deduct credit or increment free count
+      const user = await base44.auth.me();
+      if ((user?.analysis_credits || 0) > 0) {
+        await base44.auth.updateMe({ analysis_credits: (user.analysis_credits || 0) - 1 });
+      } else {
+        await base44.auth.updateMe({ free_analyses_used: (user?.free_analyses_used || 0) + 1 });
+      }
+      const updated = await base44.auth.me();
+      setUserData(updated);
+
       // Persist to history
       base44.entities.AnalysisHistory.create({
         person_image: personImage,
@@ -137,6 +173,10 @@ Describe very specifically: the person's facial features (skin undertone, eye co
   const canAnalyze = personImage && outfitImage && !isAnalyzing;
 
   const handleAnalyze = () => {
+    if (!canUseApp) {
+      setShowPaywall(true);
+      return;
+    }
     analyzeMutation.mutate({ personImg: personImage, outfitImg: outfitImage });
   };
 
@@ -170,6 +210,7 @@ Describe very specifically: the person's facial features (skin undertone, eye co
       )}
 
       <AnimatePresence>{isAnalyzing && <AnalyzingOverlay />}</AnimatePresence>
+      <AnimatePresence>{showPaywall && <Paywall onClose={() => setShowPaywall(false)} />}</AnimatePresence>
 
       <Header />
 
@@ -233,6 +274,25 @@ Describe very specifically: the person's facial features (skin undertone, eye co
           <p className="text-xs text-center text-muted-foreground mt-3">
             {t('uploadBothPhotos')}
           </p>
+        )}
+
+        {/* Credits counter */}
+        {userData && (
+          <div className="mt-3 flex justify-center">
+            {paidCredits > 0 ? (
+              <span className="text-xs text-primary font-medium bg-primary/10 px-3 py-1 rounded-full">
+                ⚡ {paidCredits} crédit{paidCredits > 1 ? 's' : ''} restant{paidCredits > 1 ? 's' : ''}
+              </span>
+            ) : freeUsed < FREE_ANALYSES ? (
+              <span className="text-xs text-muted-foreground bg-muted px-3 py-1 rounded-full">
+                {FREE_ANALYSES - freeUsed} analyse{FREE_ANALYSES - freeUsed > 1 ? 's' : ''} gratuite{FREE_ANALYSES - freeUsed > 1 ? 's' : ''} restante{FREE_ANALYSES - freeUsed > 1 ? 's' : ''}
+              </span>
+            ) : (
+              <button onClick={() => setShowPaywall(true)} className="text-xs text-primary font-medium underline">
+                Plus d'analyses gratuites → Acheter un pack
+              </button>
+            )}
+          </div>
         )}
       </motion.div>
 
