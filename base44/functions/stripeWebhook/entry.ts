@@ -8,6 +8,11 @@ Deno.serve(async (req) => {
   const signature = req.headers.get('stripe-signature');
   const webhookSecret = Deno.env.get("STRIPE_WEBHOOK_SECRET");
 
+  if (!webhookSecret) {
+    console.error('STRIPE_WEBHOOK_SECRET is not set. Go to Stripe Dashboard > Developers > Webhooks > click your endpoint > copy the Signing secret (whsec_...) and set it as STRIPE_WEBHOOK_SECRET in Base44 environment variables.');
+    return new Response('Webhook secret not configured', { status: 500 });
+  }
+
   let event;
   try {
     event = await stripe.webhooks.constructEventAsync(body, signature, webhookSecret);
