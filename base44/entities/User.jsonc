@@ -1,0 +1,33 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "user"
+      ],
+      "default": "user"
+    },
+    "analysis_credits": {
+      "type": "number",
+      "title": "Cr\u00e9dits d'analyse",
+      "default": 0
+    },
+    "free_analyses_used": {
+      "type": "number",
+      "title": "Analyses gratuites utilis\u00e9es",
+      "default": 0
+    },
+    "processed_stripe_sessions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Sessions Stripe trait\u00e9es",
+      "default": []
+    }
+  },
+  "required": []
+}
