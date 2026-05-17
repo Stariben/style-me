@@ -8,14 +8,16 @@
     },
     "request_type": {
       "type": "string",
-      "title": "Request Type",
-      "enum": ["contact", "delete"]
+      "title": "Request Type"
     },
     "timestamp": {
       "type": "string",
-      "format": "date-time",
-      "title": "Timestamp (ISO)"
+      "title": "Timestamp"
     }
   },
-  "required": ["user_email", "request_type", "timestamp"]
+  "required": [
+    "user_email",
+    "request_type",
+    "timestamp"
+  ]
 }
