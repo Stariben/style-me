@@ -5,31 +5,31 @@ import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { useLang } from '@/lib/i18n';
 
-const PACKS = [
-  {
-    id: 'pack10',
-    label: '10 Analyses',
-    price: '2,99€',
-    perUnit: '0,30€/analyse',
-    highlight: false,
-  },
-  {
-    id: 'pack50',
-    label: '50 Analyses',
-    price: '7,99€',
-    perUnit: '0,16€/analyse',
-    highlight: true,
-    badge: 'Meilleure valeur',
-  },
-];
-
 export default function Paywall({ onClose }) {
+  const { t } = useLang();
   const [loading, setLoading] = useState(null);
 
+  const PACKS = [
+    {
+      id: 'pack10',
+      label: t('paywallPack10Label'),
+      price: t('paywallPack10Price'),
+      perUnit: t('paywallPack10Per'),
+      highlight: false,
+    },
+    {
+      id: 'pack50',
+      label: t('paywallPack50Label'),
+      price: t('paywallPack50Price'),
+      perUnit: t('paywallPack50Per'),
+      highlight: true,
+      badge: t('paywallBestValue'),
+    },
+  ];
+
   const handleBuy = async (packId) => {
-    // Block if in iframe (Base44 preview)
     if (window.self !== window.top) {
-      alert('Le paiement fonctionne uniquement depuis l\'application publiée.');
+      alert(t('paywallPaymentBlocked'));
       return;
     }
 
@@ -46,7 +46,7 @@ export default function Paywall({ onClose }) {
       }
     } catch (err) {
       console.error(err);
-      alert('Erreur lors du paiement. Réessaie.');
+      alert(t('paywallError'));
     } finally {
       setLoading(null);
     }
@@ -77,10 +77,8 @@ export default function Paywall({ onClose }) {
           <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-3">
             <Sparkles className="h-7 w-7 text-primary" />
           </div>
-          <h2 className="text-xl font-bold">Tu as utilisé tes 5 analyses gratuites</h2>
-          <p className="text-sm text-muted-foreground mt-1">
-            Choisis un pack pour continuer à analyser tes tenues
-          </p>
+          <h2 className="text-xl font-bold">{t('paywallTitle')}</h2>
+          <p className="text-sm text-muted-foreground mt-1">{t('paywallSubtitle')}</p>
         </div>
 
         {/* Packs */}
@@ -120,7 +118,7 @@ export default function Paywall({ onClose }) {
         </div>
 
         <p className="text-[11px] text-center text-muted-foreground">
-          Paiement sécurisé par Stripe · Pas d'abonnement
+          {t('paywallSecure')}
         </p>
       </motion.div>
     </motion.div>
