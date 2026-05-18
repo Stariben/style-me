@@ -26,7 +26,25 @@ Deno.serve(async (req) => {
     }
     const outputLang = LANG_NAMES[lang] || 'French';
 
-    // ----- 2. VÉRIFICATION DU QUOTA CÔTÉ SERVEUR -----
+    // ----- 2. VERROU TRANSACTIONNEL (anti-concurrence) -----
+    const LOCK_TTL_MS = 120_000; // 2 minutes max
+    const existingLocks = await base44.asServiceRole.entities.AnalysisLock.filter({ user_email: user.email });
+    const activeLock = existingLocks.find(
+      (l) => new Date(l.locked_at).getTime() > Date.now() - LOCK_TTL_MS
+    );
+    if (activeLock) {
+      return Response.json(
+        { error: 'Une analyse est déjà en cours. Veuillez patienter.' },
+        { status: 409 }
+      );
+    }
+    // Acquérir le verrou
+    const lock = await base44.asServiceRole.entities.AnalysisLock.create({
+      user_email: user.email,
+      locked_at: new Date().toISOString(),
+    });
+
+    // ----- 3. VÉRIFICATION DU QUOTA CÔTÉ SERVEUR -----
     const freshUser = await base44.asServiceRole.entities.User.filter({ email: user.email });
     if (!freshUser || freshUser.length === 0) {
       return Response.json({ error: 'Utilisateur introuvable' }, { status: 404 });
@@ -37,13 +55,14 @@ Deno.serve(async (req) => {
     const canUse = freeUsed < FREE_ANALYSES_MAX || paidCredits > 0;
 
     if (!canUse) {
+      await base44.asServiceRole.entities.AnalysisLock.delete(lock.id);
       return Response.json(
         { error: 'Quota épuisé. Achetez un pack pour continuer.', needsPayment: true },
         { status: 402 }
       );
     }
 
-    // ----- 3. DÉCOMPTE ATOMIQUE AVANT L'IA -----
+    // ----- 4. DÉCOMPTE ATOMIQUE AVANT L'IA -----
     const useFreeAnalysis = paidCredits === 0;
     if (useFreeAnalysis) {
       await base44.asServiceRole.entities.User.update(currentUser.id, {
@@ -55,7 +74,7 @@ Deno.serve(async (req) => {
       });
     }
 
-    // ----- 4. APPELS IA (avec refund si échec) -----
+    // ----- 5. APPELS IA (avec refund si échec) -----
     try {
       const [analysisRaw, imageResult] = await Promise.all([
         base44.integrations.Core.InvokeLLM({
@@ -128,7 +147,7 @@ Describe very specifically: the person's facial features (skin undertone, eye co
         existing_image_urls: [personImg, outfitImg],
       });
 
-      // ----- 5. SAUVEGARDER DANS L'HISTORIQUE (côté serveur, fiable) -----
+      // ----- 6. SAUVEGARDER DANS L'HISTORIQUE (côté serveur, fiable) -----
       try {
         await base44.asServiceRole.entities.AnalysisHistory.create({
           person_image: personImg,
@@ -143,6 +162,8 @@ Describe very specifically: the person's facial features (skin undertone, eye co
         console.error('History save failed (non-blocking):', histErr);
       }
 
+      // Libérer le verrou après succès
+      await base44.asServiceRole.entities.AnalysisLock.delete(lock.id);
       return Response.json({
         analysis,
         imageUrl: imageGen.url,
@@ -159,6 +180,8 @@ Describe very specifically: the person's facial features (skin undertone, eye co
           analysis_credits: paidCredits,
         });
       }
+      // Libérer le verrou après échec IA
+      await base44.asServiceRole.entities.AnalysisLock.delete(lock.id);
       return Response.json(
         { error: "L'analyse a échoué. Votre crédit a été remboursé." },
         { status: 500 }
