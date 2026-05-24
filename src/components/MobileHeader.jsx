@@ -1,10 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import { useNavigation } from '@/lib/NavigationContext';
+import useSwipeBack from '@/hooks/useSwipeBack';
 
 export default function MobileHeader({ title }) {
   const navigate = useNavigate();
   const { canGoBack } = useNavigation();
+  useSwipeBack();
 
   if (!canGoBack) return null;
 
