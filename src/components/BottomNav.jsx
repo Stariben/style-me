@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Sparkles, User } from 'lucide-react';
+import { Sparkles, User, Info, Mail } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
 import { useCamera } from '@/lib/CameraContext';
 
@@ -13,6 +13,8 @@ export default function BottomNav() {
 
   const tabs = [
     { path: '/', label: 'StyleMatch', icon: Sparkles },
+    { path: '/about', label: 'About', icon: Info },
+    { path: '/contact', label: 'Contact', icon: Mail },
     { path: '/account', label: t('account'), icon: User },
   ];
 

@@ -8,7 +8,9 @@ import PageNotFound from './lib/PageNotFound';
 import Home from './pages/Home';
 import AccountSettings from './pages/AccountSettings';
 import History from './pages/History.jsx';
-import PrivacyPolicy from './pages/PrivacyPolicy';import BottomNav from './components/BottomNav';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import About from './pages/About';
+import Contact from './pages/Contact';import BottomNav from './components/BottomNav';
 import ConsentBanner from './components/ConsentBanner';
 import PageTransition from './components/PageTransition';
 import MobileHeader from './components/MobileHeader';
@@ -53,6 +55,8 @@ const AuthenticatedApp = () => {
           <Route path="/account" element={<PageTransition><MobileHeader /><AccountSettings /><BottomNav /></PageTransition>} />
           <Route path="/history" element={<PageTransition><MobileHeader /><History /><BottomNav /></PageTransition>} />
           <Route path="/privacy" element={<PageTransition><PrivacyPolicy /></PageTransition>} />
+          <Route path="/about" element={<PageTransition><MobileHeader /><About /><BottomNav /></PageTransition>} />
+          <Route path="/contact" element={<PageTransition><MobileHeader /><Contact /><BottomNav /></PageTransition>} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </AnimatePresence>
@@ -80,4 +84,3 @@ function App() {
 }
 
 export default App
-
