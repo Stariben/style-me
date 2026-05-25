@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export default function InstallPWAButton() {
+export function InstallPWAButton() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -14,12 +14,7 @@ export default function InstallPWAButton() {
       setIsVisible(true);
     };
     window.addEventListener('beforeinstallprompt', handler);
-    
-    // Détecter si déjà installée
-    window.addEventListener('appinstalled', () => {
-      setIsVisible(false);
-    });
-    
+    window.addEventListener('appinstalled', () => setIsVisible(false));
     return () => window.removeEventListener('beforeinstallprompt', handler);
   }, []);
 
@@ -27,27 +22,20 @@ export default function InstallPWAButton() {
     if (!deferredPrompt) return;
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') {
-      setIsVisible(false);
-    }
+    if (outcome === 'accepted') setIsVisible(false);
     setDeferredPrompt(null);
   };
 
   if (!isVisible) return null;
 
   return (
-    <Button
-      onClick={handleInstall}
-      variant="outline"
-      size="sm"
-      className="gap-2"
-      data-testid="install-pwa-btn"
-    >
+    <Button onClick={handleInstall} variant="outline" size="sm" className="gap-2">
       <Download className="h-4 w-4" />
       Installer l'app
     </Button>
   );
 }
+
 export default function Header() {
   return (
     <header className="px-6 pt-6 pb-4">
@@ -60,6 +48,6 @@ export default function Header() {
           <p className="text-xs text-muted-foreground font-medium">AI Outfit Advisor</p>
         </div>
       </div>
-    </header>);
-
+    </header>
+  );
 }
