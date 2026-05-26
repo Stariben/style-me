@@ -10,7 +10,7 @@ import AccountSettings from './pages/AccountSettings';
 import History from './pages/History.jsx';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import About from './pages/About';
-import Contact from './pages/Contact';import BottomNav from './components/BottomNav';
+import Contact from './pages/Contact';import TopNav from './components/TopNav';
 import ConsentBanner from './components/ConsentBanner';
 import PageTransition from './components/PageTransition';
 import MobileHeader from './components/MobileHeader';
@@ -37,14 +37,8 @@ const AuthenticatedApp = () => {
   if (authError) {
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
-    } else if (authError.type === 'auth_required') {
-      // Allow public pages without login
-      const publicPaths = ['/privacy'];
-      if (!publicPaths.includes(window.location.pathname)) {
-        navigateToLogin();
-        return null;
-      }
     }
+    // auth_required → app is public, we just continue unauthenticated
   }
 
   // Render the main app
@@ -52,14 +46,15 @@ const AuthenticatedApp = () => {
     <NavigationProvider>
       <LanguagePicker />
       <ConsentBanner />
+      <TopNav />
       <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<PageTransition><MobileHeader /><Home /><BottomNav /></PageTransition>} />
-          <Route path="/account" element={<PageTransition><MobileHeader /><AccountSettings /><BottomNav /></PageTransition>} />
-          <Route path="/history" element={<PageTransition><MobileHeader /><History /><BottomNav /></PageTransition>} />
+          <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+          <Route path="/account" element={<PageTransition><MobileHeader /><AccountSettings /></PageTransition>} />
+          <Route path="/history" element={<PageTransition><MobileHeader /><History /></PageTransition>} />
           <Route path="/privacy" element={<PageTransition><PrivacyPolicy /></PageTransition>} />
-          <Route path="/about" element={<PageTransition><MobileHeader /><About /><BottomNav /></PageTransition>} />
-          <Route path="/contact" element={<PageTransition><MobileHeader /><Contact /><BottomNav /></PageTransition>} />
+          <Route path="/about" element={<PageTransition><MobileHeader /><About /></PageTransition>} />
+          <Route path="/contact" element={<PageTransition><MobileHeader /><Contact /></PageTransition>} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </AnimatePresence>

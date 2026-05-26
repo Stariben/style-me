@@ -7,7 +7,7 @@ export default function About() {
   const { t } = useLang();
 
   return (
-    <div className="min-h-screen bg-background pb-24">
+    <div className="min-h-screen bg-background pt-16 pb-10">
       <div className="max-w-2xl mx-auto px-4 py-8">
         <button
           onClick={() => navigate(-1)}

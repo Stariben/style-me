@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useLang } from '@/lib/i18n';
-import { Sparkles, RefreshCw } from 'lucide-react';
+import { Sparkles, RefreshCw, LogIn } from 'lucide-react';
 import usePullToRefresh from '../hooks/usePullToRefresh';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
@@ -13,11 +13,13 @@ import AnalyzingOverlay from '../components/AnalyzingOverlay';
 import Paywall from '../components/Paywall';
 import HowItWorks from '../components/HowItWorks';
 import FaqSection from '../components/FaqSection';
+import { useAuth } from '@/lib/AuthContext';
 
 const FREE_ANALYSES = 5;
 
 export default function Home() {
   const { t, lang } = useLang();
+  const { isAuthenticated, navigateToLogin } = useAuth();
 
   const [personImage, setPersonImage] = useState(null);
   const [outfitImage, setOutfitImage] = useState(null);
@@ -133,7 +135,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-28">
+    <div className="min-h-screen bg-background pt-16 pb-10">
       {/* Pull-to-refresh indicator */}
       {pullDistance > 0 && (
         <div
@@ -172,74 +174,104 @@ export default function Home() {
         </p>
       </motion.div>
 
-      {/* Upload section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="px-6"
-      >
-        <div className="flex gap-4">
-          <PhotoUploader
-            type="person"
-            imageUrl={personImage}
-            onImageUploaded={setPersonImage}
-            onClear={() => setPersonImage(null)}
-          />
-          <PhotoUploader
-            type="outfit"
-            imageUrl={outfitImage}
-            onImageUploaded={setOutfitImage}
-            onClear={() => setOutfitImage(null)}
-          />
-        </div>
-      </motion.div>
-
-      {/* Analyze button */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="px-6 mt-6"
-      >
-        <Button
-          onClick={handleAnalyze}
-          disabled={!canAnalyze}
-          className="w-full h-13 rounded-2xl text-base font-semibold gap-2.5 shadow-lg shadow-primary/20 disabled:shadow-none transition-all"
-          size="lg"
+      {/* Scanner — locked behind auth */}
+      {!isAuthenticated ? (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="px-6 mt-2"
         >
-          <Sparkles className="h-5 w-5" />
-          {t('analyzeMyLook')}
-        </Button>
-
-        {!personImage && !outfitImage && (
-          <p className="text-xs text-center text-muted-foreground mt-3">
-            {t('uploadBothPhotos')}
-          </p>
-        )}
-
-        {/* Credits counter */}
-        {userData && (
-          <div className="mt-3 flex justify-center">
-            {paidCredits > 0 ? (
-              <span className="text-xs text-primary font-medium bg-primary/10 px-3 py-1 rounded-full">
-                ⚡ {paidCredits} {paidCredits > 1 ? t('creditsRemaining') : t('creditRemaining')}
-              </span>
-            ) : freeUsed < FREE_ANALYSES ? (
-              <span className="text-xs text-muted-foreground bg-muted px-3 py-1 rounded-full">
-                {FREE_ANALYSES - freeUsed} {FREE_ANALYSES - freeUsed > 1 ? t('freeAnalysesRemaining') : t('freeAnalysisRemaining')}
-              </span>
-            ) : (
-              <button
-                onClick={() => setShowPaywall(true)}
-                className="text-xs text-primary font-medium underline"
-              >
-                {t('noMoreFreeAnalyses')} → {t('buyPack')}
-              </button>
-            )}
+          <div className="rounded-3xl border-2 border-dashed border-primary/30 bg-primary/5 p-8 flex flex-col items-center gap-4 text-center">
+            <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center">
+              <Sparkles className="h-7 w-7 text-primary" />
+            </div>
+            <div>
+              <p className="font-semibold text-foreground mb-1">Analysez votre tenue</p>
+              <p className="text-sm text-muted-foreground">Connectez-vous pour accéder au scanner IA</p>
+            </div>
+            <Button
+              onClick={() => navigateToLogin()}
+              className="gap-2 rounded-2xl px-6"
+              size="lg"
+            >
+              <LogIn className="h-4 w-4" />
+              Sign in
+            </Button>
           </div>
-        )}
-      </motion.div>
+        </motion.div>
+      ) : (
+        <>
+          {/* Upload section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="px-6"
+          >
+            <div className="flex gap-4">
+              <PhotoUploader
+                type="person"
+                imageUrl={personImage}
+                onImageUploaded={setPersonImage}
+                onClear={() => setPersonImage(null)}
+              />
+              <PhotoUploader
+                type="outfit"
+                imageUrl={outfitImage}
+                onImageUploaded={setOutfitImage}
+                onClear={() => setOutfitImage(null)}
+              />
+            </div>
+          </motion.div>
+
+          {/* Analyze button */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="px-6 mt-6"
+          >
+            <Button
+              onClick={handleAnalyze}
+              disabled={!canAnalyze}
+              className="w-full h-13 rounded-2xl text-base font-semibold gap-2.5 shadow-lg shadow-primary/20 disabled:shadow-none transition-all"
+              size="lg"
+            >
+              <Sparkles className="h-5 w-5" />
+              {t('analyzeMyLook')}
+            </Button>
+
+            {!personImage && !outfitImage && (
+              <p className="text-xs text-center text-muted-foreground mt-3">
+                {t('uploadBothPhotos')}
+              </p>
+            )}
+
+            {/* Credits counter */}
+            {userData && (
+              <div className="mt-3 flex justify-center">
+                {paidCredits > 0 ? (
+                  <span className="text-xs text-primary font-medium bg-primary/10 px-3 py-1 rounded-full">
+                    ⚡ {paidCredits} {paidCredits > 1 ? t('creditsRemaining') : t('creditRemaining')}
+                  </span>
+                ) : freeUsed < FREE_ANALYSES ? (
+                  <span className="text-xs text-muted-foreground bg-muted px-3 py-1 rounded-full">
+                    {FREE_ANALYSES - freeUsed} {FREE_ANALYSES - freeUsed > 1 ? t('freeAnalysesRemaining') : t('freeAnalysisRemaining')}
+                  </span>
+                ) : (
+                  <button
+                    onClick={() => setShowPaywall(true)}
+                    className="text-xs text-primary font-medium underline"
+                  >
+                    {t('noMoreFreeAnalyses')} → {t('buyPack')}
+                  </button>
+                )}
+              </div>
+            )}
+          </motion.div>
+        </>
+      )}
 
       {/* Results */}
       <AnimatePresence>
