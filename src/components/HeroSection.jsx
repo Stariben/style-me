@@ -92,7 +92,7 @@ export default function HeroSection({ onStartAnalysis }) {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.22 }}
-        className="mt-9 flex gap-3 overflow-x-auto pb-1 no-scrollbar justify-center"
+        className="mt-9 flex gap-4 overflow-x-auto pb-1 no-scrollbar justify-center"
       >
         {HERO_IMAGES.map((item, i) => (
           <motion.div
@@ -100,18 +100,18 @@ export default function HeroSection({ onStartAnalysis }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.28 + i * 0.07 }}
-            className="shrink-0 w-[148px] rounded-[20px] overflow-hidden bg-card border border-border/60 shadow-lg shadow-black/5"
+            className="shrink-0 w-[175px] rounded-[22px] overflow-hidden bg-card border border-border/60 shadow-lg shadow-black/5"
           >
             <div className="relative">
-              <img src={item.src} alt="" className="w-full h-52 object-cover" />
+              <img src={item.src} alt="" className="w-full h-64 object-cover" />
               {/* Score badge */}
               <div className="absolute top-2 right-2 bg-background/90 backdrop-blur-sm text-foreground text-[11px] font-black px-2 py-0.5 rounded-full shadow-sm">
                 {item.score}
               </div>
             </div>
-            <div className="px-3 py-2.5">
-              <p className="text-[10px] font-semibold text-foreground mb-0.5">{item.tag}</p>
-              <p className="text-[9px] text-primary font-medium">{item.match}</p>
+            <div className="px-3.5 py-3">
+              <p className="text-xs font-semibold text-foreground mb-0.5">{item.tag}</p>
+              <p className="text-[11px] text-primary font-medium">{item.match}</p>
             </div>
           </motion.div>
         ))}

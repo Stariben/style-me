@@ -66,7 +66,7 @@ export default function WhySection() {
       </motion.div>
 
       {/* Feature grid */}
-      <div className="max-w-lg mx-auto grid grid-cols-2 gap-3">
+      <div className="max-w-lg mx-auto grid grid-cols-2 gap-4">
         {FEATURES.map((f, i) => {
           const Icon = f.icon;
           return (
@@ -76,15 +76,15 @@ export default function WhySection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-30px' }}
               transition={{ delay: i * 0.07 }}
-              className={`rounded-2xl p-5 bg-gradient-to-br ${f.color} border border-border/50 bg-card`}
+              className={`rounded-2xl p-6 bg-gradient-to-br ${f.color} border border-border/50 bg-card`}
             >
-              <div className={`h-11 w-11 rounded-xl ${f.iconBg} flex items-center justify-center mb-3`}>
-                <Icon className={`h-4.5 w-4.5 ${f.iconColor}`} size={18} />
+              <div className={`h-12 w-12 rounded-xl ${f.iconBg} flex items-center justify-center mb-4`}>
+                <Icon className={`${f.iconColor}`} size={22} />
               </div>
-              <p className="text-[15px] font-bold text-foreground mb-1 leading-tight">
+              <p className="text-base font-bold text-foreground mb-1.5 leading-tight">
                 {t(f.titleKey) || f.defaultTitle}
               </p>
-              <p className="text-xs text-muted-foreground leading-relaxed">
+              <p className="text-[13px] text-muted-foreground leading-relaxed">
                 {t(f.descKey) || f.defaultDesc}
               </p>
             </motion.div>
