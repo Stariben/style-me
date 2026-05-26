@@ -6,23 +6,16 @@ import usePullToRefresh from '../hooks/usePullToRefresh';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { AnimatePresence, motion } from 'framer-motion';
+import Header from '../components/Header';
 import PhotoUploader from '../components/PhotoUploader';
 import ResultCard from '../components/ResultCard';
 import AnalyzingOverlay from '../components/AnalyzingOverlay';
 import Paywall from '../components/Paywall';
-import HowItWorks from '../components/HowItWorks';
-import FaqSection from '../components/FaqSection';
-import HeroSection from '../components/HeroSection';
-import FeatureCards from '../components/FeatureCards';
-import SocialProof from '../components/SocialProof';
-import CtaBanner from '../components/CtaBanner';
-import { useAuth } from '@/lib/AuthContext';
 
 const FREE_ANALYSES = 5;
 
 export default function Home() {
   const { t, lang } = useLang();
-  const { isAuthenticated, navigateToLogin } = useAuth();
 
   const [personImage, setPersonImage] = useState(null);
   const [outfitImage, setOutfitImage] = useState(null);
@@ -31,14 +24,15 @@ export default function Home() {
   const [showPaywall, setShowPaywall] = useState(false);
   const [userData, setUserData] = useState(null);
 
+  // Load user credits on mount & after payment success
   useEffect(() => {
-    if (!isAuthenticated) return;
     const loadUser = async () => {
       const user = await base44.auth.me();
       setUserData(user);
     };
     loadUser();
 
+    // Check if coming back from successful payment — poll until credits increase
     const params = new URLSearchParams(window.location.search);
     if (params.get('payment') === 'success') {
       window.history.replaceState({}, '', '/');
@@ -57,7 +51,7 @@ export default function Home() {
       };
       setTimeout(poll, 1500);
     }
-  }, [isAuthenticated]);
+  }, []);
 
   const freeUsed = userData?.free_analyses_used || 0;
   const paidCredits = userData?.analysis_credits || 0;
@@ -76,12 +70,14 @@ export default function Home() {
       setGeneratedImage(null);
     },
     mutationFn: async ({ personImg, outfitImg }) => {
+      // 🛡️ Tout est fait côté serveur : quota check + decrement + IA + history
       const res = await base44.functions.invoke('analyzeOutfit', {
         personImg,
         outfitImg,
         lang,
       });
 
+      // Quota épuisé → afficher le paywall
       if (res.data?.needsPayment) {
         setShowPaywall(true);
         throw new Error('quota_exceeded');
@@ -96,15 +92,19 @@ export default function Home() {
     onSuccess: async ({ analysis, imageUrl }) => {
       setResult(analysis);
       setGeneratedImage(imageUrl);
+
+      // Rafraîchir les crédits depuis le serveur (source de vérité)
       const updated = await base44.auth.me();
       setUserData(updated);
     },
     onError: (err) => {
+      // En cas d'erreur quota, ne rien faire (paywall déjà affiché)
       if (err.message === 'quota_exceeded') return;
       console.error('Analyse échouée:', err);
     },
   });
 
+  // Pull-to-refresh resets everything
   const handleRefresh = useCallback(() => {
     resetState();
     analyzeMutation.reset();
@@ -131,11 +131,16 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-background pt-14 pb-12">
-      {/* Pull-to-refresh */}
+    <div className="min-h-screen bg-background pb-28">
+      {/* Pull-to-refresh indicator */}
       {pullDistance > 0 && (
-        <div className="flex items-center justify-center overflow-hidden transition-all" style={{ height: pullDistance }}>
-          <RefreshCw className={`h-5 w-5 text-primary transition-transform ${refreshing ? 'animate-spin' : ''}`} />
+        <div
+          className="flex items-center justify-center overflow-hidden transition-all"
+          style={{ height: pullDistance }}
+        >
+          <RefreshCw
+            className={`h-5 w-5 text-primary transition-transform ${refreshing ? 'animate-spin' : ''}`}
+          />
         </div>
       )}
       {refreshing && (
@@ -147,85 +152,97 @@ export default function Home() {
       <AnimatePresence>{isAnalyzing && <AnalyzingOverlay />}</AnimatePresence>
       <AnimatePresence>{showPaywall && <Paywall onClose={() => setShowPaywall(false)} />}</AnimatePresence>
 
-      {/* Hero */}
-      <HeroSection onSignIn={() => navigateToLogin()} />
+      <Header />
 
-      {/* Scanner */}
-      {isAuthenticated && (
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15 }}
-          className="px-5 mt-2"
+      {/* Hero text */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="px-6 mb-6"
+      >
+        <h2 className="text-2xl font-bold tracking-tight leading-tight">
+          {t('doesThisOutfit')}
+          <br />
+          <span className="text-primary">{t('suitYou')}</span>
+        </h2>
+        <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+          {t('homeSubtitle')}
+        </p>
+      </motion.div>
+
+      {/* Upload section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+        className="px-6"
+      >
+        <div className="flex gap-4">
+          <PhotoUploader
+            type="person"
+            imageUrl={personImage}
+            onImageUploaded={setPersonImage}
+            onClear={() => setPersonImage(null)}
+          />
+          <PhotoUploader
+            type="outfit"
+            imageUrl={outfitImage}
+            onImageUploaded={setOutfitImage}
+            onClear={() => setOutfitImage(null)}
+          />
+        </div>
+      </motion.div>
+
+      {/* Analyze button */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+        className="px-6 mt-6"
+      >
+        <Button
+          onClick={handleAnalyze}
+          disabled={!canAnalyze}
+          className="w-full h-13 rounded-2xl text-base font-semibold gap-2.5 shadow-lg shadow-primary/20 disabled:shadow-none transition-all"
+          size="lg"
         >
-          {/* Upload area */}
-          <div className="flex gap-3">
-            <PhotoUploader
-              type="person"
-              imageUrl={personImage}
-              onImageUploaded={setPersonImage}
-              onClear={() => setPersonImage(null)}
-            />
-            <PhotoUploader
-              type="outfit"
-              imageUrl={outfitImage}
-              onImageUploaded={setOutfitImage}
-              onClear={() => setOutfitImage(null)}
-            />
-          </div>
+          <Sparkles className="h-5 w-5" />
+          {t('analyzeMyLook')}
+        </Button>
 
-          {/* Analyze button */}
-          <div className="mt-4">
-            <Button
-              onClick={handleAnalyze}
-              disabled={!canAnalyze}
-              className="w-full h-13 rounded-2xl text-base font-semibold gap-2.5 shadow-lg shadow-primary/20 disabled:shadow-none transition-all"
-              size="lg"
-            >
-              <Sparkles className="h-5 w-5" />
-              {t('analyzeMyLook')}
-            </Button>
+        {!personImage && !outfitImage && (
+          <p className="text-xs text-center text-muted-foreground mt-3">
+            {t('uploadBothPhotos')}
+          </p>
+        )}
 
-            {!personImage && !outfitImage && (
-              <p className="text-xs text-center text-muted-foreground mt-3">{t('uploadBothPhotos')}</p>
-            )}
-
-            {/* Credits counter */}
-            {userData && (
-              <div className="mt-3 flex justify-center">
-                {paidCredits > 0 ? (
-                  <span className="text-xs text-primary font-medium bg-primary/10 px-3 py-1 rounded-full">
-                    ⚡ {paidCredits} {paidCredits > 1 ? t('creditsRemaining') : t('creditRemaining')}
-                  </span>
-                ) : freeUsed < FREE_ANALYSES ? (
-                  <span className="text-xs text-muted-foreground bg-muted px-3 py-1 rounded-full">
-                    {FREE_ANALYSES - freeUsed} {FREE_ANALYSES - freeUsed > 1 ? t('freeAnalysesRemaining') : t('freeAnalysisRemaining')}
-                  </span>
-                ) : (
-                  <button onClick={() => setShowPaywall(true)} className="text-xs text-primary font-medium underline">
-                    {t('noMoreFreeAnalyses')} → {t('buyPack')}
-                  </button>
-                )}
-              </div>
+        {/* Credits counter */}
+        {userData && (
+          <div className="mt-3 flex justify-center">
+            {paidCredits > 0 ? (
+              <span className="text-xs text-primary font-medium bg-primary/10 px-3 py-1 rounded-full">
+                ⚡ {paidCredits} {paidCredits > 1 ? t('creditsRemaining') : t('creditRemaining')}
+              </span>
+            ) : freeUsed < FREE_ANALYSES ? (
+              <span className="text-xs text-muted-foreground bg-muted px-3 py-1 rounded-full">
+                {FREE_ANALYSES - freeUsed} {FREE_ANALYSES - freeUsed > 1 ? t('freeAnalysesRemaining') : t('freeAnalysisRemaining')}
+              </span>
+            ) : (
+              <button
+                onClick={() => setShowPaywall(true)}
+                className="text-xs text-primary font-medium underline"
+              >
+                {t('noMoreFreeAnalyses')} → {t('buyPack')}
+              </button>
             )}
           </div>
-        </motion.section>
-      )}
+        )}
+      </motion.div>
 
       {/* Results */}
       <AnimatePresence>
         {result && <ResultCard result={result} generatedImage={generatedImage} onReset={handleReset} />}
       </AnimatePresence>
-
-      {/* Landing content — only when no result */}
-      {!result && (
-        <>
-          <FeatureCards />
-          <HowItWorks />
-          <FaqSection />
-          <CtaBanner onSignIn={() => navigateToLogin()} />
-        </>
-      )}
     </div>
   );
 }
