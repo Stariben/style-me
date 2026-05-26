@@ -11,6 +11,8 @@ import PhotoUploader from '../components/PhotoUploader';
 import ResultCard from '../components/ResultCard';
 import AnalyzingOverlay from '../components/AnalyzingOverlay';
 import Paywall from '../components/Paywall';
+import HowItWorks from '../components/HowItWorks';
+import FaqSection from '../components/FaqSection';
 
 const FREE_ANALYSES = 5;
 
@@ -243,6 +245,14 @@ export default function Home() {
       <AnimatePresence>
         {result && <ResultCard result={result} generatedImage={generatedImage} onReset={handleReset} />}
       </AnimatePresence>
+
+      {/* How it works + FAQ — only when no result */}
+      {!result && (
+        <>
+          <HowItWorks />
+          <FaqSection />
+        </>
+      )}
     </div>
   );
 }
