@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { Plus, Minus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLang } from '@/lib/i18n';
 
@@ -44,9 +44,9 @@ const faqContent = {
 
 const titles = {
   fr: 'Questions fréquentes',
-  en: 'Frequently Asked Questions',
+  en: 'FAQ',
   es: 'Preguntas frecuentes',
-  ru: 'Часто задаваемые вопросы',
+  ru: 'Вопросы и ответы',
   zh: '常见问题',
   pt: 'Perguntas frequentes',
 };
@@ -62,38 +62,57 @@ export default function FaqSection() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.4 }}
-      className="px-6 mt-10 mb-4"
+      className="px-6 mt-10 mb-6"
     >
-      <h3 className="text-lg font-bold text-foreground mb-5 text-center">{title}</h3>
+      <h3 className="text-base font-semibold text-muted-foreground uppercase tracking-widest mb-6 text-center">
+        {title}
+      </h3>
+
       <div className="space-y-2">
-        {faqs.map((faq, i) => (
-          <div
-            key={i}
-            className="bg-card border border-border rounded-2xl overflow-hidden"
-          >
-            <button
-              onClick={() => setOpenIndex(openIndex === i ? null : i)}
-              className="w-full flex items-center justify-between px-4 py-3.5 text-left gap-3"
+        {faqs.map((faq, i) => {
+          const isOpen = openIndex === i;
+          return (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45 + i * 0.06 }}
+              className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
+                isOpen
+                  ? 'bg-primary/5 border-primary/20'
+                  : 'bg-card border-border'
+              }`}
             >
-              <span className="text-sm font-medium text-foreground">{faq.q}</span>
-              <ChevronDown
-                className={`h-4 w-4 text-muted-foreground shrink-0 transition-transform ${openIndex === i ? 'rotate-180' : ''}`}
-              />
-            </button>
-            <AnimatePresence>
-              {openIndex === i && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <p className="px-4 pb-4 text-xs text-muted-foreground leading-relaxed">{faq.a}</p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        ))}
+              <button
+                onClick={() => setOpenIndex(isOpen ? null : i)}
+                className="w-full flex items-center justify-between px-4 py-4 text-left gap-3"
+              >
+                <span className="text-sm font-medium text-foreground leading-snug">{faq.q}</span>
+                <div className={`shrink-0 h-6 w-6 rounded-full flex items-center justify-center transition-colors ${
+                  isOpen ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'
+                }`}>
+                  {isOpen
+                    ? <Minus className="h-3 w-3" />
+                    : <Plus className="h-3 w-3" />
+                  }
+                </div>
+              </button>
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    key="content"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.22, ease: 'easeInOut' }}
+                  >
+                    <p className="px-4 pb-4 text-xs text-muted-foreground leading-relaxed">{faq.a}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          );
+        })}
       </div>
     </motion.div>
   );
