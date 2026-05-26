@@ -26,14 +26,14 @@ export default function LanguagePicker() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center"
+        className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-start sm:items-center justify-center"
       >
         <motion.div
-          initial={{ y: 80, opacity: 0 }}
+          initial={{ y: -80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 80, opacity: 0 }}
+          exit={{ y: -80, opacity: 0 }}
           transition={{ type: 'spring', damping: 28, stiffness: 320 }}
-          className="w-full max-w-sm bg-card rounded-t-3xl sm:rounded-3xl border border-border shadow-2xl p-6 pb-10 sm:pb-6"
+          className="w-full max-w-sm bg-card rounded-b-3xl sm:rounded-3xl border border-border shadow-2xl p-6 pt-10 sm:pt-6"
         >
           <div className="flex flex-col items-center text-center mb-6">
             <div className="text-4xl mb-3">🌍</div>
