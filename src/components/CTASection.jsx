@@ -30,7 +30,7 @@ export default function CTASection({ onStartAnalysis }) {
             <p className="text-[11px] font-semibold uppercase tracking-widest text-primary mb-3">
               ✦ Style Me AI
             </p>
-            <h2 className="text-2xl font-black text-background leading-tight mb-3">
+            <h2 className="text-[1.8rem] font-black text-background leading-tight mb-3">
               {t('ctaTitle') || 'Ready to upgrade your style?'}
             </h2>
             <p className="text-sm text-background/55 mb-7 leading-relaxed max-w-xs mx-auto">

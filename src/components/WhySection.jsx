@@ -57,7 +57,7 @@ export default function WhySection() {
         viewport={{ once: true }}
         className="mb-9 text-center max-w-lg mx-auto"
       >
-        <h2 className="text-2xl font-black tracking-tight text-foreground">
+        <h2 className="text-[1.7rem] font-black tracking-tight text-foreground">
           {t('whyTitle') || 'Why use Style Me?'}
         </h2>
         <p className="text-sm text-muted-foreground mt-2">
@@ -76,15 +76,15 @@ export default function WhySection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-30px' }}
               transition={{ delay: i * 0.07 }}
-              className={`rounded-2xl p-4 bg-gradient-to-br ${f.color} border border-border/50 bg-card`}
+              className={`rounded-2xl p-5 bg-gradient-to-br ${f.color} border border-border/50 bg-card`}
             >
-              <div className={`h-9 w-9 rounded-xl ${f.iconBg} flex items-center justify-center mb-3`}>
+              <div className={`h-11 w-11 rounded-xl ${f.iconBg} flex items-center justify-center mb-3`}>
                 <Icon className={`h-4.5 w-4.5 ${f.iconColor}`} size={18} />
               </div>
-              <p className="text-sm font-bold text-foreground mb-1 leading-tight">
+              <p className="text-[15px] font-bold text-foreground mb-1 leading-tight">
                 {t(f.titleKey) || f.defaultTitle}
               </p>
-              <p className="text-[11px] text-muted-foreground leading-relaxed">
+              <p className="text-xs text-muted-foreground leading-relaxed">
                 {t(f.descKey) || f.defaultDesc}
               </p>
             </motion.div>

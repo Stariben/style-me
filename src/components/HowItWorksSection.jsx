@@ -43,7 +43,7 @@ export default function HowItWorksSection({ onStartAnalysis }) {
         viewport={{ once: true }}
         className="text-center mb-9 max-w-lg mx-auto"
       >
-        <h2 className="text-2xl font-black tracking-tight text-foreground">
+        <h2 className="text-[1.7rem] font-black tracking-tight text-foreground">
           {t('howItWorksTitle') || 'Three simple steps'}
         </h2>
         <p className="text-sm text-muted-foreground mt-2">
@@ -61,19 +61,19 @@ export default function HowItWorksSection({ onStartAnalysis }) {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: '-30px' }}
               transition={{ delay: i * 0.09 }}
-              className="flex items-center gap-4 bg-card border border-border/60 rounded-2xl p-4 shadow-sm"
+              className="flex items-center gap-4 bg-card border border-border/60 rounded-2xl p-5 shadow-sm"
             >
               {/* Number */}
               <div className="shrink-0 text-[11px] font-black text-muted-foreground/40 w-6 text-right tracking-tight">
                 {step.num}
               </div>
               {/* Icon */}
-              <div className={`shrink-0 h-10 w-10 rounded-xl flex items-center justify-center ${step.accent}`}>
+              <div className={`shrink-0 h-12 w-12 rounded-xl flex items-center justify-center ${step.accent}`}>
                 <Icon className="h-5 w-5" />
               </div>
               {/* Text */}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold text-foreground leading-tight">
+                <p className="text-[15px] font-bold text-foreground leading-tight">
                   {t(step.titleKey) || step.defaultTitle}
                 </p>
                 <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
