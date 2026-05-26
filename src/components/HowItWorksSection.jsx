@@ -1,31 +1,34 @@
 import { motion } from 'framer-motion';
-import { Camera, SlidersHorizontal, Wand2 } from 'lucide-react';
+import { Camera, SlidersHorizontal, Wand2, ArrowRight } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
 
 const STEPS = [
   {
     icon: Camera,
-    num: '1',
+    num: '01',
     titleKey: 'step1Title',
     descKey: 'step1Desc',
-    defaultTitle: 'Upload Photo',
-    defaultDesc: 'Take a quick selfie or upload a full-body photo. No posing skills needed — just you, as you are.',
+    defaultTitle: 'Your photo',
+    defaultDesc: 'Take a quick selfie or upload a full-body photo. No posing needed — just you.',
+    accent: 'bg-blue-500/10 text-blue-600',
   },
   {
     icon: SlidersHorizontal,
-    num: '2',
+    num: '02',
     titleKey: 'step2Title',
     descKey: 'step2Desc',
-    defaultTitle: 'Choose Outfit',
+    defaultTitle: 'The outfit',
     defaultDesc: 'Upload the outfit you want to try — a screenshot, photo, or store image.',
+    accent: 'bg-violet-500/10 text-violet-600',
   },
   {
     icon: Wand2,
-    num: '3',
+    num: '03',
     titleKey: 'step3Title',
     descKey: 'step3Desc',
-    defaultTitle: 'Get Styled',
-    defaultDesc: 'Our AI generates a photorealistic preview of you in the outfit, with a match score and styling tips.',
+    defaultTitle: 'The analysis',
+    defaultDesc: 'Our AI generates a photorealistic preview with a match score and style tips.',
+    accent: 'bg-pink-500/10 text-pink-600',
   },
 ];
 
@@ -33,50 +36,47 @@ export default function HowItWorksSection({ onStartAnalysis }) {
   const { t } = useLang();
 
   return (
-    <section className="bg-background px-6 py-12">
+    <section className="bg-background px-5 py-14">
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-center mb-8 max-w-lg mx-auto"
+        className="text-center mb-9 max-w-lg mx-auto"
       >
         <h2 className="text-2xl font-black tracking-tight text-foreground">
           {t('howItWorksTitle') || 'Three simple steps'}
         </h2>
-        <p className="text-sm text-muted-foreground mt-1.5">
+        <p className="text-sm text-muted-foreground mt-2">
           {t('howItWorksSubtitle') || 'Upload a photo and get styled in seconds.'}
         </p>
       </motion.div>
 
-      <div className="max-w-lg mx-auto space-y-4">
+      <div className="max-w-lg mx-auto space-y-3">
         {STEPS.map((step, i) => {
           const Icon = step.icon;
           return (
             <motion.div
               key={i}
-              initial={{ opacity: 0, x: -16 }}
+              initial={{ opacity: 0, x: -14 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: '-30px' }}
-              transition={{ delay: i * 0.08 }}
-              className="flex items-start gap-4"
+              transition={{ delay: i * 0.09 }}
+              className="flex items-center gap-4 bg-card border border-border/60 rounded-2xl p-4 shadow-sm"
             >
-              {/* Step number + line */}
-              <div className="flex flex-col items-center">
-                <div className="h-10 w-10 rounded-2xl bg-foreground text-background flex items-center justify-center font-black text-sm shrink-0">
-                  {step.num}
-                </div>
-                {i < STEPS.length - 1 && (
-                  <div className="w-px h-8 bg-border mt-2" />
-                )}
+              {/* Number */}
+              <div className="shrink-0 text-[11px] font-black text-muted-foreground/40 w-6 text-right tracking-tight">
+                {step.num}
               </div>
-              <div className="pt-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <Icon className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-bold text-foreground">
-                    {t(step.titleKey) || step.defaultTitle}
-                  </span>
-                </div>
-                <p className="text-xs text-muted-foreground leading-relaxed">
+              {/* Icon */}
+              <div className={`shrink-0 h-10 w-10 rounded-xl flex items-center justify-center ${step.accent}`}>
+                <Icon className="h-5 w-5" />
+              </div>
+              {/* Text */}
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-bold text-foreground leading-tight">
+                  {t(step.titleKey) || step.defaultTitle}
+                </p>
+                <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
                   {t(step.descKey) || step.defaultDesc}
                 </p>
               </div>
@@ -91,9 +91,10 @@ export default function HowItWorksSection({ onStartAnalysis }) {
         viewport={{ once: true }}
         transition={{ delay: 0.3 }}
         onClick={onStartAnalysis}
-        className="mt-8 max-w-lg mx-auto w-full block bg-primary text-primary-foreground font-semibold text-sm py-3.5 rounded-2xl hover:opacity-90 active:scale-95 transition-all shadow-md shadow-primary/25"
+        className="mt-8 max-w-lg mx-auto w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground font-semibold text-sm py-3.5 rounded-full hover:opacity-90 active:scale-95 transition-all shadow-md shadow-primary/25"
       >
-        {t('startNow') || 'Start Now →'}
+        {t('startNow') || 'Start Now'}
+        <ArrowRight className="h-4 w-4" />
       </motion.button>
     </section>
   );

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Eye, ShoppingBag, Palette, Heart } from 'lucide-react';
+import { Eye, ShoppingBag, Palette, BookMarked } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
 
 const FEATURES = [
@@ -7,37 +7,41 @@ const FEATURES = [
     icon: Eye,
     titleKey: 'featureVisualTryOnTitle',
     descKey: 'featureVisualTryOnDesc',
-    defaultTitle: 'Visual Try-On',
-    defaultDesc: 'Upload a photo of you, instantly see yourself dressed in new outfits. No more wondering if it fits.',
-    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=80',
-    wide: true,
+    defaultTitle: 'AI Visual Try-On',
+    defaultDesc: 'Upload a photo and instantly see yourself in the outfit. No more guessing before buying.',
+    color: 'from-violet-500/10 to-purple-500/5',
+    iconBg: 'bg-violet-500/10',
+    iconColor: 'text-violet-600',
   },
   {
     icon: ShoppingBag,
     titleKey: 'featureShoppingTitle',
     descKey: 'featureShoppingDesc',
     defaultTitle: 'Instant Shopping',
-    defaultDesc: 'Every outfit is built from real products with direct links to buy instantly.',
-    image: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=80',
-    wide: false,
+    defaultDesc: 'Every analysis identifies key pieces — find them and shop them instantly.',
+    color: 'from-pink-500/10 to-rose-500/5',
+    iconBg: 'bg-pink-500/10',
+    iconColor: 'text-pink-600',
   },
   {
     icon: Palette,
     titleKey: 'featureStyleTitle',
     descKey: 'featureStyleDesc',
     defaultTitle: 'Personal Style',
-    defaultDesc: 'Pick a vibe from Streetwear to Formal and get looks that match your aesthetic.',
-    image: 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=600&q=80',
-    wide: false,
+    defaultDesc: 'Advice tailored to your body type and complexion for the perfect look.',
+    color: 'from-amber-500/10 to-orange-500/5',
+    iconBg: 'bg-amber-500/10',
+    iconColor: 'text-amber-600',
   },
   {
-    icon: Heart,
+    icon: BookMarked,
     titleKey: 'featureSaveTitle',
     descKey: 'featureSaveDesc',
-    defaultTitle: 'Save & Revisit',
-    defaultDesc: 'Your full analysis history saved forever — compare looks any time.',
-    image: 'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=600&q=80',
-    wide: true,
+    defaultTitle: 'Full History',
+    defaultDesc: 'All your analyses saved. Compare your outfits any time.',
+    color: 'from-emerald-500/10 to-teal-500/5',
+    iconBg: 'bg-emerald-500/10',
+    iconColor: 'text-emerald-600',
   },
 ];
 
@@ -45,52 +49,44 @@ export default function WhySection() {
   const { t } = useLang();
 
   return (
-    <section className="bg-muted/50 px-6 py-12">
-      {/* Section header */}
+    <section className="bg-muted/40 px-5 py-14">
+      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="mb-8 text-center max-w-lg mx-auto"
+        className="mb-9 text-center max-w-lg mx-auto"
       >
         <h2 className="text-2xl font-black tracking-tight text-foreground">
           {t('whyTitle') || 'Why use Style Me?'}
         </h2>
-        <p className="text-sm text-muted-foreground mt-1.5">
+        <p className="text-sm text-muted-foreground mt-2">
           {t('whySubtitle') || 'Your style, elevated effortlessly.'}
         </p>
       </motion.div>
 
-      <div className="max-w-lg mx-auto space-y-3">
+      {/* Feature grid */}
+      <div className="max-w-lg mx-auto grid grid-cols-2 gap-3">
         {FEATURES.map((f, i) => {
           const Icon = f.icon;
           return (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ delay: i * 0.05 }}
-              className={`rounded-2xl overflow-hidden border border-border bg-card shadow-sm ${f.wide ? 'flex flex-col' : 'flex flex-row h-32'}`}
+              viewport={{ once: true, margin: '-30px' }}
+              transition={{ delay: i * 0.07 }}
+              className={`rounded-2xl p-4 bg-gradient-to-br ${f.color} border border-border/50 bg-card`}
             >
-              <img
-                src={f.image}
-                alt=""
-                className={f.wide ? 'w-full h-44 object-cover' : 'w-32 h-full object-cover shrink-0'}
-              />
-              <div className="p-4 flex flex-col justify-center">
-                <div className="flex items-center gap-2 mb-1.5">
-                  <div className="h-6 w-6 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    <Icon className="h-3.5 w-3.5 text-primary" />
-                  </div>
-                  <span className="text-sm font-bold text-foreground">
-                    {t(f.titleKey) || f.defaultTitle}
-                  </span>
-                </div>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  {t(f.descKey) || f.defaultDesc}
-                </p>
+              <div className={`h-9 w-9 rounded-xl ${f.iconBg} flex items-center justify-center mb-3`}>
+                <Icon className={`h-4.5 w-4.5 ${f.iconColor}`} size={18} />
               </div>
+              <p className="text-sm font-bold text-foreground mb-1 leading-tight">
+                {t(f.titleKey) || f.defaultTitle}
+              </p>
+              <p className="text-[11px] text-muted-foreground leading-relaxed">
+                {t(f.descKey) || f.defaultDesc}
+              </p>
             </motion.div>
           );
         })}
