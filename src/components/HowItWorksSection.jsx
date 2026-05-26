@@ -33,12 +33,12 @@ export default function HowItWorksSection({ onStartAnalysis }) {
   const { t } = useLang();
 
   return (
-    <section className="px-6 py-10 bg-muted/40 rounded-3xl mx-4 mb-6">
+    <section className="bg-background px-6 py-12">
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-center mb-8"
+        className="text-center mb-8 max-w-lg mx-auto"
       >
         <h2 className="text-2xl font-black tracking-tight text-foreground">
           {t('howItWorksTitle') || 'Three simple steps'}
@@ -48,7 +48,7 @@ export default function HowItWorksSection({ onStartAnalysis }) {
         </p>
       </motion.div>
 
-      <div className="space-y-4">
+      <div className="max-w-lg mx-auto space-y-4">
         {STEPS.map((step, i) => {
           const Icon = step.icon;
           return (
@@ -91,7 +91,7 @@ export default function HowItWorksSection({ onStartAnalysis }) {
         viewport={{ once: true }}
         transition={{ delay: 0.3 }}
         onClick={onStartAnalysis}
-        className="mt-8 w-full bg-primary text-primary-foreground font-semibold text-sm py-3.5 rounded-2xl hover:opacity-90 active:scale-95 transition-all shadow-md shadow-primary/25"
+        className="mt-8 max-w-lg mx-auto w-full block bg-primary text-primary-foreground font-semibold text-sm py-3.5 rounded-2xl hover:opacity-90 active:scale-95 transition-all shadow-md shadow-primary/25"
       >
         {t('startNow') || 'Start Now →'}
       </motion.button>

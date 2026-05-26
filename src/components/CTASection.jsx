@@ -10,9 +10,9 @@ export default function CTASection({ onStartAnalysis }) {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="mx-4 mb-10"
+      className="px-4 pb-10 bg-muted/50 pt-12"
     >
-      <div className="bg-foreground rounded-3xl px-6 py-10 text-center relative overflow-hidden">
+      <div className="bg-foreground rounded-3xl px-6 py-10 text-center relative overflow-hidden max-w-lg mx-auto">
         {/* Decorative blobs */}
         <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-primary/20 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl pointer-events-none" />

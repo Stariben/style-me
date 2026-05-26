@@ -24,57 +24,59 @@ export default function HeroSection({ onStartAnalysis }) {
   const { t } = useLang();
 
   return (
-    <section className="px-6 pt-10 pb-8">
-      {/* Pill badge */}
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-5"
-      >
-        <span className="inline-flex items-center gap-1.5 bg-primary/10 text-primary text-xs font-semibold px-3 py-1.5 rounded-full border border-primary/20">
-          <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-          {t('herobadge') || 'AI stylist in your pocket'}
-        </span>
-      </motion.div>
+    <section className="bg-background px-6 pt-10 pb-12">
+      <div className="max-w-lg mx-auto text-center">
+        {/* Pill badge */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-5 flex justify-center"
+        >
+          <span className="inline-flex items-center gap-1.5 bg-primary/10 text-primary text-xs font-semibold px-3 py-1.5 rounded-full border border-primary/20">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+            {t('herobadge') || 'AI stylist in your pocket'}
+          </span>
+        </motion.div>
 
-      {/* Headline */}
-      <motion.h1
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.05 }}
-        className="text-[2rem] font-black leading-tight tracking-tight text-foreground mb-3"
-      >
-        {t('heroHeadline1') || 'AI-powered outfits,'}<br />
-        <span className="text-primary">{t('heroHeadline2') || 'personalized to you.'}</span>
-      </motion.h1>
+        {/* Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.05 }}
+          className="text-[2rem] font-black leading-tight tracking-tight text-foreground mb-3"
+        >
+          {t('heroHeadline1') || 'AI-powered outfits,'}<br />
+          <span className="text-primary">{t('heroHeadline2') || 'personalized to you.'}</span>
+        </motion.h1>
 
-      <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="text-sm text-muted-foreground leading-relaxed mb-7 max-w-xs"
-      >
-        {t('heroSubtitle') || 'Upload a photo and get an instant AI analysis of your outfit — with a match score, style tips, and a photorealistic preview.'}
-      </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="text-sm text-muted-foreground leading-relaxed mb-7 mx-auto max-w-xs"
+        >
+          {t('heroSubtitle') || 'Upload a photo and get an instant AI analysis of your outfit — with a match score, style tips, and a photorealistic preview.'}
+        </motion.p>
 
-      {/* CTA */}
-      <motion.button
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.15 }}
-        onClick={onStartAnalysis}
-        className="inline-flex items-center gap-2 bg-foreground text-background font-semibold text-sm px-6 py-3.5 rounded-2xl hover:opacity-90 active:scale-95 transition-all shadow-lg"
-      >
-        <Sparkles className="h-4 w-4" />
-        {t('getStartedFree') || 'Try it for free'}
-      </motion.button>
+        {/* CTA */}
+        <motion.button
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.15 }}
+          onClick={onStartAnalysis}
+          className="inline-flex items-center gap-2 bg-foreground text-background font-semibold text-sm px-6 py-3.5 rounded-2xl hover:opacity-90 active:scale-95 transition-all shadow-lg"
+        >
+          <Sparkles className="h-4 w-4" />
+          {t('getStartedFree') || 'Try it for free'}
+        </motion.button>
+      </div>
 
       {/* Floating cards */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="mt-8 flex gap-3 overflow-x-auto pb-2 -mx-1 px-1 no-scrollbar"
+        className="mt-8 flex gap-3 overflow-x-auto pb-2 -mx-1 px-1 no-scrollbar justify-center"
       >
         {HERO_IMAGES.map((item, i) => (
           <motion.div

@@ -45,13 +45,13 @@ export default function WhySection() {
   const { t } = useLang();
 
   return (
-    <section className="px-6 py-10">
+    <section className="bg-muted/50 px-6 py-12">
       {/* Section header */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="mb-8 text-center"
+        className="mb-8 text-center max-w-lg mx-auto"
       >
         <h2 className="text-2xl font-black tracking-tight text-foreground">
           {t('whyTitle') || 'Why use Style Me?'}
@@ -61,7 +61,7 @@ export default function WhySection() {
         </p>
       </motion.div>
 
-      <div className="space-y-3">
+      <div className="max-w-lg mx-auto space-y-3">
         {FEATURES.map((f, i) => {
           const Icon = f.icon;
           return (
