@@ -222,7 +222,6 @@ export default function Home() {
         <>
           <FeatureCards />
           <HowItWorks />
-          <SocialProof />
           <FaqSection />
           <CtaBanner onSignIn={() => navigateToLogin()} />
         </>
