@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Sparkles, User, Info, Mail, LogIn } from 'lucide-react';
+import { Sparkles, User, LogIn } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
 import { useCamera } from '@/lib/CameraContext';
 import { useAuth } from '@/lib/AuthContext';
@@ -13,58 +13,82 @@ export default function TopNav() {
 
   if (isCameraOpen) return null;
 
-  const tabs = [
-    { path: '/', label: 'StyleMe', icon: Sparkles },
-    { path: '/about', label: 'About', icon: Info },
-    { path: '/contact', label: 'Contact', icon: Mail },
+  const navLinks = [
+    { path: '/about', label: 'Features' },
+    { path: '/contact', label: 'Contact' },
   ];
-
-  // Account tab: Sign in if not authenticated, Account if authenticated
-  const accountTab = isAuthenticated
-    ? { path: '/account', label: t('account'), icon: User, action: () => navigate('/account') }
-    : { path: null, label: 'Sign in', icon: LogIn, action: () => navigateToLogin() };
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 bg-card/90 backdrop-blur-md border-b border-border flex items-center"
+      className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100"
       style={{ paddingTop: 'env(safe-area-inset-top)' }}
     >
-      {tabs.map(({ path, label, icon: Icon }) => {
-        const active = pathname === path;
-        return (
-          <button
-            key={path}
-            onClick={() => navigate(path, { replace: active })}
-            className="flex-1 flex flex-col items-center justify-center py-3 gap-1 transition-colors select-none"
-            style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
-          >
-            <Icon className={`h-5 w-5 transition-colors ${active ? 'text-primary' : 'text-muted-foreground'}`} />
-            <span className={`text-[10px] font-medium transition-colors ${active ? 'text-primary' : 'text-muted-foreground'}`}>
-              {label}
-            </span>
-          </button>
-        );
-      })}
+      <div className="flex items-center justify-between px-5 h-14">
+        {/* Logo */}
+        <button
+          onClick={() => navigate('/')}
+          className="flex items-center gap-2 select-none"
+        >
+          <div className="h-8 w-8 rounded-xl bg-primary/10 flex items-center justify-center">
+            <Sparkles className="h-4 w-4 text-primary" />
+          </div>
+          <span className="font-bold text-base text-foreground tracking-tight">
+            Style Me <span className="text-primary">AI</span>
+          </span>
+        </button>
 
-      {/* Sign in / Account button */}
-      <button
-        onClick={accountTab.action}
-        className="flex-1 flex flex-col items-center justify-center py-3 gap-1 transition-colors select-none"
-        style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
-      >
-        {(() => {
-          const Icon = accountTab.icon;
-          const active = pathname === accountTab.path;
-          return (
-            <>
-              <Icon className={`h-5 w-5 transition-colors ${active ? 'text-primary' : isAuthenticated ? 'text-muted-foreground' : 'text-primary'}`} />
-              <span className={`text-[10px] font-medium transition-colors ${active ? 'text-primary' : isAuthenticated ? 'text-muted-foreground' : 'text-primary'}`}>
-                {accountTab.label}
-              </span>
-            </>
-          );
-        })()}
-      </button>
+        {/* Center nav links */}
+        <div className="hidden sm:flex items-center gap-1">
+          {navLinks.map(({ path, label }) => {
+            const active = pathname === path;
+            return (
+              <button
+                key={path}
+                onClick={() => navigate(path)}
+                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                  active
+                    ? 'text-foreground bg-gray-100'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-gray-50'
+                }`}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Auth button */}
+        {isAuthenticated ? (
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => navigate('/account')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                pathname === '/account'
+                  ? 'text-primary bg-primary/10'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-gray-50'
+              }`}
+            >
+              <User className="h-4 w-4" />
+              <span className="hidden sm:inline">{t('account')}</span>
+            </button>
+          </div>
+        ) : (
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => navigateToLogin()}
+              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-3 py-1.5"
+            >
+              Sign In
+            </button>
+            <button
+              onClick={() => navigateToLogin()}
+              className="text-sm font-semibold bg-foreground text-white px-4 py-2 rounded-xl hover:bg-foreground/90 transition-colors"
+            >
+              Get Started
+            </button>
+          </div>
+        )}
+      </div>
     </nav>
   );
 }
