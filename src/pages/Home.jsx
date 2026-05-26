@@ -119,7 +119,12 @@ export default function Home() {
   const isAnalyzing = analyzeMutation.isPending;
   const canAnalyze = personImage && outfitImage && !isAnalyzing;
 
-  const handleAnalyze = () => {
+  const handleAnalyze = async () => {
+    const authed = await base44.auth.isAuthenticated();
+    if (!authed) {
+      base44.auth.redirectToLogin(window.location.href);
+      return;
+    }
     if (!canUseApp) {
       setShowPaywall(true);
       return;
@@ -134,7 +139,12 @@ export default function Home() {
     analyzeMutation.reset();
   };
 
-  const handleStartAnalysis = () => {
+  const handleStartAnalysis = async () => {
+    const authed = await base44.auth.isAuthenticated();
+    if (!authed) {
+      base44.auth.redirectToLogin(window.location.href);
+      return;
+    }
     setShowTool(true);
     setTimeout(() => {
       toolRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });

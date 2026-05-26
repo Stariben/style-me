@@ -38,12 +38,7 @@ const AuthenticatedApp = () => {
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
     } else if (authError.type === 'auth_required') {
-      // Allow public pages without login
-      const publicPaths = ['/privacy'];
-      if (!publicPaths.includes(window.location.pathname)) {
-        navigateToLogin();
-        return null;
-      }
+      // Allow public access — individual pages handle auth requirements
     }
   }
 
