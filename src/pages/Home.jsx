@@ -11,7 +11,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import HeroSection from '../components/HeroSection';
 import WhySection from '../components/WhySection';
 import HowItWorksSection from '../components/HowItWorksSection';
-import TestimonialsSection from '../components/TestimonialsSection';
 import CTASection from '../components/CTASection';
 
 // Tool components
@@ -143,7 +142,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-28">
+    <div className="min-h-screen bg-background pt-14 pb-6">
       {/* Pull-to-refresh */}
       {pullDistance > 0 && (
         <div className="flex items-center justify-center overflow-hidden transition-all" style={{ height: pullDistance }}>
@@ -173,7 +172,6 @@ export default function Home() {
             <HeroSection onStartAnalysis={handleStartAnalysis} />
             <WhySection />
             <HowItWorksSection onStartAnalysis={handleStartAnalysis} />
-            <TestimonialsSection />
             <CTASection onStartAnalysis={handleStartAnalysis} />
           </motion.div>
         ) : (
