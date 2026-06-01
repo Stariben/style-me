@@ -15,10 +15,10 @@ const FEATURES = [
   },
   {
     icon: ShoppingBag,
-    titleKey: 'featureShoppingTitle',
-    descKey: 'featureShoppingDesc',
-    defaultTitle: 'Instant Shopping',
-    defaultDesc: 'Every analysis identifies key pieces — find them and shop them instantly.',
+    titleKey: 'featurePrivacyTitle',
+    descKey: 'featurePrivacyDesc',
+    defaultTitle: 'Vie privée protégée',
+    defaultDesc: 'Vos photos ne sont jamais partagées. Seule notre IA les analyse.',
     color: 'from-pink-500/10 to-rose-500/5',
     iconBg: 'bg-pink-500/10',
     iconColor: 'text-pink-600',
@@ -57,10 +57,10 @@ export default function WhySection() {
         viewport={{ once: true }}
         className="mb-9 text-center max-w-lg mx-auto"
       >
-        <h2 className="text-[1.7rem] font-black tracking-tight text-foreground">
+        <h2 className="text-[2rem] font-black tracking-tight text-foreground">
           {t('whyTitle') || 'Why use Style Me?'}
         </h2>
-        <p className="text-sm text-muted-foreground mt-2">
+        <p className="text-base text-muted-foreground mt-2">
           {t('whySubtitle') || 'Your style, elevated effortlessly.'}
         </p>
       </motion.div>
@@ -78,13 +78,13 @@ export default function WhySection() {
               transition={{ delay: i * 0.07 }}
               className={`rounded-2xl p-6 bg-gradient-to-br ${f.color} border border-border/50 bg-card`}
             >
-              <div className={`h-12 w-12 rounded-xl ${f.iconBg} flex items-center justify-center mb-4`}>
-                <Icon className={`${f.iconColor}`} size={22} />
+              <div className={`h-14 w-14 rounded-xl ${f.iconBg} flex items-center justify-center mb-4`}>
+                <Icon className={`${f.iconColor}`} size={26} />
               </div>
-              <p className="text-base font-bold text-foreground mb-1.5 leading-tight">
+              <p className="text-[17px] font-bold text-foreground mb-2 leading-tight">
                 {t(f.titleKey) || f.defaultTitle}
               </p>
-              <p className="text-[13px] text-muted-foreground leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 {t(f.descKey) || f.defaultDesc}
               </p>
             </motion.div>

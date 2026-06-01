@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useLang } from '@/lib/i18n';
 
 function ScoreRing({ score }) {
-  const radius = 40;
+  const radius = 42;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (score / 10) * circumference;
 
@@ -15,7 +15,7 @@ function ScoreRing({ score }) {
   };
 
   return (
-    <div className="relative w-28 h-28 flex items-center justify-center">
+    <div className="relative w-36 h-36 flex items-center justify-center">
       <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
         <circle cx="50" cy="50" r={radius} fill="none" stroke="currentColor" strokeWidth="6" className="text-muted/80" />
         <motion.circle
@@ -33,7 +33,7 @@ function ScoreRing({ score }) {
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.5 }}
-          className={`text-3xl font-bold ${getColor()}`}
+          className={`text-4xl font-bold ${getColor()}`}
         >
           {score}
         </motion.span>
@@ -74,7 +74,7 @@ export default function ResultCard({ result, generatedImage, onReset }) {
         {/* Score */}
         <div className="flex flex-col items-center mb-6">
           <ScoreRing score={result.match_score} />
-          <h3 className="text-lg font-bold mt-3">{result.verdict}</h3>
+          <h3 className="text-xl font-bold mt-3">{result.verdict}</h3>
         </div>
 
         {/* Pros */}
@@ -82,7 +82,7 @@ export default function ResultCard({ result, generatedImage, onReset }) {
           <div className="mb-4">
             <div className="flex items-center gap-2 mb-2">
               <ThumbsUp className="h-4 w-4 text-green-500" />
-              <span className="text-sm font-semibold">{t('resultWhatWorks')}</span>
+              <span className="text-base font-semibold">{t('resultWhatWorks')}</span>
             </div>
             <ul className="space-y-1.5">
               {result.pros.map((pro, i) => (
@@ -91,7 +91,7 @@ export default function ResultCard({ result, generatedImage, onReset }) {
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.6 + i * 0.1 }}
-                  className="text-sm text-muted-foreground pl-4 relative before:content-[''] before:absolute before:left-0 before:top-2 before:h-1.5 before:w-1.5 before:rounded-full before:bg-green-400"
+                  className="text-base text-muted-foreground pl-5 relative before:content-[''] before:absolute before:left-0 before:top-2.5 before:h-2 before:w-2 before:rounded-full before:bg-green-400"
                 >
                   {pro}
                 </motion.li>
@@ -105,7 +105,7 @@ export default function ResultCard({ result, generatedImage, onReset }) {
           <div className="mb-4">
             <div className="flex items-center gap-2 mb-2">
               <ThumbsDown className="h-4 w-4 text-red-400" />
-              <span className="text-sm font-semibold">{t('resultConsider')}</span>
+              <span className="text-base font-semibold">{t('resultConsider')}</span>
             </div>
             <ul className="space-y-1.5">
               {result.cons.map((con, i) => (
@@ -114,7 +114,7 @@ export default function ResultCard({ result, generatedImage, onReset }) {
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.8 + i * 0.1 }}
-                  className="text-sm text-muted-foreground pl-4 relative before:content-[''] before:absolute before:left-0 before:top-2 before:h-1.5 before:w-1.5 before:rounded-full before:bg-red-400"
+                  className="text-base text-muted-foreground pl-5 relative before:content-[''] before:absolute before:left-0 before:top-2.5 before:h-2 before:w-2 before:rounded-full before:bg-red-400"
                 >
                   {con}
                 </motion.li>
@@ -128,7 +128,7 @@ export default function ResultCard({ result, generatedImage, onReset }) {
           <div className="mb-5">
             <div className="flex items-center gap-2 mb-2">
               <Lightbulb className="h-4 w-4 text-accent" />
-              <span className="text-sm font-semibold">{t('resultStyleTips')}</span>
+              <span className="text-base font-semibold">{t('resultStyleTips')}</span>
             </div>
             <ul className="space-y-1.5">
               {result.styling_tips.map((tip, i) => (
@@ -137,7 +137,7 @@ export default function ResultCard({ result, generatedImage, onReset }) {
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 1 + i * 0.1 }}
-                  className="text-sm text-muted-foreground pl-4 relative before:content-[''] before:absolute before:left-0 before:top-2 before:h-1.5 before:w-1.5 before:rounded-full before:bg-accent"
+                  className="text-base text-muted-foreground pl-5 relative before:content-[''] before:absolute before:left-0 before:top-2.5 before:h-2 before:w-2 before:rounded-full before:bg-accent"
                 >
                   {tip}
                 </motion.li>
@@ -146,7 +146,7 @@ export default function ResultCard({ result, generatedImage, onReset }) {
           </div>
         )}
 
-        <Button onClick={onReset} variant="outline" className="w-full rounded-xl h-11 gap-2">
+        <Button onClick={onReset} variant="outline" className="w-full rounded-xl h-14 text-base gap-2">
           <RefreshCw className="h-4 w-4" />
           {t('tryAnotherOutfit')}
         </Button>

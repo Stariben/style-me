@@ -12,6 +12,7 @@ import HeroSection from '../components/HeroSection';
 import WhySection from '../components/WhySection';
 import HowItWorksSection from '../components/HowItWorksSection';
 import CTASection from '../components/CTASection';
+import PrivacySection from '../components/PrivacySection';
 
 // Tool components
 import Header from '../components/Header';
@@ -181,6 +182,7 @@ export default function Home() {
             <Header />
             <HeroSection onStartAnalysis={handleStartAnalysis} />
             <WhySection />
+            <PrivacySection />
             <HowItWorksSection onStartAnalysis={handleStartAnalysis} />
             <CTASection onStartAnalysis={handleStartAnalysis} />
           </motion.div>
@@ -219,12 +221,12 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               className="px-6 mb-6"
             >
-              <h2 className="text-2xl font-bold tracking-tight leading-tight">
+              <h2 className="text-[1.75rem] font-bold tracking-tight leading-tight">
                 {t('doesThisOutfit')}
                 <br />
                 <span className="text-primary">{t('suitYou')}</span>
               </h2>
-              <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+              <p className="text-base text-muted-foreground mt-2 leading-relaxed">
                 {t('homeSubtitle')}
               </p>
             </motion.div>
@@ -262,7 +264,7 @@ export default function Home() {
               <Button
                 onClick={handleAnalyze}
                 disabled={!canAnalyze}
-                className="w-full h-13 rounded-2xl text-base font-semibold gap-2.5 shadow-lg shadow-primary/20 disabled:shadow-none transition-all"
+                className="w-full h-14 rounded-2xl text-lg font-semibold gap-2.5 shadow-lg shadow-primary/20 disabled:shadow-none transition-all"
                 size="lg"
               >
                 <Sparkles className="h-5 w-5" />

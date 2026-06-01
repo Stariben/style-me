@@ -43,10 +43,10 @@ export default function HowItWorksSection({ onStartAnalysis }) {
         viewport={{ once: true }}
         className="text-center mb-9 max-w-lg mx-auto"
       >
-        <h2 className="text-[1.7rem] font-black tracking-tight text-foreground">
+        <h2 className="text-[2rem] font-black tracking-tight text-foreground">
           {t('howItWorksTitle') || 'Three simple steps'}
         </h2>
-        <p className="text-sm text-muted-foreground mt-2">
+        <p className="text-base text-muted-foreground mt-2">
           {t('howItWorksSubtitle') || 'Upload a photo and get styled in seconds.'}
         </p>
       </motion.div>
@@ -68,15 +68,15 @@ export default function HowItWorksSection({ onStartAnalysis }) {
                 {step.num}
               </div>
               {/* Icon */}
-              <div className={`shrink-0 h-12 w-12 rounded-xl flex items-center justify-center ${step.accent}`}>
-                <Icon className="h-5 w-5" />
+              <div className={`shrink-0 h-14 w-14 rounded-xl flex items-center justify-center ${step.accent}`}>
+                <Icon className="h-6 w-6" />
               </div>
               {/* Text */}
               <div className="flex-1 min-w-0">
-                <p className="text-[15px] font-bold text-foreground leading-tight">
+                <p className="text-[17px] font-bold text-foreground leading-tight">
                   {t(step.titleKey) || step.defaultTitle}
                 </p>
-                <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
+                <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
                   {t(step.descKey) || step.defaultDesc}
                 </p>
               </div>
