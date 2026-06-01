@@ -66,7 +66,7 @@ export default function WhySection() {
       </motion.div>
 
       {/* Feature grid */}
-      <div className="max-w-lg mx-auto grid grid-cols-2 gap-4">
+      <div className="max-w-lg mx-auto grid grid-cols-2 gap-3">
         {FEATURES.map((f, i) => {
           const Icon = f.icon;
           return (
@@ -76,10 +76,10 @@ export default function WhySection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-30px' }}
               transition={{ delay: i * 0.07 }}
-              className={`rounded-2xl p-6 bg-gradient-to-br ${f.color} border border-border/50 bg-card`}
+              className={`rounded-2xl p-4 bg-gradient-to-br ${f.color} border border-border/50 bg-card`}
             >
-              <div className={`h-14 w-14 rounded-xl ${f.iconBg} flex items-center justify-center mb-4`}>
-                <Icon className={`${f.iconColor}`} size={28} />
+              <div className={`h-11 w-11 rounded-xl ${f.iconBg} flex items-center justify-center mb-3`}>
+                <Icon className={`${f.iconColor}`} size={22} />
               </div>
               <p className="text-[17px] font-bold text-foreground mb-2 leading-tight">
                 {t(f.titleKey) || f.defaultTitle}
