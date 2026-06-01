@@ -157,6 +157,8 @@ export const translations = {
     faq5A: 'Oui ! Toutes vos analyses sont sauvegardées dans votre historique. Vous pouvez les comparer côte à côte pour choisir la meilleure tenue pour n\'importe quelle occasion.',
     faq6Q: 'Puis-je supprimer mes articles et mes looks enregistrés ?',
     faq6A: 'Oui. Vous pouvez supprimer des éléments de votre historique et gérer vos looks enregistrés à tout moment depuis l\'application.',
+    faq7Q: 'Combien de temps ça prend ?',
+    faq7A: 'En général environ une minute selon la demande. Nous optimisons continuellement le pipeline pour que les résultats semblent instantanés.',
     // About
     aboutTitle: "À propos de Style Me",
     aboutSubtitle: "Une question, un problème ou une suggestion ? Nous sommes là pour vous aider.",
@@ -328,6 +330,8 @@ export const translations = {
     faq5A: 'Yes! All your analyses are saved in your history. You can compare them side-by-side to pick the best outfit for any occasion.',
     faq6Q: 'Can I delete my wardrobe items and saved looks?',
     faq6A: 'Yes. You can remove items from your history and manage saved looks at any time inside the app.',
+    faq7Q: 'How long does it take?',
+    faq7A: 'Usually around a minute depending on demand. We\'re optimizing the pipeline continuously so results feel instant.',
     // About
     aboutTitle: "About Style Me",
     aboutSubtitle: "A question, an issue or a suggestion? We are here to help.",
