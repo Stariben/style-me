@@ -27,8 +27,8 @@ export default function HeroSection({ onStartAnalysis }) {
   const { t } = useLang();
 
   return (
-    <section className="bg-background px-5 pt-10 pb-12 overflow-hidden">
-      <div className="max-w-lg mx-auto text-center">
+    <section className="bg-background px-5 pt-10 pb-12 md:pt-20 md:pb-20 overflow-hidden">
+      <div className="max-w-2xl mx-auto text-center">
 
         {/* Pill badge */}
         <motion.div
@@ -47,7 +47,7 @@ export default function HeroSection({ onStartAnalysis }) {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.06 }}
-          className="text-[2.9rem] font-black leading-[1.12] tracking-tight text-foreground mb-4"
+          className="text-[2.9rem] md:text-[4.5rem] font-black leading-[1.12] tracking-tight text-foreground mb-4"
         >
           {t('heroHeadline1') || 'AI-powered outfits,'}<br />
           <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
@@ -59,7 +59,7 @@ export default function HeroSection({ onStartAnalysis }) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.12 }}
-          className="text-[17px] text-muted-foreground leading-relaxed mb-8 mx-auto max-w-[320px]"
+          className="text-[17px] md:text-xl text-muted-foreground leading-relaxed mb-8 mx-auto max-w-[320px] md:max-w-[520px]"
         >
           {t('heroSubtitle') || 'Upload a photo and get an instant AI analysis with a match score, style tips, and photorealistic preview.'}
         </motion.p>
@@ -92,7 +92,7 @@ export default function HeroSection({ onStartAnalysis }) {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.22 }}
-        className="mt-9 flex gap-4 overflow-x-auto pb-2 no-scrollbar px-5 sm:justify-center"
+        className="mt-9 flex gap-4 md:gap-6 overflow-x-auto pb-2 no-scrollbar px-5 sm:justify-center"
       >
         {HERO_IMAGES.map((item, i) => (
           <motion.div
@@ -100,18 +100,18 @@ export default function HeroSection({ onStartAnalysis }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.28 + i * 0.07 }}
-            className="shrink-0 w-[200px] rounded-[22px] overflow-hidden bg-card border border-border/60 shadow-lg shadow-black/5"
+            className="shrink-0 w-[200px] md:w-[280px] rounded-[22px] overflow-hidden bg-card border border-border/60 shadow-lg shadow-black/5"
           >
-            <div className="relative h-72 bg-muted">
-              <img src={item.src} alt="" className="w-full h-72 object-cover" loading="lazy" decoding="async" />
+            <div className="relative h-72 md:h-96 bg-muted">
+              <img src={item.src} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               {/* Score badge */}
               <div className="absolute top-2 right-2 bg-background/90 backdrop-blur-sm text-foreground text-[11px] font-black px-2 py-0.5 rounded-full shadow-sm">
                 {item.score}
               </div>
             </div>
-            <div className="px-4 py-3.5">
-              <p className="text-sm font-semibold text-foreground mb-0.5">{item.tag}</p>
-              <p className="text-[13px] text-primary font-medium">{item.match}</p>
+            <div className="px-4 md:px-6 py-3.5 md:py-5">
+              <p className="text-sm md:text-base font-semibold text-foreground mb-0.5">{item.tag}</p>
+              <p className="text-[13px] md:text-sm text-primary font-medium">{item.match}</p>
             </div>
           </motion.div>
         ))}

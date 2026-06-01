@@ -53,24 +53,24 @@ export default function WhySection() {
   const { t } = useLang();
 
   return (
-    <section className="bg-muted/40 px-5 py-14">
+    <section className="bg-muted/40 px-5 py-16 md:py-24">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="mb-9 text-center max-w-lg mx-auto"
+        className="mb-10 text-center max-w-2xl mx-auto"
       >
-        <h2 className="text-[1.7rem] font-black tracking-tight text-foreground">
+        <h2 className="text-[1.7rem] md:text-[2.6rem] font-black tracking-tight text-foreground">
           {t('whyTitle') || 'Why use Style Me?'}
         </h2>
-        <p className="text-sm text-muted-foreground mt-2">
+        <p className="text-sm md:text-lg text-muted-foreground mt-2">
           {t('whySubtitle') || 'Your style, elevated effortlessly.'}
         </p>
       </motion.div>
 
       {/* Feature grid — asymmetric layout */}
-      <div className="max-w-lg mx-auto grid grid-cols-2 gap-3">
+      <div className="max-w-2xl md:max-w-5xl mx-auto grid grid-cols-2 gap-3 md:gap-5">
 
         {/* Card 0 — tall (spans 2 rows) */}
         {(() => {
@@ -81,15 +81,15 @@ export default function WhySection() {
               viewport={{ once: true, margin: '-30px' }} transition={{ delay: 0 }}
               className={`row-span-2 rounded-2xl overflow-hidden bg-gradient-to-br ${f.color} border border-border/50 flex flex-col`}
             >
-              <div className="h-48 shrink-0 overflow-hidden bg-muted">
+              <div className="h-48 md:h-80 shrink-0 overflow-hidden bg-muted">
                 <img src={f.image} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
-              <div className="p-4">
-                <div className={`h-9 w-9 rounded-xl ${f.iconBg} flex items-center justify-center mb-2`}>
+              <div className="p-4 md:p-7">
+                <div className={`h-9 w-9 md:h-12 md:w-12 rounded-xl ${f.iconBg} flex items-center justify-center mb-2 md:mb-3`}>
                   <Icon className={f.iconColor} size={18} />
                 </div>
-                <p className="text-[15px] font-bold text-foreground mb-1 leading-tight">{t(f.titleKey) || f.defaultTitle}</p>
-                <p className="text-[13px] text-muted-foreground leading-relaxed">{t(f.descKey) || f.defaultDesc}</p>
+                <p className="text-[15px] md:text-xl font-bold text-foreground mb-1 leading-tight">{t(f.titleKey) || f.defaultTitle}</p>
+                <p className="text-[13px] md:text-base text-muted-foreground leading-relaxed">{t(f.descKey) || f.defaultDesc}</p>
               </div>
             </motion.div>
           );
@@ -104,15 +104,15 @@ export default function WhySection() {
               viewport={{ once: true, margin: '-30px' }} transition={{ delay: 0.07 }}
               className={`rounded-2xl overflow-hidden bg-gradient-to-br ${f.color} border border-border/50`}
             >
-              <div className="w-full h-24 shrink-0 overflow-hidden bg-muted">
+              <div className="w-full h-24 md:h-40 shrink-0 overflow-hidden bg-muted">
                 <img src={f.image} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
-              <div className="p-3">
-                <div className={`h-8 w-8 rounded-xl ${f.iconBg} flex items-center justify-center mb-1.5`}>
+              <div className="p-3 md:p-5">
+                <div className={`h-8 w-8 md:h-11 md:w-11 rounded-xl ${f.iconBg} flex items-center justify-center mb-1.5 md:mb-2`}>
                   <Icon className={f.iconColor} size={16} />
                 </div>
-                <p className="text-[13px] font-bold text-foreground mb-1 leading-tight">{t(f.titleKey) || f.defaultTitle}</p>
-                <p className="text-[11px] text-muted-foreground leading-relaxed">{t(f.descKey) || f.defaultDesc}</p>
+                <p className="text-[13px] md:text-base font-bold text-foreground mb-1 leading-tight">{t(f.titleKey) || f.defaultTitle}</p>
+                <p className="text-[11px] md:text-sm text-muted-foreground leading-relaxed">{t(f.descKey) || f.defaultDesc}</p>
               </div>
             </motion.div>
           );
@@ -127,15 +127,15 @@ export default function WhySection() {
               viewport={{ once: true, margin: '-30px' }} transition={{ delay: 0.14 }}
               className={`rounded-2xl overflow-hidden bg-gradient-to-br ${f.color} border border-border/50`}
             >
-              <div className="w-full h-24 shrink-0 overflow-hidden bg-muted">
+              <div className="w-full h-24 md:h-40 shrink-0 overflow-hidden bg-muted">
                 <img src={f.image} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
-              <div className="p-3">
-                <div className={`h-8 w-8 rounded-xl ${f.iconBg} flex items-center justify-center mb-1.5`}>
+              <div className="p-3 md:p-5">
+                <div className={`h-8 w-8 md:h-11 md:w-11 rounded-xl ${f.iconBg} flex items-center justify-center mb-1.5 md:mb-2`}>
                   <Icon className={f.iconColor} size={16} />
                 </div>
-                <p className="text-[13px] font-bold text-foreground mb-1 leading-tight">{t(f.titleKey) || f.defaultTitle}</p>
-                <p className="text-[11px] text-muted-foreground leading-relaxed">{t(f.descKey) || f.defaultDesc}</p>
+                <p className="text-[13px] md:text-base font-bold text-foreground mb-1 leading-tight">{t(f.titleKey) || f.defaultTitle}</p>
+                <p className="text-[11px] md:text-sm text-muted-foreground leading-relaxed">{t(f.descKey) || f.defaultDesc}</p>
               </div>
             </motion.div>
           );
@@ -150,15 +150,15 @@ export default function WhySection() {
               viewport={{ once: true, margin: '-30px' }} transition={{ delay: 0.21 }}
               className={`col-span-2 rounded-2xl overflow-hidden bg-gradient-to-br ${f.color} border border-border/50 flex flex-row`}
             >
-              <div className="w-36 h-32 shrink-0 overflow-hidden bg-muted">
+              <div className="w-36 md:w-64 h-32 md:h-48 shrink-0 overflow-hidden bg-muted">
                 <img src={f.image} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
-              <div className="p-4 flex flex-col justify-center">
-                <div className={`h-9 w-9 rounded-xl ${f.iconBg} flex items-center justify-center mb-2`}>
+              <div className="p-4 md:p-8 flex flex-col justify-center">
+                <div className={`h-9 w-9 md:h-12 md:w-12 rounded-xl ${f.iconBg} flex items-center justify-center mb-2 md:mb-3`}>
                   <Icon className={f.iconColor} size={18} />
                 </div>
-                <p className="text-[15px] font-bold text-foreground mb-1 leading-tight">{t(f.titleKey) || f.defaultTitle}</p>
-                <p className="text-[13px] text-muted-foreground leading-relaxed">{t(f.descKey) || f.defaultDesc}</p>
+                <p className="text-[15px] md:text-xl font-bold text-foreground mb-1 leading-tight">{t(f.titleKey) || f.defaultTitle}</p>
+                <p className="text-[13px] md:text-base text-muted-foreground leading-relaxed">{t(f.descKey) || f.defaultDesc}</p>
               </div>
             </motion.div>
           );
