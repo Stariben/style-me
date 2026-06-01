@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Eye, ShoppingBag, Palette, BookMarked } from 'lucide-react';
+import { Eye, ShieldCheck, Palette, BookMarked } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
 
 const FEATURES = [
@@ -14,14 +14,14 @@ const FEATURES = [
     iconColor: 'text-violet-600',
   },
   {
-    icon: ShoppingBag,
-    titleKey: 'featureShoppingTitle',
-    descKey: 'featureShoppingDesc',
-    defaultTitle: 'Instant Shopping',
-    defaultDesc: 'Every analysis identifies key pieces — find them and shop them instantly.',
-    color: 'from-pink-500/10 to-rose-500/5',
-    iconBg: 'bg-pink-500/10',
-    iconColor: 'text-pink-600',
+    icon: ShieldCheck,
+    titleKey: 'featurePrivacyTitle',
+    descKey: 'featurePrivacyDesc',
+    defaultTitle: 'Your Privacy',
+    defaultDesc: 'Your photos are never stored or shared. Analyzed and deleted instantly.',
+    color: 'from-green-500/10 to-emerald-500/5',
+    iconBg: 'bg-green-500/10',
+    iconColor: 'text-green-600',
   },
   {
     icon: Palette,
