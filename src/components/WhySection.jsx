@@ -12,6 +12,7 @@ const FEATURES = [
     color: 'from-violet-500/10 to-purple-500/5',
     iconBg: 'bg-violet-500/10',
     iconColor: 'text-violet-600',
+    image: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=400&q=80',
   },
   {
     icon: ShieldCheck,
@@ -22,6 +23,7 @@ const FEATURES = [
     color: 'from-green-500/10 to-emerald-500/5',
     iconBg: 'bg-green-500/10',
     iconColor: 'text-green-600',
+    image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&q=80',
   },
   {
     icon: Palette,
@@ -32,6 +34,7 @@ const FEATURES = [
     color: 'from-amber-500/10 to-orange-500/5',
     iconBg: 'bg-amber-500/10',
     iconColor: 'text-amber-600',
+    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&q=80',
   },
   {
     icon: BookMarked,
@@ -42,6 +45,7 @@ const FEATURES = [
     color: 'from-emerald-500/10 to-teal-500/5',
     iconBg: 'bg-emerald-500/10',
     iconColor: 'text-emerald-600',
+    image: 'https://images.unsplash.com/photo-1467043153537-a4fba2cd39ef?w=400&q=80',
   },
 ];
 
@@ -76,17 +80,24 @@ export default function WhySection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-30px' }}
               transition={{ delay: i * 0.07 }}
-              className={`rounded-2xl p-4 bg-gradient-to-br ${f.color} border border-border/50 bg-card`}
+              className={`rounded-2xl overflow-hidden bg-gradient-to-br ${f.color} border border-border/50 bg-card`}
             >
-              <div className={`h-11 w-11 rounded-xl ${f.iconBg} flex items-center justify-center mb-3`}>
-                <Icon className={`${f.iconColor}`} size={22} />
+              {/* Image */}
+              <div className="w-full h-32 overflow-hidden">
+                <img src={f.image} alt="" className="w-full h-full object-cover" />
               </div>
-              <p className="text-[17px] font-bold text-foreground mb-2 leading-tight">
-                {t(f.titleKey) || f.defaultTitle}
-              </p>
-              <p className="text-[14px] text-muted-foreground leading-relaxed">
-                {t(f.descKey) || f.defaultDesc}
-              </p>
+              {/* Content */}
+              <div className="p-4">
+                <div className={`h-9 w-9 rounded-xl ${f.iconBg} flex items-center justify-center mb-2`}>
+                  <Icon className={`${f.iconColor}`} size={18} />
+                </div>
+                <p className="text-[15px] font-bold text-foreground mb-1 leading-tight">
+                  {t(f.titleKey) || f.defaultTitle}
+                </p>
+                <p className="text-[13px] text-muted-foreground leading-relaxed">
+                  {t(f.descKey) || f.defaultDesc}
+                </p>
+              </div>
             </motion.div>
           );
         })}
