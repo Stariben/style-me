@@ -92,7 +92,7 @@ export default function HeroSection({ onStartAnalysis }) {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.22 }}
-        className="mt-9 flex gap-4 overflow-x-auto pb-2 no-scrollbar px-2"
+        className="mt-9 flex gap-4 overflow-x-auto pb-2 no-scrollbar px-5 justify-start"
       >
         {HERO_IMAGES.map((item, i) => (
           <motion.div
