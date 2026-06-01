@@ -111,6 +111,8 @@ export const translations = {
     whySubtitle: 'Votre style, sublimé sans effort.',
     featureVisualTryOnTitle: 'Essayage virtuel IA',
     featureVisualTryOnDesc: 'Voyez-vous instantanément habillé avec la tenue. Fini les doutes avant d\'acheter.',
+    featurePrivacyTitle: 'Confidentialité',
+    featurePrivacyDesc: 'Confidentialité avant tout. Vos photos sont traitées en temps réel. Vous gérez vos données, sans tracking, sans compromis, sans revente.',
     featureShoppingTitle: 'Liens Shopping',
     featureShoppingDesc: 'Chaque analyse identifie les pièces clés — trouvez-les et achetez-les facilement.',
     featureStyleTitle: 'Style Personnalisé',
