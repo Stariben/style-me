@@ -68,15 +68,15 @@ export default function HowItWorksSection({ onStartAnalysis }) {
                 {step.num}
               </div>
               {/* Icon */}
-              <div className={`shrink-0 h-12 w-12 rounded-xl flex items-center justify-center ${step.accent}`}>
-                <Icon className="h-5 w-5" />
+              <div className={`shrink-0 h-14 w-14 rounded-xl flex items-center justify-center ${step.accent}`}>
+                <Icon className="h-7 w-7" />
               </div>
               {/* Text */}
               <div className="flex-1 min-w-0">
-                <p className="text-[15px] font-bold text-foreground leading-tight">
+                <p className="text-[17px] font-bold text-foreground leading-tight">
                   {t(step.titleKey) || step.defaultTitle}
                 </p>
-                <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
+                <p className="text-[14px] text-muted-foreground mt-1 leading-relaxed">
                   {t(step.descKey) || step.defaultDesc}
                 </p>
               </div>
@@ -91,7 +91,7 @@ export default function HowItWorksSection({ onStartAnalysis }) {
         viewport={{ once: true }}
         transition={{ delay: 0.3 }}
         onClick={onStartAnalysis}
-        className="mt-8 max-w-lg mx-auto w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground font-semibold text-sm py-3.5 rounded-full hover:opacity-90 active:scale-95 transition-all shadow-md shadow-primary/25"
+        className="mt-8 max-w-lg mx-auto w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground font-semibold text-lg py-5 rounded-full hover:opacity-90 active:scale-95 transition-all shadow-md shadow-primary/25"
       >
         {t('startNow') || 'Start Now'}
         <ArrowRight className="h-4 w-4" />

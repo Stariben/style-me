@@ -47,7 +47,7 @@ export default function HeroSection({ onStartAnalysis }) {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.06 }}
-          className="text-[2.5rem] font-black leading-[1.12] tracking-tight text-foreground mb-4"
+          className="text-[2.9rem] font-black leading-[1.12] tracking-tight text-foreground mb-4"
         >
           {t('heroHeadline1') || 'AI-powered outfits,'}<br />
           <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
@@ -59,7 +59,7 @@ export default function HeroSection({ onStartAnalysis }) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.12 }}
-          className="text-[15px] text-muted-foreground leading-relaxed mb-8 mx-auto max-w-[300px]"
+          className="text-[17px] text-muted-foreground leading-relaxed mb-8 mx-auto max-w-[320px]"
         >
           {t('heroSubtitle') || 'Upload a photo and get an instant AI analysis with a match score, style tips, and photorealistic preview.'}
         </motion.p>
@@ -70,7 +70,7 @@ export default function HeroSection({ onStartAnalysis }) {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.18 }}
           onClick={onStartAnalysis}
-          className="inline-flex items-center gap-2 bg-foreground text-background font-semibold text-base px-8 py-4 rounded-full hover:opacity-85 active:scale-95 transition-all shadow-xl shadow-foreground/15"
+          className="inline-flex items-center gap-2 bg-foreground text-background font-semibold text-lg px-10 py-5 rounded-full hover:opacity-85 active:scale-95 transition-all shadow-xl shadow-foreground/15"
         >
           {t('getStartedFree') || 'Try it for free'}
           <ArrowRight className="h-4 w-4" />
@@ -100,18 +100,18 @@ export default function HeroSection({ onStartAnalysis }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.28 + i * 0.07 }}
-            className="shrink-0 w-[175px] rounded-[22px] overflow-hidden bg-card border border-border/60 shadow-lg shadow-black/5"
+            className="shrink-0 w-[200px] rounded-[22px] overflow-hidden bg-card border border-border/60 shadow-lg shadow-black/5"
           >
             <div className="relative">
-              <img src={item.src} alt="" className="w-full h-64 object-cover" />
+              <img src={item.src} alt="" className="w-full h-72 object-cover" />
               {/* Score badge */}
               <div className="absolute top-2 right-2 bg-background/90 backdrop-blur-sm text-foreground text-[11px] font-black px-2 py-0.5 rounded-full shadow-sm">
                 {item.score}
               </div>
             </div>
-            <div className="px-3.5 py-3">
-              <p className="text-xs font-semibold text-foreground mb-0.5">{item.tag}</p>
-              <p className="text-[11px] text-primary font-medium">{item.match}</p>
+            <div className="px-4 py-3.5">
+              <p className="text-sm font-semibold text-foreground mb-0.5">{item.tag}</p>
+              <p className="text-[13px] text-primary font-medium">{item.match}</p>
             </div>
           </motion.div>
         ))}

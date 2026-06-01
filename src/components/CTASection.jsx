@@ -30,15 +30,15 @@ export default function CTASection({ onStartAnalysis }) {
             <p className="text-[11px] font-semibold uppercase tracking-widest text-primary mb-3">
               ✦ Style Me AI
             </p>
-            <h2 className="text-[1.8rem] font-black text-background leading-tight mb-3">
+            <h2 className="text-[2.1rem] font-black text-background leading-tight mb-3">
               {t('ctaTitle') || 'Ready to upgrade your style?'}
             </h2>
-            <p className="text-sm text-background/55 mb-7 leading-relaxed max-w-xs mx-auto">
+            <p className="text-base text-background/55 mb-7 leading-relaxed max-w-xs mx-auto">
               {t('ctaSubtitle') || 'Personal AI styling, simplified. Start free today.'}
             </p>
             <button
               onClick={onStartAnalysis}
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-semibold text-sm px-7 py-3.5 rounded-full hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-primary/40"
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-semibold text-lg px-9 py-4.5 rounded-full hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-primary/40"
             >
               {t('ctaButton') || 'Get Started Now'}
               <ArrowRight className="h-4 w-4" />
