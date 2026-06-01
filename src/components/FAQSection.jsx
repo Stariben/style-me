@@ -18,22 +18,22 @@ export default function FAQSection() {
   const [open, setOpen] = useState(null);
 
   return (
-    <section className="bg-background px-5 py-14">
+    <section className="bg-background px-5 py-14 md:py-24">
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-center mb-9 max-w-lg mx-auto"
+        className="text-center mb-9 max-w-2xl mx-auto"
       >
-        <h2 className="text-[1.7rem] font-black tracking-tight text-foreground">
+        <h2 className="text-[1.7rem] md:text-[2.6rem] font-black tracking-tight text-foreground">
           {t('faqTitle') || 'Questions fréquentes'}
         </h2>
-        <p className="text-sm text-muted-foreground mt-2">
+        <p className="text-sm md:text-lg text-muted-foreground mt-2">
           {t('faqSubtitle') || 'Tout ce que vous devez savoir.'}
         </p>
       </motion.div>
 
-      <div className="max-w-lg mx-auto space-y-2">
+      <div className="max-w-2xl md:max-w-4xl mx-auto space-y-2 md:space-y-3">
         {FAQ_KEYS.map(({ qKey, aKey }, i) => {
           const isOpen = open === i;
           return (
@@ -47,13 +47,13 @@ export default function FAQSection() {
             >
               <button
                 onClick={() => setOpen(isOpen ? null : i)}
-                className="w-full flex items-center justify-between px-5 py-4 text-left gap-3"
+                className="w-full flex items-center justify-between px-5 md:px-8 py-4 md:py-6 text-left gap-3"
               >
-                <span className="text-[15px] font-semibold text-foreground leading-snug">
+                <span className="text-[15px] md:text-lg font-semibold text-foreground leading-snug">
                   {t(qKey)}
                 </span>
                 <ChevronDown
-                  className={`h-5 w-5 text-muted-foreground shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+                  className={`h-5 w-5 md:h-6 md:w-6 text-muted-foreground shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
                 />
               </button>
               <AnimatePresence initial={false}>
@@ -66,7 +66,7 @@ export default function FAQSection() {
                     transition={{ duration: 0.22, ease: 'easeInOut' }}
                     className="overflow-hidden"
                   >
-                    <p className="px-5 pb-4 text-[14px] text-muted-foreground leading-relaxed">
+                    <p className="px-5 md:px-8 pb-4 md:pb-6 text-[14px] md:text-base text-muted-foreground leading-relaxed">
                       {t(aKey)}
                     </p>
                   </motion.div>

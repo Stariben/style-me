@@ -36,22 +36,22 @@ export default function HowItWorksSection({ onStartAnalysis }) {
   const { t } = useLang();
 
   return (
-    <section className="bg-background px-5 py-14">
+    <section className="bg-background px-5 py-14 md:py-24">
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-center mb-9 max-w-lg mx-auto"
+        className="text-center mb-9 max-w-2xl mx-auto"
       >
-        <h2 className="text-[1.7rem] font-black tracking-tight text-foreground">
+        <h2 className="text-[1.7rem] md:text-[2.6rem] font-black tracking-tight text-foreground">
           {t('howItWorksTitle') || 'Three simple steps'}
         </h2>
-        <p className="text-sm text-muted-foreground mt-2">
+        <p className="text-sm md:text-lg text-muted-foreground mt-2">
           {t('howItWorksSubtitle') || 'Upload a photo and get styled in seconds.'}
         </p>
       </motion.div>
 
-      <div className="max-w-lg mx-auto space-y-3">
+      <div className="max-w-2xl md:max-w-4xl mx-auto space-y-3 md:space-y-5">
         {STEPS.map((step, i) => {
           const Icon = step.icon;
           return (
@@ -61,22 +61,22 @@ export default function HowItWorksSection({ onStartAnalysis }) {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: '-30px' }}
               transition={{ delay: i * 0.09 }}
-              className="flex items-center gap-4 bg-card border border-border/60 rounded-2xl p-5 shadow-sm"
+              className="flex items-center gap-4 md:gap-8 bg-card border border-border/60 rounded-2xl p-5 md:p-8 shadow-sm"
             >
               {/* Number */}
-              <div className="shrink-0 text-[11px] font-black text-muted-foreground/40 w-6 text-right tracking-tight">
+              <div className="shrink-0 text-[11px] md:text-sm font-black text-muted-foreground/40 w-6 text-right tracking-tight">
                 {step.num}
               </div>
               {/* Icon */}
-              <div className={`shrink-0 h-14 w-14 rounded-xl flex items-center justify-center ${step.accent}`}>
-                <Icon className="h-7 w-7" />
+              <div className={`shrink-0 h-14 w-14 md:h-20 md:w-20 rounded-xl md:rounded-2xl flex items-center justify-center ${step.accent}`}>
+                <Icon className="h-7 w-7 md:h-10 md:w-10" />
               </div>
               {/* Text */}
               <div className="flex-1 min-w-0">
-                <p className="text-[17px] font-bold text-foreground leading-tight">
+                <p className="text-[17px] md:text-2xl font-bold text-foreground leading-tight">
                   {t(step.titleKey) || step.defaultTitle}
                 </p>
-                <p className="text-[14px] text-muted-foreground mt-1 leading-relaxed">
+                <p className="text-[14px] md:text-base text-muted-foreground mt-1 leading-relaxed">
                   {t(step.descKey) || step.defaultDesc}
                 </p>
               </div>
@@ -91,7 +91,7 @@ export default function HowItWorksSection({ onStartAnalysis }) {
         viewport={{ once: true }}
         transition={{ delay: 0.3 }}
         onClick={onStartAnalysis}
-        className="mt-8 max-w-lg mx-auto w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground font-semibold text-lg py-5 rounded-full hover:opacity-90 active:scale-95 transition-all shadow-md shadow-primary/25"
+        className="mt-8 max-w-2xl md:max-w-4xl mx-auto w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground font-semibold text-lg md:text-xl py-5 md:py-6 rounded-full hover:opacity-90 active:scale-95 transition-all shadow-md shadow-primary/25"
       >
         {t('startNow') || 'Start Now'}
         <ArrowRight className="h-4 w-4" />
