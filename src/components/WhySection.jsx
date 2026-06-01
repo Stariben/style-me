@@ -69,38 +69,101 @@ export default function WhySection() {
         </p>
       </motion.div>
 
-      {/* Feature grid */}
+      {/* Feature grid — asymmetric layout */}
       <div className="max-w-lg mx-auto grid grid-cols-2 gap-3">
-        {FEATURES.map((f, i) => {
-          const Icon = f.icon;
+
+        {/* Card 0 — tall (spans 2 rows) */}
+        {(() => {
+          const f = FEATURES[0]; const Icon = f.icon;
           return (
             <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-30px' }}
-              transition={{ delay: i * 0.07 }}
-              className={`rounded-2xl overflow-hidden bg-gradient-to-br ${f.color} border border-border/50 bg-card`}
+              initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-30px' }} transition={{ delay: 0 }}
+              className={`row-span-2 rounded-2xl overflow-hidden bg-gradient-to-br ${f.color} border border-border/50 flex flex-col`}
             >
-              {/* Image */}
-              <div className="w-full h-32 overflow-hidden">
+              <div className="flex-1 min-h-0 overflow-hidden">
                 <img src={f.image} alt="" className="w-full h-full object-cover" />
               </div>
-              {/* Content */}
               <div className="p-4">
                 <div className={`h-9 w-9 rounded-xl ${f.iconBg} flex items-center justify-center mb-2`}>
-                  <Icon className={`${f.iconColor}`} size={18} />
+                  <Icon className={f.iconColor} size={18} />
                 </div>
-                <p className="text-[15px] font-bold text-foreground mb-1 leading-tight">
-                  {t(f.titleKey) || f.defaultTitle}
-                </p>
-                <p className="text-[13px] text-muted-foreground leading-relaxed">
-                  {t(f.descKey) || f.defaultDesc}
-                </p>
+                <p className="text-[15px] font-bold text-foreground mb-1 leading-tight">{t(f.titleKey) || f.defaultTitle}</p>
+                <p className="text-[13px] text-muted-foreground leading-relaxed">{t(f.descKey) || f.defaultDesc}</p>
               </div>
             </motion.div>
           );
-        })}
+        })()}
+
+        {/* Card 1 — small (no image) */}
+        {(() => {
+          const f = FEATURES[1]; const Icon = f.icon;
+          return (
+            <motion.div
+              initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-30px' }} transition={{ delay: 0.07 }}
+              className={`rounded-2xl overflow-hidden bg-gradient-to-br ${f.color} border border-border/50`}
+            >
+              <div className="w-full h-24 overflow-hidden">
+                <img src={f.image} alt="" className="w-full h-full object-cover" />
+              </div>
+              <div className="p-3">
+                <div className={`h-8 w-8 rounded-xl ${f.iconBg} flex items-center justify-center mb-1.5`}>
+                  <Icon className={f.iconColor} size={16} />
+                </div>
+                <p className="text-[13px] font-bold text-foreground mb-1 leading-tight">{t(f.titleKey) || f.defaultTitle}</p>
+                <p className="text-[11px] text-muted-foreground leading-relaxed">{t(f.descKey) || f.defaultDesc}</p>
+              </div>
+            </motion.div>
+          );
+        })()}
+
+        {/* Card 2 — small (no image) */}
+        {(() => {
+          const f = FEATURES[2]; const Icon = f.icon;
+          return (
+            <motion.div
+              initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-30px' }} transition={{ delay: 0.14 }}
+              className={`rounded-2xl overflow-hidden bg-gradient-to-br ${f.color} border border-border/50`}
+            >
+              <div className="w-full h-24 overflow-hidden">
+                <img src={f.image} alt="" className="w-full h-full object-cover" />
+              </div>
+              <div className="p-3">
+                <div className={`h-8 w-8 rounded-xl ${f.iconBg} flex items-center justify-center mb-1.5`}>
+                  <Icon className={f.iconColor} size={16} />
+                </div>
+                <p className="text-[13px] font-bold text-foreground mb-1 leading-tight">{t(f.titleKey) || f.defaultTitle}</p>
+                <p className="text-[11px] text-muted-foreground leading-relaxed">{t(f.descKey) || f.defaultDesc}</p>
+              </div>
+            </motion.div>
+          );
+        })()}
+
+        {/* Card 3 — wide (spans 2 cols) */}
+        {(() => {
+          const f = FEATURES[3]; const Icon = f.icon;
+          return (
+            <motion.div
+              initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-30px' }} transition={{ delay: 0.21 }}
+              className={`col-span-2 rounded-2xl overflow-hidden bg-gradient-to-br ${f.color} border border-border/50 flex flex-row`}
+            >
+              <div className="w-36 shrink-0 overflow-hidden">
+                <img src={f.image} alt="" className="w-full h-full object-cover" />
+              </div>
+              <div className="p-4 flex flex-col justify-center">
+                <div className={`h-9 w-9 rounded-xl ${f.iconBg} flex items-center justify-center mb-2`}>
+                  <Icon className={f.iconColor} size={18} />
+                </div>
+                <p className="text-[15px] font-bold text-foreground mb-1 leading-tight">{t(f.titleKey) || f.defaultTitle}</p>
+                <p className="text-[13px] text-muted-foreground leading-relaxed">{t(f.descKey) || f.defaultDesc}</p>
+              </div>
+            </motion.div>
+          );
+        })()}
+
       </div>
     </section>
   );
