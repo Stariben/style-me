@@ -261,7 +261,7 @@ export default function History() {
             className="mx-6 mb-4 rounded-2xl bg-destructive/10 border border-destructive/20 p-4 flex items-center justify-between gap-3"
           >
             <p className="text-sm font-medium text-destructive">
-              {deleteItems.length === 0 ? t('deleteSelectLabel') : t('deleteSelected', deleteItems.length)}
+              {deleteItems.length === 0 ? t('deleteSelectLabel') : `${t('deleteSelected')} (${deleteItems.length})`}
             </p>
             <div className="flex gap-2">
               <Button size="sm" variant="ghost" className="rounded-xl h-8 px-3" onClick={cancelDelete}>{t('cancel')}</Button>

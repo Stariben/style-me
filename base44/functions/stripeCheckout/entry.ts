@@ -1,14 +1,13 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 import Stripe from 'npm:stripe@14.21.0';
 
-const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY"));
-
 const PACKS = {
   pack10: { priceId: 'price_1TY8H2E9v6SxdgVsBiQNYICn', credits: 10 },
   pack50: { priceId: 'price_1TY8H2E9v6SxdgVsjkoC1T2W', credits: 50 },
 };
 
 Deno.serve(async (req) => {
+  const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY"));
   try {
     const base44 = createClientFromRequest(req);
     const user = await base44.auth.me();
