@@ -9,6 +9,7 @@ const FAQ_KEYS = [
   { qKey: 'faq3Q', aKey: 'faq3A' },
   { qKey: 'faq4Q', aKey: 'faq4A' },
   { qKey: 'faq5Q', aKey: 'faq5A' },
+  { qKey: 'faq6Q', aKey: 'faq6A' },
 ];
 
 export default function FAQSection() {

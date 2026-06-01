@@ -155,6 +155,8 @@ export const translations = {
     faq4A: 'Pour votre photo : un selfie ou une photo en pied claire. Pour la tenue : une photo, une capture d\'écran d\'un site de mode ou une image de boutique. Les formats acceptés sont JPG, PNG et WEBP.',
     faq5Q: 'Puis-je comparer plusieurs tenues ?',
     faq5A: 'Oui ! Toutes vos analyses sont sauvegardées dans votre historique. Vous pouvez les comparer côte à côte pour choisir la meilleure tenue pour n\'importe quelle occasion.',
+    faq6Q: 'Puis-je supprimer mes articles et mes looks enregistrés ?',
+    faq6A: 'Oui. Vous pouvez supprimer des éléments de votre historique et gérer vos looks enregistrés à tout moment depuis l\'application.',
     // About
     aboutTitle: "À propos de Style Me",
     aboutSubtitle: "Une question, un problème ou une suggestion ? Nous sommes là pour vous aider.",
@@ -324,6 +326,8 @@ export const translations = {
     faq4A: 'For your photo: a selfie or clear full-body shot. For the outfit: a photo, screenshot from a fashion site, or store image. Accepted formats are JPG, PNG, and WEBP.',
     faq5Q: 'Can I compare multiple outfits?',
     faq5A: 'Yes! All your analyses are saved in your history. You can compare them side-by-side to pick the best outfit for any occasion.',
+    faq6Q: 'Can I delete my wardrobe items and saved looks?',
+    faq6A: 'Yes. You can remove items from your history and manage saved looks at any time inside the app.',
     // About
     aboutTitle: "About Style Me",
     aboutSubtitle: "A question, an issue or a suggestion? We are here to help.",
