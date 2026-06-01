@@ -102,8 +102,8 @@ export default function HeroSection({ onStartAnalysis }) {
             transition={{ delay: 0.28 + i * 0.07 }}
             className="shrink-0 w-[200px] rounded-[22px] overflow-hidden bg-card border border-border/60 shadow-lg shadow-black/5"
           >
-            <div className="relative">
-              <img src={item.src} alt="" className="w-full h-72 object-cover" />
+            <div className="relative h-72 bg-muted">
+              <img src={item.src} alt="" className="w-full h-72 object-cover" loading="lazy" decoding="async" />
               {/* Score badge */}
               <div className="absolute top-2 right-2 bg-background/90 backdrop-blur-sm text-foreground text-[11px] font-black px-2 py-0.5 rounded-full shadow-sm">
                 {item.score}

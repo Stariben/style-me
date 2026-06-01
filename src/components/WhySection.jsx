@@ -81,8 +81,8 @@ export default function WhySection() {
               viewport={{ once: true, margin: '-30px' }} transition={{ delay: 0 }}
               className={`row-span-2 rounded-2xl overflow-hidden bg-gradient-to-br ${f.color} border border-border/50 flex flex-col`}
             >
-              <div className="flex-1 min-h-0 overflow-hidden">
-                <img src={f.image} alt="" className="w-full h-full object-cover" />
+              <div className="h-48 shrink-0 overflow-hidden bg-muted">
+                <img src={f.image} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
               <div className="p-4">
                 <div className={`h-9 w-9 rounded-xl ${f.iconBg} flex items-center justify-center mb-2`}>
@@ -95,7 +95,7 @@ export default function WhySection() {
           );
         })()}
 
-        {/* Card 1 — small (no image) */}
+        {/* Card 1 — small */}
         {(() => {
           const f = FEATURES[1]; const Icon = f.icon;
           return (
@@ -104,8 +104,8 @@ export default function WhySection() {
               viewport={{ once: true, margin: '-30px' }} transition={{ delay: 0.07 }}
               className={`rounded-2xl overflow-hidden bg-gradient-to-br ${f.color} border border-border/50`}
             >
-              <div className="w-full h-24 overflow-hidden">
-                <img src={f.image} alt="" className="w-full h-full object-cover" />
+              <div className="w-full h-24 shrink-0 overflow-hidden bg-muted">
+                <img src={f.image} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
               <div className="p-3">
                 <div className={`h-8 w-8 rounded-xl ${f.iconBg} flex items-center justify-center mb-1.5`}>
@@ -118,7 +118,7 @@ export default function WhySection() {
           );
         })()}
 
-        {/* Card 2 — small (no image) */}
+        {/* Card 2 — small */}
         {(() => {
           const f = FEATURES[2]; const Icon = f.icon;
           return (
@@ -127,8 +127,8 @@ export default function WhySection() {
               viewport={{ once: true, margin: '-30px' }} transition={{ delay: 0.14 }}
               className={`rounded-2xl overflow-hidden bg-gradient-to-br ${f.color} border border-border/50`}
             >
-              <div className="w-full h-24 overflow-hidden">
-                <img src={f.image} alt="" className="w-full h-full object-cover" />
+              <div className="w-full h-24 shrink-0 overflow-hidden bg-muted">
+                <img src={f.image} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
               <div className="p-3">
                 <div className={`h-8 w-8 rounded-xl ${f.iconBg} flex items-center justify-center mb-1.5`}>
@@ -150,8 +150,8 @@ export default function WhySection() {
               viewport={{ once: true, margin: '-30px' }} transition={{ delay: 0.21 }}
               className={`col-span-2 rounded-2xl overflow-hidden bg-gradient-to-br ${f.color} border border-border/50 flex flex-row`}
             >
-              <div className="w-36 shrink-0 overflow-hidden">
-                <img src={f.image} alt="" className="w-full h-full object-cover" />
+              <div className="w-36 h-32 shrink-0 overflow-hidden bg-muted">
+                <img src={f.image} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
               <div className="p-4 flex flex-col justify-center">
                 <div className={`h-9 w-9 rounded-xl ${f.iconBg} flex items-center justify-center mb-2`}>
