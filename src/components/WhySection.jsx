@@ -18,7 +18,7 @@ const FEATURES = [
     titleKey: 'featurePrivacyTitle',
     descKey: 'featurePrivacyDesc',
     defaultTitle: 'Your Privacy',
-    defaultDesc: 'Your photos are analyzed then instantly deleted. Never stored or shared. 100% private.',
+    defaultDesc: 'Privacy first. We process your photo in real-time. You manage your own data, no tracking, no compromise, no selling.',
     color: 'from-green-500/10 to-emerald-500/5',
     iconBg: 'bg-green-500/10',
     iconColor: 'text-green-600',
