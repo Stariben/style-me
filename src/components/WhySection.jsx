@@ -53,7 +53,7 @@ export default function WhySection() {
   const { t } = useLang();
 
   return (
-    <section className="bg-muted/40 px-5 py-16 md:py-24">
+    <section id="section-why" className="bg-muted/40 px-5 py-16 md:py-24">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}

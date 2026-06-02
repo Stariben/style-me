@@ -18,7 +18,7 @@ export default function FAQSection() {
   const [open, setOpen] = useState(null);
 
   return (
-    <section className="bg-background px-5 py-14 md:py-24">
+    <section id="section-faq" className="bg-background px-5 py-14 md:py-24">
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}

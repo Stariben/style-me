@@ -2,6 +2,11 @@ import { Link } from 'react-router-dom';
 import { Sparkles } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
 
+const scrollToSection = (id) => {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
 export default function Footer() {
   const { t } = useLang();
 
@@ -23,20 +28,38 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Nav links */}
-          <div className="flex flex-wrap gap-x-8 gap-y-3 text-sm">
-            <Link to="/about" className="hover:text-background transition-colors">
-              {t('aboutTitle') || 'About'}
-            </Link>
-            <Link to="/history" className="hover:text-background transition-colors">
-              {t('historyTitle') || 'History'}
-            </Link>
-            <Link to="/contact" className="hover:text-background transition-colors">
-              {t('contactUs') || 'Contact'}
-            </Link>
-            <Link to="/privacy" className="hover:text-background transition-colors">
-              {t('privacyPolicy') || 'Privacy Policy'}
-            </Link>
+          {/* Links — two columns */}
+          <div className="flex gap-12 md:gap-16 text-sm">
+            {/* Section anchors */}
+            <div className="flex flex-col gap-3">
+              <p className="text-background/30 text-[11px] uppercase tracking-widest font-semibold mb-1">Sections</p>
+              <button onClick={() => scrollToSection('section-why')} className="text-left hover:text-background transition-colors">
+                {t('whyTitle') || 'Why Style Me'}
+              </button>
+              <button onClick={() => scrollToSection('section-how')} className="text-left hover:text-background transition-colors">
+                {t('howItWorksTitle') || 'How it works'}
+              </button>
+              <button onClick={() => scrollToSection('section-faq')} className="text-left hover:text-background transition-colors">
+                {t('faqTitle') || 'FAQ'}
+              </button>
+            </div>
+
+            {/* Page links */}
+            <div className="flex flex-col gap-3">
+              <p className="text-background/30 text-[11px] uppercase tracking-widest font-semibold mb-1">Pages</p>
+              <Link to="/about" className="hover:text-background transition-colors">
+                {t('aboutTitle') || 'About'}
+              </Link>
+              <Link to="/history" className="hover:text-background transition-colors">
+                {t('historyTitle') || 'History'}
+              </Link>
+              <Link to="/contact" className="hover:text-background transition-colors">
+                {t('contactUs') || 'Contact'}
+              </Link>
+              <Link to="/privacy" className="hover:text-background transition-colors">
+                {t('privacyPolicy') || 'Privacy Policy'}
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -44,9 +67,8 @@ export default function Footer() {
         <div className="border-t border-background/10 mb-6" />
 
         {/* Bottom row */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-xs text-background/30">
-          <p>© {new Date().getFullYear()} Style Me AI. All rights reserved.</p>
-          <p>Made with ♥ for fashion lovers worldwide.</p>
+        <div className="text-xs text-background/30">
+          <p>© {new Date().getFullYear()} StyleMe. All rights reserved.</p>
         </div>
       </div>
     </footer>
