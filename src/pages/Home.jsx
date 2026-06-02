@@ -89,7 +89,7 @@ export default function Home() {
       const res = await base44.functions.invoke('analyzeOutfit', {
         personImg,
         outfitImg,
-        lang,
+        lang
       });
 
       if (res.data?.needsPayment) {
@@ -112,7 +112,7 @@ export default function Home() {
     onError: (err) => {
       if (err.message === 'quota_exceeded') return;
       console.error('Analyse échouée:', err);
-    },
+    }
   });
 
   const handleRefresh = useCallback(() => {
@@ -160,30 +160,30 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background pt-14 pb-6">
       {/* Pull-to-refresh */}
-      {pullDistance > 0 && (
-        <div className="flex items-center justify-center overflow-hidden transition-all" style={{ height: pullDistance }}>
+      {pullDistance > 0 &&
+      <div className="flex items-center justify-center overflow-hidden transition-all" style={{ height: pullDistance }}>
           <RefreshCw className={`h-5 w-5 text-primary transition-transform ${refreshing ? 'animate-spin' : ''}`} />
         </div>
-      )}
-      {refreshing && (
-        <div className="flex items-center justify-center h-10">
+      }
+      {refreshing &&
+      <div className="flex items-center justify-center h-10">
           <RefreshCw className="h-5 w-5 text-primary animate-spin" />
         </div>
-      )}
+      }
 
       <AnimatePresence>{isAnalyzing && <AnalyzingOverlay />}</AnimatePresence>
       <AnimatePresence>{showPaywall && <Paywall onClose={() => setShowPaywall(false)} />}</AnimatePresence>
 
       {/* ── Landing mode ── */}
       <AnimatePresence mode="wait" initial={false}>
-        {!showTool ? (
-          <motion.div
-            key="landing"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.25 }}
-          >
+        {!showTool ?
+        <motion.div
+          key="landing"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.25 }}>
+          
             <Header />
             <HeroSection onStartAnalysis={handleStartAnalysis} />
             <WhySection />
@@ -191,27 +191,27 @@ export default function Home() {
             <FAQSection />
             <CTASection onStartAnalysis={handleStartAnalysis} />
             <Footer />
-          </motion.div>
-        ) : (
-          /* ── Tool mode ── */
-          <motion.div
-            key="tool"
-            ref={toolRef}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            layout={false}
-          >
+          </motion.div> : (
+
+        /* ── Tool mode ── */
+        <motion.div
+          key="tool"
+          ref={toolRef}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          layout={false}>
+          
             {/* Tool header */}
             <div className="px-6 pt-6 pb-4 flex items-center gap-3">
               <button
-                onClick={() => { setShowTool(false); resetState(); analyzeMutation.reset(); }}
-                className="h-9 w-9 rounded-xl bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
-              >
+              onClick={() => {setShowTool(false);resetState();analyzeMutation.reset();}}
+              className="h-9 w-9 rounded-xl bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors hidden">
+              
                 <ArrowLeft className="h-4 w-4" />
               </button>
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2.5 hidden">
                 <div className="h-9 w-9 rounded-xl bg-primary/10 flex items-center justify-center">
                   <Sparkles className="h-4 w-4 text-primary" />
                 </div>
@@ -224,11 +224,11 @@ export default function Home() {
 
             {/* Hero text */}
             <motion.div
-              key="hero-text"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="px-6 mb-6"
-            >
+            key="hero-text"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="px-6 mb-6">
+            
               <h2 className="text-2xl font-bold tracking-tight leading-tight">
                 {t('doesThisOutfit')}
                 <br />
@@ -241,82 +241,82 @@ export default function Home() {
 
             {/* Upload section */}
             <motion.div
-              key="upload-section"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="px-6"
-            >
+            key="upload-section"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="px-6">
+            
               <div className="flex gap-4">
                 <PhotoUploader
-                  type="person"
-                  imageUrl={personImage}
-                  onImageUploaded={setPersonImage}
-                  onClear={() => setPersonImage(null)}
-                />
+                type="person"
+                imageUrl={personImage}
+                onImageUploaded={setPersonImage}
+                onClear={() => setPersonImage(null)} />
+              
                 <PhotoUploader
-                  type="outfit"
-                  imageUrl={outfitImage}
-                  onImageUploaded={setOutfitImage}
-                  onClear={() => setOutfitImage(null)}
-                />
+                type="outfit"
+                imageUrl={outfitImage}
+                onImageUploaded={setOutfitImage}
+                onClear={() => setOutfitImage(null)} />
+              
               </div>
             </motion.div>
 
             {/* Analyze button */}
             <motion.div
-              key="analyze-btn"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="px-6 mt-6"
-            >
+            key="analyze-btn"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="px-6 mt-6">
+            
               <Button
-                onClick={handleAnalyze}
-                disabled={!canAnalyze}
-                className="w-full h-13 rounded-2xl text-base font-semibold gap-2.5 shadow-lg shadow-primary/20 disabled:shadow-none transition-all"
-                size="lg"
-              >
+              onClick={handleAnalyze}
+              disabled={!canAnalyze}
+              className="w-full h-13 rounded-2xl text-base font-semibold gap-2.5 shadow-lg shadow-primary/20 disabled:shadow-none transition-all"
+              size="lg">
+              
                 <Sparkles className="h-5 w-5" />
                 {t('analyzeMyLook')}
               </Button>
 
-              {!personImage && !outfitImage && (
-                <p className="text-xs text-center text-muted-foreground mt-3">
+              {!personImage && !outfitImage &&
+            <p className="text-xs text-center text-muted-foreground mt-3">
                   {t('uploadBothPhotos')}
                 </p>
-              )}
+            }
 
               {/* Credits counter */}
-              {userData && (
-                <div className="mt-3 flex justify-center">
-                  {paidCredits > 0 ? (
-                    <span className="text-xs text-primary font-medium bg-primary/10 px-3 py-1 rounded-full">
+              {userData &&
+            <div className="mt-3 flex justify-center">
+                  {paidCredits > 0 ?
+              <span className="text-xs text-primary font-medium bg-primary/10 px-3 py-1 rounded-full">
                       ⚡ {paidCredits} {paidCredits > 1 ? t('creditsRemaining') : t('creditRemaining')}
-                    </span>
-                  ) : freeUsed < FREE_ANALYSES ? (
-                    <span className="text-xs text-muted-foreground bg-muted px-3 py-1 rounded-full">
+                    </span> :
+              freeUsed < FREE_ANALYSES ?
+              <span className="text-xs text-muted-foreground bg-muted px-3 py-1 rounded-full">
                       {FREE_ANALYSES - freeUsed} {FREE_ANALYSES - freeUsed > 1 ? t('freeAnalysesRemaining') : t('freeAnalysisRemaining')}
-                    </span>
-                  ) : (
-                    <button
-                      onClick={() => setShowPaywall(true)}
-                      className="text-xs text-primary font-medium underline"
-                    >
+                    </span> :
+
+              <button
+                onClick={() => setShowPaywall(true)}
+                className="text-xs text-primary font-medium underline">
+                
                       {t('noMoreFreeAnalyses')} → {t('buyPack')}
                     </button>
-                  )}
+              }
                 </div>
-              )}
+            }
             </motion.div>
 
             {/* Results */}
             <AnimatePresence initial={false}>
               {result && <ResultCard key="result-card" result={result} generatedImage={generatedImage} onReset={handleReset} />}
             </AnimatePresence>
-          </motion.div>
-        )}
+          </motion.div>)
+        }
       </AnimatePresence>
-    </div>
-  );
+    </div>);
+
 }
