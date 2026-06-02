@@ -205,21 +205,21 @@ export default function Home() {
           
             {/* Tool header */}
             <div className="px-6 pt-6 pb-4 flex items-center gap-3">
-              <button
-              onClick={() => {setShowTool(false);resetState();analyzeMutation.reset();}}
-              className="h-9 w-9 rounded-xl bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors hidden">
               
-                <ArrowLeft className="h-4 w-4" />
-              </button>
-              <div className="flex items-center gap-2.5 hidden">
-                <div className="h-9 w-9 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <Sparkles className="h-4 w-4 text-primary" />
-                </div>
-                <div>
-                  <h1 className="text-base font-bold tracking-tight text-foreground leading-tight">StyleMe</h1>
-                  <p className="text-[10px] text-muted-foreground font-medium">AI Outfit Advisor</p>
-                </div>
-              </div>
+
+
+
+
+            
+              
+
+
+
+
+
+
+
+            
             </div>
 
             {/* Hero text */}
