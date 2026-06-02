@@ -28,8 +28,8 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Links — two columns */}
-          <div className="flex gap-8 md:gap-10 text-sm">
+          {/* Links — three columns */}
+          <div className="flex gap-8 md:gap-10 text-sm flex-wrap">
             {/* Section anchors */}
             <div className="flex flex-col gap-2">
               <p className="text-background/30 text-[11px] uppercase tracking-widest font-semibold mb-1">{t('footerProduct')}</p>
@@ -53,11 +53,19 @@ export default function Footer() {
               <Link to="/history" className="hover:text-background transition-colors">
                 {t('historyTitle') || 'History'}
               </Link>
+            </div>
+
+            {/* Support links */}
+            <div className="flex flex-col gap-2">
+              <p className="text-background/30 text-[11px] uppercase tracking-widest font-semibold mb-1">{t('footerSupport')}</p>
               <Link to="/contact" className="hover:text-background transition-colors">
-                {t('contactUs') || 'Contact'}
+                {t('contactUs')}
               </Link>
               <Link to="/privacy" className="hover:text-background transition-colors">
-                {t('privacyPolicy') || 'Privacy Policy'}
+                {t('privacyPolicy')}
+              </Link>
+              <Link to="/terms" className="hover:text-background transition-colors">
+                {t('termsTitle')}
               </Link>
             </div>
           </div>
