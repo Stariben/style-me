@@ -39,8 +39,12 @@ export default function Home() {
   // Load user credits on mount & after payment success
   useEffect(() => {
     const loadUser = async () => {
-      const user = await base44.auth.me();
-      setUserData(user);
+      const authed = await base44.auth.isAuthenticated();
+      if (authed) {
+        const user = await base44.auth.me();
+        setUserData(user);
+        setShowTool(true);
+      }
     };
     loadUser();
 

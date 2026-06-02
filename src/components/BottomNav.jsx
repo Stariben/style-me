@@ -1,20 +1,26 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Sparkles, User, Info, Mail } from 'lucide-react';
+import { Sparkles, User, Mail } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
 import { useCamera } from '@/lib/CameraContext';
+import { useState, useEffect } from 'react';
+import { base44 } from '@/api/base44Client';
 
 export default function BottomNav() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { t } = useLang();
   const { isCameraOpen } = useCamera();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  if (isCameraOpen) return null;
+  useEffect(() => {
+    base44.auth.isAuthenticated().then(setIsAuthenticated);
+  }, []);
+
+  if (isCameraOpen || !isAuthenticated) return null;
 
   const tabs = [
     { path: '/', label: 'StyleMatch', icon: Sparkles },
-    { path: '/about', label: 'About', icon: Info },
-    { path: '/contact', label: 'Contact', icon: Mail },
+    { path: '/contact', label: t('contactUs'), icon: Mail },
     { path: '/account', label: t('account'), icon: User },
   ];
 
