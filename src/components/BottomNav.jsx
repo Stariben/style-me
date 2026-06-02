@@ -19,7 +19,7 @@ export default function BottomNav() {
   if (isCameraOpen || !isAuthenticated) return null;
 
   const tabs = [
-    { path: '/', label: 'StyleMe', icon: Sparkles },
+    { path: '/analyze', label: 'StyleMe', icon: Sparkles },
     { path: '/contact', label: t('contactUs'), icon: Mail },
     { path: '/account', label: t('account'), icon: User },
   ];

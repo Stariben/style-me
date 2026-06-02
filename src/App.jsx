@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-route
 import { NavigationProvider } from '@/lib/NavigationContext';
 import PageNotFound from './lib/PageNotFound';
 import Home from './pages/Home';
+import Analyze from './pages/Analyze';
 import AccountSettings from './pages/AccountSettings';
 import History from './pages/History.jsx';
 import PrivacyPolicy from './pages/PrivacyPolicy';
@@ -50,7 +51,8 @@ const AuthenticatedApp = () => {
       <ConsentBanner />
       <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<PageTransition><MobileHeader /><Home /><BottomNav /></PageTransition>} />
+          <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+          <Route path="/analyze" element={<PageTransition><MobileHeader /><Analyze /><BottomNav /></PageTransition>} />
           <Route path="/account" element={<PageTransition><MobileHeader /><AccountSettings /><BottomNav /></PageTransition>} />
           <Route path="/history" element={<PageTransition><MobileHeader /><History /><BottomNav /></PageTransition>} />
           <Route path="/privacy" element={<PageTransition><PrivacyPolicy /></PageTransition>} />
