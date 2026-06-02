@@ -182,6 +182,7 @@ export const translations = {
       { title: "8. Modification des conditions", content: "Nous nous réservons le droit de modifier ces conditions à tout moment. Les modifications entrent en vigueur dès leur publication. L'utilisation continue du service après modification vaut acceptation des nouvelles conditions." },
       { title: "9. Contact", content: "Pour toute question relative à ces conditions, contactez-nous via le formulaire de contact disponible dans l'application." },
     ],
+    about: "À propos",
     // About
     aboutTitle: "À propos de Style Me",
     aboutSubtitle: "Une question, un problème ou une suggestion ? Nous sommes là pour vous aider.",
@@ -380,6 +381,7 @@ export const translations = {
       { title: "8. Changes to Terms", content: "We reserve the right to modify these terms at any time. Changes take effect upon publication. Continued use of the service after modifications constitutes acceptance of the new terms." },
       { title: "9. Contact", content: "For any questions regarding these terms, contact us via the contact form available in the application." },
     ],
+    about: "About",
     // About
     aboutTitle: "About Style Me",
     aboutSubtitle: "A question, an issue or a suggestion? We are here to help.",
@@ -560,6 +562,7 @@ export const translations = {
       { title: "8. Cambios en los términos", content: "Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios entran en vigor al publicarse. El uso continuado del servicio tras las modificaciones implica la aceptación de los nuevos términos." },
       { title: "9. Contacto", content: "Para cualquier pregunta sobre estos términos, contáctanos a través del formulario de contacto disponible en la aplicación." },
     ],
+    about: "Acerca de",
     // About
     aboutTitle: "Acerca de Style Me",
     aboutSubtitle: "¿Una pregunta, un problema o una sugerencia? Estamos aquí para ayudarte.",
@@ -740,6 +743,7 @@ export const translations = {
       { title: "8. Изменения условий", content: "Мы оставляем за собой право изменять настоящие условия в любое время. Изменения вступают в силу с момента публикации. Продолжение использования сервиса после внесения изменений означает принятие новых условий." },
       { title: "9. Контакты", content: "По любым вопросам, связанным с этими условиями, свяжитесь с нами через форму обратной связи в приложении." },
     ],
+    about: "О нас",
     // About
     aboutTitle: "О Style Me",
     aboutSubtitle: "Есть вопрос, проблема или предложение? Мы здесь, чтобы помочь.",
@@ -920,6 +924,7 @@ export const translations = {
       { title: "8. 条款变更", content: "我们保留随时修改这些条款的权利。更改自发布之日起生效。修改后继续使用本服务即视为接受新条款。" },
       { title: "9. 联系方式", content: "如有关于这些条款的任何问题，请通过应用中的联系表单与我们联系。" },
     ],
+    about: "关于",
     // About
     aboutTitle: "关于 Style Me",
     aboutSubtitle: "有问题、故障或建议？我们随时为您服务。",
@@ -1100,6 +1105,7 @@ export const translations = {
       { title: "8. Alterações nos termos", content: "Reservamo-nos o direito de modificar estes termos a qualquer momento. As alterações entram em vigor após a publicação. O uso continuado do serviço após as modificações constitui aceitação dos novos termos." },
       { title: "9. Contato", content: "Para qualquer dúvida sobre estes termos, entre em contato conosco pelo formulário disponível no aplicativo." },
     ],
+    about: "Sobre",
     // About
     aboutTitle: "Sobre o Style Me",
     aboutSubtitle: "Uma pergunta, problema ou sugestão? Estamos aqui para ajudar.",

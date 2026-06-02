@@ -47,9 +47,6 @@ export default function Footer() {
             {/* Page links */}
             <div className="flex flex-col gap-2">
               <p className="text-background/30 text-[11px] uppercase tracking-widest font-semibold mb-1">{t('footerAccount')}</p>
-              <Link to="/about" className="hover:text-background transition-colors">
-                {t('aboutTitle') || 'About'}
-              </Link>
               <Link to="/history" className="hover:text-background transition-colors">
                 {t('historyTitle') || 'History'}
               </Link>
@@ -58,6 +55,9 @@ export default function Footer() {
             {/* Support links */}
             <div className="flex flex-col gap-2">
               <p className="text-background/30 text-[11px] uppercase tracking-widest font-semibold mb-1">{t('footerSupport')}</p>
+              <Link to="/about" className="hover:text-background transition-colors">
+                {t('about')}
+              </Link>
               <Link to="/contact" className="hover:text-background transition-colors">
                 {t('contactUs')}
               </Link>
