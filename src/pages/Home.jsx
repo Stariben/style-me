@@ -12,6 +12,7 @@ import HeroSection from '../components/HeroSection';
 import WhySection from '../components/WhySection';
 import HowItWorksSection from '../components/HowItWorksSection';
 import CTASection from '../components/CTASection';
+import Footer from '../components/Footer';
 import FAQSection from '../components/FAQSection';
 
 // Tool components
@@ -185,6 +186,7 @@ export default function Home() {
             <HowItWorksSection onStartAnalysis={handleStartAnalysis} />
             <FAQSection />
             <CTASection onStartAnalysis={handleStartAnalysis} />
+            <Footer />
           </motion.div>
         ) : (
           /* ── Tool mode ── */
