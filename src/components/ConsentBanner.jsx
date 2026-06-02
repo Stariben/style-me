@@ -34,7 +34,7 @@ export default function ConsentBanner() {
           <div className="bg-card border border-border rounded-2xl shadow-xl p-4 max-w-md mx-auto">
             <div className="flex items-start gap-3">
               <div className="h-9 w-9 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                <Shield className="h-4 w-4 text-primary" />
+                <Shield className="h-4 w-4 text-primary" strokeWidth={2} />
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-foreground mb-1">{t('consentTitle')}</p>
