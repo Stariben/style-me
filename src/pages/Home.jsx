@@ -171,7 +171,7 @@ export default function Home() {
       <AnimatePresence>{showPaywall && <Paywall onClose={() => setShowPaywall(false)} />}</AnimatePresence>
 
       {/* ── Landing mode ── */}
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" initial={false}>
         {!showTool ? (
           <motion.div
             key="landing"
@@ -197,6 +197,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
+            layout={false}
           >
             {/* Tool header */}
             <div className="px-6 pt-6 pb-4 flex items-center gap-3">
@@ -219,6 +220,7 @@ export default function Home() {
 
             {/* Hero text */}
             <motion.div
+              key="hero-text"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               className="px-6 mb-6"
@@ -235,6 +237,7 @@ export default function Home() {
 
             {/* Upload section */}
             <motion.div
+              key="upload-section"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
@@ -258,6 +261,7 @@ export default function Home() {
 
             {/* Analyze button */}
             <motion.div
+              key="analyze-btn"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
@@ -303,8 +307,8 @@ export default function Home() {
             </motion.div>
 
             {/* Results */}
-            <AnimatePresence>
-              {result && <ResultCard result={result} generatedImage={generatedImage} onReset={handleReset} />}
+            <AnimatePresence initial={false}>
+              {result && <ResultCard key="result-card" result={result} generatedImage={generatedImage} onReset={handleReset} />}
             </AnimatePresence>
           </motion.div>
         )}
