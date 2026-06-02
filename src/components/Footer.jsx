@@ -33,13 +33,13 @@ export default function Footer() {
             {/* Section anchors */}
             <div className="flex flex-col gap-2">
               <p className="text-background/30 text-[11px] uppercase tracking-widest font-semibold mb-1">Produit</p>
-              <button onClick={() => scrollToSection('section-why')} className="text-left hover:text-background transition-colors">
+              <button onClick={() => scrollToSection('section-why')} className="text-left hover:text-background transition-colors min-h-0">
                 Fonctionnalités
               </button>
-              <button onClick={() => scrollToSection('section-how')} className="text-left hover:text-background transition-colors">
+              <button onClick={() => scrollToSection('section-how')} className="text-left hover:text-background transition-colors min-h-0">
                 Fonctionnement
               </button>
-              <button onClick={() => scrollToSection('section-faq')} className="text-left hover:text-background transition-colors">
+              <button onClick={() => scrollToSection('section-faq')} className="text-left hover:text-background transition-colors min-h-0">
                 Q/A
               </button>
             </div>
