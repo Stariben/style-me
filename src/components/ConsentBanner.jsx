@@ -40,25 +40,25 @@ export default function ConsentBanner() {
                 <p className="text-sm font-semibold text-foreground mb-1">{t('consentTitle')}</p>
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   {t('consentDesc')}{' '}
-                  <Link to="/privacy" className="text-primary underline underline-offset-2">
-                    {t('learnMore')}
+                  <Link to="/terms" className="text-primary underline underline-offset-2">
+                   {t('learnMore')}
                   </Link>
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-2 mt-3">
-              <Button
-                onClick={accept}
-                size="sm"
-                className="flex-1 rounded-xl h-9 text-xs"
-              >
-                {t('consentAccept')}
-              </Button>
-              <Link to="/privacy" className="flex-1">
-                <Button variant="outline" size="sm" className="w-full rounded-xl h-9 text-xs">
+                  </p>
+                  </div>
+                  </div>
+                  <div className="flex gap-2 mt-3">
+                  <Button
+                  onClick={accept}
+                  size="sm"
+                  className="flex-1 rounded-xl h-9 text-xs"
+                  >
+                  {t('consentAccept')}
+                  </Button>
+                  <Link to="/terms" className="flex-1">
+                  <Button variant="outline" size="sm" className="w-full rounded-xl h-9 text-xs">
                   {t('learnMore')}
-                </Button>
-              </Link>
+                  </Button>
+                  </Link>
             </div>
           </div>
         </motion.div>
