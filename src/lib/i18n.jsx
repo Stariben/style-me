@@ -159,6 +159,13 @@ export const translations = {
     faq6A: 'Oui. Vous pouvez supprimer des éléments de votre historique et gérer vos looks enregistrés à tout moment depuis l\'application.',
     faq7Q: 'Combien de temps ça prend ?',
     faq7A: 'En général environ une minute selon la demande. Nous optimisons continuellement le pipeline pour que les résultats semblent instantanés.',
+    // Footer
+    footerProduct: "Produit",
+    footerFeatures: "Fonctionnalités",
+    footerHowItWorks: "Fonctionnement",
+    footerFaq: "Q/A",
+    footerAccount: "Compte",
+    footerRights: "Tous droits réservés.",
     // About
     aboutTitle: "À propos de Style Me",
     aboutSubtitle: "Une question, un problème ou une suggestion ? Nous sommes là pour vous aider.",
@@ -332,6 +339,13 @@ export const translations = {
     faq6A: 'Yes. You can remove items from your history and manage saved looks at any time inside the app.',
     faq7Q: 'How long does it take?',
     faq7A: 'Usually around a minute depending on demand. We\'re optimizing the pipeline continuously so results feel instant.',
+    // Footer
+    footerProduct: "Product",
+    footerFeatures: "Features",
+    footerHowItWorks: "How it works",
+    footerFaq: "FAQ",
+    footerAccount: "Account",
+    footerRights: "All rights reserved.",
     // About
     aboutTitle: "About Style Me",
     aboutSubtitle: "A question, an issue or a suggestion? We are here to help.",
@@ -487,6 +501,13 @@ export const translations = {
     ctaTitle: '¿Listo para elevar tu estilo?',
     ctaSubtitle: 'Asesoramiento de moda IA personalizado. Empieza gratis hoy.',
     ctaButton: 'Comenzar ahora',
+    // Footer
+    footerProduct: "Producto",
+    footerFeatures: "Funcionalidades",
+    footerHowItWorks: "Cómo funciona",
+    footerFaq: "FAQ",
+    footerAccount: "Cuenta",
+    footerRights: "Todos los derechos reservados.",
     // About
     aboutTitle: "Acerca de Style Me",
     aboutSubtitle: "¿Una pregunta, un problema o una sugerencia? Estamos aquí para ayudarte.",
@@ -642,6 +663,13 @@ export const translations = {
     ctaTitle: 'Готовы улучшить свой стиль?',
     ctaSubtitle: 'Персональные ИИ-советы по моде. Начните бесплатно сегодня.',
     ctaButton: 'Начать сейчас',
+    // Footer
+    footerProduct: "Продукт",
+    footerFeatures: "Функции",
+    footerHowItWorks: "Как это работает",
+    footerFaq: "FAQ",
+    footerAccount: "Аккаунт",
+    footerRights: "Все права защищены.",
     // About
     aboutTitle: "О Style Me",
     aboutSubtitle: "Есть вопрос, проблема или предложение? Мы здесь, чтобы помочь.",
@@ -797,6 +825,13 @@ export const translations = {
     ctaTitle: '准备好提升你的风格了吗？',
     ctaSubtitle: '个性化AI时尚建议，简单易用。今天免费开始。',
     ctaButton: '立即开始',
+    // Footer
+    footerProduct: "产品",
+    footerFeatures: "功能",
+    footerHowItWorks: "使用方法",
+    footerFaq: "常见问题",
+    footerAccount: "账户",
+    footerRights: "版权所有。",
     // About
     aboutTitle: "关于 Style Me",
     aboutSubtitle: "有问题、故障或建议？我们随时为您服务。",
@@ -952,6 +987,13 @@ export const translations = {
     ctaTitle: 'Pronto para elevar seu estilo?',
     ctaSubtitle: 'Consultoria de moda IA personalizada. Comece grátis hoje.',
     ctaButton: 'Começar agora',
+    // Footer
+    footerProduct: "Produto",
+    footerFeatures: "Funcionalidades",
+    footerHowItWorks: "Como funciona",
+    footerFaq: "FAQ",
+    footerAccount: "Conta",
+    footerRights: "Todos os direitos reservados.",
     // About
     aboutTitle: "Sobre o Style Me",
     aboutSubtitle: "Uma pergunta, problema ou sugestão? Estamos aqui para ajudar.",

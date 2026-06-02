@@ -32,21 +32,21 @@ export default function Footer() {
           <div className="flex gap-8 md:gap-10 text-sm">
             {/* Section anchors */}
             <div className="flex flex-col gap-2">
-              <p className="text-background/30 text-[11px] uppercase tracking-widest font-semibold mb-1">Produit</p>
+              <p className="text-background/30 text-[11px] uppercase tracking-widest font-semibold mb-1">{t('footerProduct')}</p>
               <button onClick={() => scrollToSection('section-why')} className="text-left hover:text-background transition-colors min-h-0">
-                Fonctionnalités
+                {t('footerFeatures')}
               </button>
               <button onClick={() => scrollToSection('section-how')} className="text-left hover:text-background transition-colors min-h-0">
-                Fonctionnement
+                {t('footerHowItWorks')}
               </button>
               <button onClick={() => scrollToSection('section-faq')} className="text-left hover:text-background transition-colors min-h-0">
-                Q/A
+                {t('footerFaq')}
               </button>
             </div>
 
             {/* Page links */}
             <div className="flex flex-col gap-2">
-              <p className="text-background/30 text-[11px] uppercase tracking-widest font-semibold mb-1">Compte</p>
+              <p className="text-background/30 text-[11px] uppercase tracking-widest font-semibold mb-1">{t('footerAccount')}</p>
               <Link to="/about" className="hover:text-background transition-colors">
                 {t('aboutTitle') || 'About'}
               </Link>
@@ -68,7 +68,7 @@ export default function Footer() {
 
         {/* Bottom row */}
         <div className="text-xs text-background/30">
-          <p>© {new Date().getFullYear()} StyleMe. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} StyleMe. {t('footerRights')}</p>
         </div>
       </div>
     </footer>

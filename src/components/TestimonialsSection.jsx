@@ -52,7 +52,7 @@ export default function TestimonialsSection() {
       </motion.div>
 
       <div className="space-y-3">
-        {TESTIMONIALS.map((t_, i) => (
+        {TESTIMONIALS.map((item, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, y: 16 }}
@@ -67,15 +67,15 @@ export default function TestimonialsSection() {
               ))}
             </div>
             <p className="text-sm font-semibold text-foreground mb-1">
-              {t(t_.titleKey) || t_.defaultTitle}
+              {t(item.titleKey)}
             </p>
             <p className="text-xs text-muted-foreground leading-relaxed mb-3">
-              {t(t_.textKey) || t_.defaultText}
+              {t(item.textKey)}
             </p>
             <div className="flex items-center gap-2.5">
-              <img src={t_.avatar} alt="" className="h-7 w-7 rounded-full object-cover" />
+              <img src={item.avatar} alt="" className="h-7 w-7 rounded-full object-cover" />
               <div>
-                <p className="text-xs font-semibold text-foreground">{t(t_.nameKey) || t_.defaultName}</p>
+                <p className="text-xs font-semibold text-foreground">{t(item.nameKey)}</p>
                 <p className="text-[10px] text-muted-foreground">Style Me AI user · Verified ✓</p>
               </div>
             </div>
