@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Sparkles } from 'lucide-react';
+
 import { useLang } from '@/lib/i18n';
 
 const scrollToSection = (id) => {
@@ -18,8 +18,8 @@ export default function Footer() {
           {/* Brand */}
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-xl bg-primary/20 flex items-center justify-center">
-                <Sparkles className="h-4 w-4 text-primary" />
+              <div className="h-8 w-8 rounded-xl overflow-hidden">
+                <img src="/icons/icon-192.png" alt="Style Me" className="w-full h-full object-cover" />
               </div>
               <span className="text-background font-black text-lg tracking-tight">Style Me</span>
             </div>
