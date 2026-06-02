@@ -1,4 +1,3 @@
-import { Sparkles } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -40,8 +39,8 @@ export default function Header() {
   return (
     <header className="px-6 pt-6 pb-4">
       <div className="flex items-center gap-2.5">
-        <div className="h-10 w-10 rounded-2xl bg-primary/10 flex items-center justify-center">
-          <Sparkles className="h-5 w-5 text-primary" />
+        <div className="h-10 w-10 rounded-2xl overflow-hidden">
+          <img src="/icons/icon-192.png" alt="Style Me" className="w-full h-full object-cover" />
         </div>
         <div>
           <h1 className="text-xl font-bold tracking-tight text-foreground">StyleMe</h1>
