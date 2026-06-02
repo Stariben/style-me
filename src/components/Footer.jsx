@@ -29,24 +29,24 @@ export default function Footer() {
           </div>
 
           {/* Links — two columns */}
-          <div className="flex gap-12 md:gap-16 text-sm">
+          <div className="flex gap-8 md:gap-10 text-sm">
             {/* Section anchors */}
-            <div className="flex flex-col gap-3">
-              <p className="text-background/30 text-[11px] uppercase tracking-widest font-semibold mb-1">Sections</p>
+            <div className="flex flex-col gap-2">
+              <p className="text-background/30 text-[11px] uppercase tracking-widest font-semibold mb-1">Produit</p>
               <button onClick={() => scrollToSection('section-why')} className="text-left hover:text-background transition-colors">
-                {t('whyTitle') || 'Why Style Me'}
+                Fonctionnalités
               </button>
               <button onClick={() => scrollToSection('section-how')} className="text-left hover:text-background transition-colors">
-                {t('howItWorksTitle') || 'How it works'}
+                Fonctionnement
               </button>
               <button onClick={() => scrollToSection('section-faq')} className="text-left hover:text-background transition-colors">
-                {t('faqTitle') || 'FAQ'}
+                Q/A
               </button>
             </div>
 
             {/* Page links */}
-            <div className="flex flex-col gap-3">
-              <p className="text-background/30 text-[11px] uppercase tracking-widest font-semibold mb-1">Pages</p>
+            <div className="flex flex-col gap-2">
+              <p className="text-background/30 text-[11px] uppercase tracking-widest font-semibold mb-1">Compte</p>
               <Link to="/about" className="hover:text-background transition-colors">
                 {t('aboutTitle') || 'About'}
               </Link>
