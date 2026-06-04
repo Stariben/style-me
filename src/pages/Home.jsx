@@ -1,4 +1,4 @@
-import { useLang } from '@/lib/i18n';
+import { useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,6 +12,13 @@ import Header from '../components/Header';
 
 export default function Home() {
   const navigate = useNavigate();
+
+  // Redirect authenticated users directly to the tool
+  useEffect(() => {
+    base44.auth.isAuthenticated().then((authed) => {
+      if (authed) navigate('/analyze', { replace: true });
+    });
+  }, []);
 
   const handleStartAnalysis = async () => {
     const authed = await base44.auth.isAuthenticated();
