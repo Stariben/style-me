@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Sparkles, User, Mail } from 'lucide-react';
+import { Sparkles, User, Clock } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
 import { useCamera } from '@/lib/CameraContext';
 import { useState, useEffect } from 'react';
@@ -20,7 +20,7 @@ export default function BottomNav() {
 
   const tabs = [
     { path: '/analyze', label: 'StyleMe', icon: Sparkles },
-    { path: '/contact', label: t('contactUs'), icon: Mail },
+    { path: '/history', label: t('history'), icon: Clock },
     { path: '/account', label: t('account'), icon: User },
   ];
 

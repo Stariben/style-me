@@ -94,7 +94,7 @@ export default function AccountSettings() {
   return (
     <div className="min-h-screen bg-background pb-28">
       {/* Header */}
-      <div className="px-6 pt-10 pb-6">
+      <div className="px-6 pt-20 pb-6">
         <h1 className="text-2xl font-bold tracking-tight">{t('accountSettings')}</h1>
         <p className="text-sm text-muted-foreground mt-1">{t('manageAccount')}</p>
       </div>

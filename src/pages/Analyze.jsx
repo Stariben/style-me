@@ -58,7 +58,8 @@ export default function Analyze() {
 
   const freeUsed = userData?.free_analyses_used || 0;
   const paidCredits = userData?.analysis_credits || 0;
-  const canUseApp = freeUsed < FREE_ANALYSES || paidCredits > 0;
+  // Allow if userData not yet loaded (server will enforce quota) or quota available
+  const canUseApp = !userData || freeUsed < FREE_ANALYSES || paidCredits > 0;
 
   const resetState = useCallback(() => {
     setPersonImage(null);
