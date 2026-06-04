@@ -48,7 +48,7 @@ export default function AccountSettings() {
   };
 
   const handleLogout = () => {
-    base44.auth.logout();
+    base44.auth.logout('/');
   };
 
   const handleContactSubmit = async () => {
