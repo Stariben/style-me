@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
 
 const HERO_IMAGES = [
@@ -73,7 +73,6 @@ export default function HeroSection({ onStartAnalysis }) {
           className="inline-flex items-center gap-2 bg-foreground text-background font-semibold text-lg px-10 py-5 rounded-full hover:opacity-85 active:scale-95 transition-all shadow-xl shadow-foreground/15"
         >
           {t('getStartedFree') || 'Try it for free'}
-          <ArrowRight className="h-4 w-4" />
         </motion.button>
 
         {/* Trust line */}
