@@ -1,6 +1,6 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
-const FREE_ANALYSES_MAX = 5;
+const FREE_ANALYSES_MAX = 3;
 
 const LANG_NAMES = {
   fr: 'French',

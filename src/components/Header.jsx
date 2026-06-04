@@ -80,6 +80,12 @@ export default function Header() {
               {t('footerHowItWorks')}
             </button>
             <button
+              onClick={() => scrollToSection('section-pricing')}
+              className="px-3 py-1.5 rounded-lg hover:bg-muted hover:text-foreground transition-colors min-h-0 font-medium"
+            >
+              {t('headerPricing')}
+            </button>
+            <button
               onClick={() => scrollToSection('section-faq')}
               className="px-3 py-1.5 rounded-lg hover:bg-muted hover:text-foreground transition-colors min-h-0 font-medium"
             >

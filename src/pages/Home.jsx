@@ -8,6 +8,7 @@ import HowItWorksSection from '../components/HowItWorksSection';
 import CTASection from '../components/CTASection';
 import Footer from '../components/Footer';
 import FAQSection from '../components/FAQSection';
+import PricingSection from '../components/PricingSection';
 import Header from '../components/Header';
 
 export default function Home() {
@@ -35,6 +36,7 @@ export default function Home() {
       <HeroSection onStartAnalysis={handleStartAnalysis} />
       <WhySection />
       <HowItWorksSection onStartAnalysis={handleStartAnalysis} />
+      <PricingSection onStartAnalysis={handleStartAnalysis} />
       <FAQSection />
       <CTASection onStartAnalysis={handleStartAnalysis} />
       <Footer />

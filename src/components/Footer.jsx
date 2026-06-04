@@ -39,6 +39,9 @@ export default function Footer() {
               <button onClick={() => scrollToSection('section-how')} className="text-left hover:text-background transition-colors min-h-0">
                 {t('footerHowItWorks')}
               </button>
+              <button onClick={() => scrollToSection('section-pricing')} className="text-left hover:text-background transition-colors min-h-0">
+                {t('footerPricing')}
+              </button>
               <button onClick={() => scrollToSection('section-faq')} className="text-left hover:text-background transition-colors min-h-0">
                 {t('footerFaq')}
               </button>
