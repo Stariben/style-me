@@ -61,10 +61,10 @@ export default function Header() {
       <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
         {/* Brand */}
         <div className="flex items-center gap-2.5">
-          <div className="h-9 w-9 rounded-xl overflow-hidden shrink-0">
+          <div className="h-12 w-12 rounded-2xl overflow-hidden shrink-0 shadow-sm">
             <img src="/icons/icon-192.png" alt="Style Me" className="w-full h-full object-cover" />
           </div>
-          <span className="text-lg font-black tracking-tight text-foreground">StyleMe</span>
+          <span className="text-xl font-black tracking-tight text-foreground">StyleMe</span>
         </div>
 
         {/* Nav */}

@@ -1,75 +1,63 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Mail, MessageCircle } from 'lucide-react';
+import { ArrowLeft, Mail, MessageCircle, Clock } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
+import { motion } from 'framer-motion';
 
 export default function Contact() {
   const navigate = useNavigate();
-  const { lang } = useLang();
-  const isFr = !lang || lang === 'fr';
+  const { t } = useLang();
 
   return (
-    <div className="min-h-screen bg-background pb-24">
-      <div className="max-w-2xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-background pb-28">
+      <div className="max-w-lg mx-auto px-5 py-6">
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-2 text-muted-foreground mb-6 text-sm"
+          className="flex items-center gap-2 text-muted-foreground mb-8 text-sm hover:text-foreground transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
-          {isFr ? 'Retour' : 'Back'}
+          {t('back')}
         </button>
 
-        <h1 className="text-3xl font-bold text-foreground mb-2">
-          {isFr ? 'Nous contacter' : 'Contact Us'}
-        </h1>
-        <p className="text-muted-foreground mb-8">
-          {isFr
-            ? 'Une question, un problème ou une suggestion ? Nous sommes là pour vous aider.'
-            : 'A question, an issue or a suggestion? We are here to help.'}
-        </p>
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <h1 className="text-3xl font-black text-foreground mb-2 tracking-tight">{t('contactUs')}</h1>
+          <p className="text-muted-foreground mb-8 leading-relaxed">{t('aboutSubtitle')}</p>
 
-        <div className="space-y-4">
-          {/* Email */}
-          <a
-            href="mailto:contact@stylematch.app"
-            className="flex items-center gap-4 p-4 rounded-xl border border-border bg-card hover:bg-secondary/50 transition-colors"
-          >
-            <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-              <Mail className="h-5 w-5 text-primary" />
-            </div>
-            <div>
-              <p className="font-medium text-foreground text-sm">
-                {isFr ? 'Par e-mail' : 'By email'}
-              </p>
-              <p className="text-muted-foreground text-sm">contact@stylematch.app</p>
-            </div>
-          </a>
+          <div className="space-y-3">
+            <a
+              href="mailto:contact@stylematch.app"
+              className="flex items-center gap-4 p-5 rounded-2xl border border-border bg-card hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+            >
+              <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                <Mail className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <p className="font-semibold text-foreground text-sm">Email</p>
+                <p className="text-muted-foreground text-sm mt-0.5">contact@stylematch.app</p>
+              </div>
+            </a>
 
-          {/* In-app contact */}
-          <button
-            onClick={() => navigate('/account')}
-            className="w-full flex items-center gap-4 p-4 rounded-xl border border-border bg-card hover:bg-secondary/50 transition-colors text-left"
-          >
-            <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-              <MessageCircle className="h-5 w-5 text-primary" />
-            </div>
-            <div>
-              <p className="font-medium text-foreground text-sm">
-                {isFr ? 'Via l\'application' : 'Via the app'}
-              </p>
-              <p className="text-muted-foreground text-sm">
-                {isFr
-                  ? 'Utilisez le formulaire de contact dans les paramètres du compte'
-                  : 'Use the contact form in account settings'}
-              </p>
-            </div>
-          </button>
-        </div>
+            <button
+              onClick={() => navigate('/account')}
+              className="w-full flex items-center gap-4 p-5 rounded-2xl border border-border bg-card hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 text-left"
+            >
+              <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                <MessageCircle className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <p className="font-semibold text-foreground text-sm">{t('contactUs')}</p>
+                <p className="text-muted-foreground text-sm mt-0.5">{t('manageAccount')}</p>
+              </div>
+            </button>
+          </div>
 
-        <p className="text-xs text-muted-foreground mt-8 text-center">
-          {isFr
-            ? 'Nous répondons généralement sous 24-48h.'
-            : 'We usually respond within 24-48 hours.'}
-        </p>
+          <div className="mt-8 flex items-center gap-2 text-xs text-muted-foreground justify-center">
+            <Clock className="h-3.5 w-3.5" />
+            <span>24–48h</span>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
