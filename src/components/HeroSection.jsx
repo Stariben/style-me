@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, ArrowRight } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
 
 const HERO_IMAGES = [
@@ -7,19 +7,16 @@ const HERO_IMAGES = [
     src: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80',
     tag: 'Smart Casual',
     score: '9.2',
-    match: 'Perfect match',
   },
   {
     src: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80',
     tag: 'Streetwear',
     score: '8.7',
-    match: 'Great fit',
   },
   {
     src: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&q=80',
     tag: 'Minimal',
     score: '9.5',
-    match: 'Ideal style',
   },
 ];
 
@@ -27,90 +24,97 @@ export default function HeroSection({ onStartAnalysis }) {
   const { t } = useLang();
 
   return (
-    <section className="bg-background px-5 pt-10 pb-12 md:pt-20 md:pb-20 overflow-hidden">
-      <div className="max-w-2xl mx-auto text-center">
+    <section className="relative bg-background px-5 pt-10 pb-16 md:pt-20 md:pb-24 overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-primary/8 rounded-full blur-[100px] pointer-events-none" />
 
-        {/* Pill badge */}
+      <div className="relative max-w-3xl mx-auto text-center">
+        {/* Badge */}
         <motion.div
-          initial={{ opacity: 0, y: -8 }}
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-5 flex justify-center"
+          className="mb-6 flex justify-center"
         >
-          <span className="inline-flex items-center gap-1.5 bg-primary/8 text-primary text-[11px] font-semibold px-3.5 py-1.5 rounded-full border border-primary/15 tracking-wide uppercase">
+          <span className="inline-flex items-center gap-2 bg-primary/10 text-primary text-xs font-bold px-4 py-2 rounded-full border border-primary/20 tracking-widest uppercase">
             <Sparkles className="h-3 w-3" />
-            {t('herobadge') || 'AI stylist in your pocket'}
+            {t('herobadge')}
           </span>
         </motion.div>
 
         {/* Headline */}
         <motion.h1
-          initial={{ opacity: 0, y: 14 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.06 }}
-          className="text-[2.9rem] md:text-[4.5rem] font-black leading-[1.12] tracking-tight text-foreground mb-4"
+          transition={{ delay: 0.07 }}
+          className="text-[3rem] md:text-[5rem] font-black leading-[1.08] tracking-tight text-foreground mb-5"
         >
-          {t('heroHeadline1') || 'AI-powered outfits,'}<br />
-          <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            {t('heroHeadline2') || 'personalized to you.'}
+          {t('heroHeadline1')}<br />
+          <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%] animate-[shimmer_3s_ease-in-out_infinite]">
+            {t('heroHeadline2')}
           </span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.12 }}
-          className="text-[17px] md:text-xl text-muted-foreground leading-relaxed mb-8 mx-auto max-w-[320px] md:max-w-[520px]"
+          transition={{ delay: 0.14 }}
+          className="text-base md:text-xl text-muted-foreground leading-relaxed mb-9 max-w-[340px] md:max-w-[540px] mx-auto"
         >
-          {t('heroSubtitle') || 'Upload a photo and get an instant AI analysis with a match score, style tips, and photorealistic preview.'}
+          {t('heroSubtitle')}
         </motion.p>
 
-        {/* CTA */}
-        <motion.button
-          initial={{ opacity: 0, scale: 0.94 }}
+        {/* CTA group */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.18 }}
-          onClick={onStartAnalysis}
-          className="inline-flex items-center gap-2 bg-foreground text-background font-semibold text-lg px-10 py-5 rounded-full hover:opacity-85 active:scale-95 transition-all shadow-xl shadow-foreground/15"
+          transition={{ delay: 0.2 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3"
         >
-          {t('getStartedFree') || 'Try it for free'}
-        </motion.button>
+          <button
+            onClick={onStartAnalysis}
+            className="inline-flex items-center gap-2.5 bg-foreground text-background font-bold text-base md:text-lg px-8 md:px-10 py-4 md:py-5 rounded-full hover:opacity-85 active:scale-95 transition-all shadow-2xl shadow-foreground/20"
+          >
+            {t('getStartedFree')}
+            <ArrowRight className="h-4 w-4" />
+          </button>
+        </motion.div>
 
-        {/* Trust line */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.28 }}
-          className="mt-4 text-[11px] text-muted-foreground/60"
+          transition={{ delay: 0.3 }}
+          className="mt-4 text-xs text-muted-foreground/50"
         >
-          ✦ Free · No credit card · Instant results
+          ✦ {t('pricingFreeNote')} · {t('pricingFreeDesc')}
         </motion.p>
       </div>
 
       {/* Preview cards */}
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.22 }}
-        className="mt-9 flex gap-4 md:gap-6 overflow-x-auto pb-2 no-scrollbar px-5 sm:justify-center"
+        transition={{ delay: 0.25 }}
+        className="mt-12 flex gap-4 overflow-x-auto pb-2 no-scrollbar px-4 sm:justify-center"
       >
         {HERO_IMAGES.map((item, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.28 + i * 0.07 }}
-            className="shrink-0 w-[200px] md:w-[280px] rounded-[22px] overflow-hidden bg-card border border-border/60 shadow-lg shadow-black/5"
+            initial={{ opacity: 0, y: 24, rotate: i === 1 ? 0 : i === 0 ? -2 : 2 }}
+            animate={{ opacity: 1, y: 0, rotate: i === 1 ? 0 : i === 0 ? -2 : 2 }}
+            transition={{ delay: 0.3 + i * 0.08 }}
+            className="shrink-0 w-[170px] md:w-[240px] rounded-[20px] overflow-hidden bg-card border border-border/60 shadow-xl shadow-black/8"
           >
-            <div className="relative h-72 md:h-96 bg-muted">
+            <div className="relative h-64 md:h-88 bg-muted">
               <img src={item.src} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
-              {/* Score badge */}
-              <div className="absolute top-2 right-2 bg-background/90 backdrop-blur-sm text-foreground text-[11px] font-black px-2 py-0.5 rounded-full shadow-sm">
-                {item.score}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+              {/* Score */}
+              <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm text-foreground text-[11px] font-black px-2.5 py-1 rounded-full shadow">
+                ★ {item.score}
               </div>
-            </div>
-            <div className="px-4 md:px-6 py-3.5 md:py-5">
-              <p className="text-sm md:text-base font-semibold text-foreground mb-0.5">{item.tag}</p>
-              <p className="text-[13px] md:text-sm text-primary font-medium">{item.match}</p>
+              {/* Tag */}
+              <div className="absolute bottom-3 left-3 text-white text-xs font-semibold">
+                {item.tag}
+              </div>
             </div>
           </motion.div>
         ))}

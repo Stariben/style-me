@@ -10,6 +10,7 @@ import Footer from '../components/Footer';
 import FAQSection from '../components/FAQSection';
 import PricingSection from '../components/PricingSection';
 import Header from '../components/Header';
+import TestimonialsSection from '../components/TestimonialsSection';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ export default function Home() {
       <HeroSection onStartAnalysis={handleStartAnalysis} />
       <WhySection />
       <HowItWorksSection onStartAnalysis={handleStartAnalysis} />
+      <TestimonialsSection />
       <PricingSection onStartAnalysis={handleStartAnalysis} />
       <FAQSection />
       <CTASection onStartAnalysis={handleStartAnalysis} />

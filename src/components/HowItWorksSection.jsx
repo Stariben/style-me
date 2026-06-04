@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Camera, SlidersHorizontal, Wand2, ArrowRight } from 'lucide-react';
+import { Camera, Image, Wand2, ArrowRight } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
 
 const STEPS = [
@@ -8,27 +8,24 @@ const STEPS = [
     num: '01',
     titleKey: 'step1Title',
     descKey: 'step1Desc',
-    defaultTitle: 'Your photo',
-    defaultDesc: 'Take a quick selfie or upload a full-body photo. No posing needed — just you.',
-    accent: 'bg-blue-500/10 text-blue-600',
+    gradient: 'from-blue-500 to-indigo-500',
+    glow: 'shadow-blue-500/25',
   },
   {
-    icon: SlidersHorizontal,
+    icon: Image,
     num: '02',
     titleKey: 'step2Title',
     descKey: 'step2Desc',
-    defaultTitle: 'The outfit',
-    defaultDesc: 'Upload the outfit you want to try — a screenshot, photo, or store image.',
-    accent: 'bg-violet-500/10 text-violet-600',
+    gradient: 'from-violet-500 to-purple-500',
+    glow: 'shadow-violet-500/25',
   },
   {
     icon: Wand2,
     num: '03',
     titleKey: 'step3Title',
     descKey: 'step3Desc',
-    defaultTitle: 'The analysis',
-    defaultDesc: 'Our AI generates a photorealistic preview with a match score and style tips.',
-    accent: 'bg-pink-500/10 text-pink-600',
+    gradient: 'from-pink-500 to-rose-500',
+    glow: 'shadow-pink-500/25',
   },
 ];
 
@@ -36,66 +33,67 @@ export default function HowItWorksSection({ onStartAnalysis }) {
   const { t } = useLang();
 
   return (
-    <section id="section-how" className="bg-background px-5 py-14 md:py-24">
+    <section id="section-how" className="bg-background px-5 py-16 md:py-24">
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-center mb-9 max-w-2xl mx-auto"
+        className="text-center mb-12 max-w-2xl mx-auto"
       >
-        <h2 className="text-[1.7rem] md:text-[2.6rem] font-black tracking-tight text-foreground">
-          {t('howItWorksTitle') || 'Three simple steps'}
+        <h2 className="text-[1.8rem] md:text-[2.8rem] font-black tracking-tight text-foreground">
+          {t('howItWorksTitle')}
         </h2>
-        <p className="text-sm md:text-lg text-muted-foreground mt-2">
-          {t('howItWorksSubtitle') || 'Upload a photo and get styled in seconds.'}
+        <p className="text-sm md:text-lg text-muted-foreground mt-3">
+          {t('howItWorksSubtitle')}
         </p>
       </motion.div>
 
-      <div className="max-w-2xl md:max-w-4xl mx-auto space-y-3 md:space-y-5">
+      <div className="max-w-2xl md:max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
         {STEPS.map((step, i) => {
           const Icon = step.icon;
           return (
             <motion.div
               key={i}
-              initial={{ opacity: 0, x: -14 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-30px' }}
-              transition={{ delay: i * 0.09 }}
-              className="flex items-center gap-4 md:gap-8 bg-card border border-border/60 rounded-2xl p-5 md:p-8 shadow-sm"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-20px' }}
+              transition={{ delay: i * 0.1 }}
+              className="relative flex flex-col items-start bg-card border border-border/60 rounded-2xl p-6 md:p-8"
             >
-              {/* Number */}
-              <div className="shrink-0 text-[11px] md:text-sm font-black text-muted-foreground/40 w-6 text-right tracking-tight">
+              {/* Step number */}
+              <span className="absolute top-4 right-5 text-[11px] font-black text-muted-foreground/25 tracking-widest">
                 {step.num}
-              </div>
+              </span>
               {/* Icon */}
-              <div className={`shrink-0 h-14 w-14 md:h-20 md:w-20 rounded-xl md:rounded-2xl flex items-center justify-center ${step.accent}`}>
-                <Icon className="h-7 w-7 md:h-10 md:w-10" />
+              <div className={`h-14 w-14 rounded-2xl bg-gradient-to-br ${step.gradient} flex items-center justify-center mb-5 shadow-lg ${step.glow}`}>
+                <Icon className="h-7 w-7 text-white" />
               </div>
-              {/* Text */}
-              <div className="flex-1 min-w-0">
-                <p className="text-[17px] md:text-2xl font-bold text-foreground leading-tight">
-                  {t(step.titleKey) || step.defaultTitle}
-                </p>
-                <p className="text-[14px] md:text-base text-muted-foreground mt-1 leading-relaxed">
-                  {t(step.descKey) || step.defaultDesc}
-                </p>
-              </div>
+              <h3 className="text-lg md:text-xl font-bold text-foreground mb-2">
+                {t(step.titleKey)}
+              </h3>
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                {t(step.descKey)}
+              </p>
             </motion.div>
           );
         })}
       </div>
 
-      <motion.button
+      <motion.div
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.3 }}
-        onClick={onStartAnalysis}
-        className="mt-8 max-w-2xl md:max-w-4xl mx-auto w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground font-semibold text-lg md:text-xl py-5 md:py-6 rounded-full hover:opacity-90 active:scale-95 transition-all shadow-md shadow-primary/25"
+        transition={{ delay: 0.35 }}
+        className="mt-10 text-center"
       >
-        {t('startNow') || 'Start Now'}
-        <ArrowRight className="h-4 w-4" />
-      </motion.button>
+        <button
+          onClick={onStartAnalysis}
+          className="inline-flex items-center gap-2.5 bg-primary text-primary-foreground font-bold text-base md:text-lg px-9 py-4 rounded-full hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-primary/30"
+        >
+          {t('startNow')}
+          <ArrowRight className="h-4 w-4" />
+        </button>
+      </motion.div>
     </section>
   );
 }

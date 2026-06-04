@@ -30,9 +30,9 @@ export function InstallPWAButton() {
   if (!isVisible) return null;
 
   return (
-    <Button onClick={handleInstall} variant="outline" size="sm" className="gap-2">
+    <Button onClick={handleInstall} variant="outline" size="sm" className="gap-2 rounded-full">
       <Download className="h-4 w-4" />
-      Installer l'app
+      <span className="hidden sm:inline">Installer</span>
     </Button>
   );
 }
@@ -44,64 +44,54 @@ const scrollToSection = (id) => {
 
 export default function Header() {
   const { t } = useLang();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const handleLogin = () => {
     base44.auth.redirectToLogin(window.location.href);
   };
 
   return (
-    <header className="px-6 pt-6 pb-4">
-      <div className="flex items-center justify-between gap-3">
+    <header className={`sticky top-0 z-40 px-5 py-3 transition-all duration-300 ${scrolled ? 'bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-sm' : 'bg-transparent'}`}>
+      <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
         {/* Brand */}
-        <div className="flex items-center gap-3">
-          <div className="h-14 w-14 rounded-2xl overflow-hidden">
+        <div className="flex items-center gap-2.5">
+          <div className="h-9 w-9 rounded-xl overflow-hidden shrink-0">
             <img src="/icons/icon-192.png" alt="Style Me" className="w-full h-full object-cover" />
           </div>
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight text-foreground">StyleMe</h1>
-            <p className="text-sm text-muted-foreground font-medium">AI Outfit Advisor</p>
-          </div>
+          <span className="text-lg font-black tracking-tight text-foreground">StyleMe</span>
         </div>
 
-        {/* Nav + Login */}
-        <div className="flex items-center gap-1 md:gap-3">
-          {/* Nav links — hidden on very small screens */}
-          <nav className="hidden sm:flex items-center gap-1 text-sm text-muted-foreground">
+        {/* Nav */}
+        <nav className="hidden md:flex items-center gap-1 text-sm text-muted-foreground">
+          {[
+            { label: t('footerFeatures'), id: 'section-why' },
+            { label: t('footerHowItWorks'), id: 'section-how' },
+            { label: t('headerPricing'), id: 'section-pricing' },
+            { label: t('footerFaq'), id: 'section-faq' },
+          ].map((item) => (
             <button
-              onClick={() => scrollToSection('section-why')}
-              className="px-3 py-1.5 rounded-lg hover:bg-muted hover:text-foreground transition-colors min-h-0 font-medium"
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
+              className="px-3.5 py-2 rounded-lg hover:bg-muted hover:text-foreground transition-colors min-h-0 font-medium text-sm"
             >
-              {t('footerFeatures')}
+              {item.label}
             </button>
-            <button
-              onClick={() => scrollToSection('section-how')}
-              className="px-3 py-1.5 rounded-lg hover:bg-muted hover:text-foreground transition-colors min-h-0 font-medium"
-            >
-              {t('footerHowItWorks')}
-            </button>
-            <button
-              onClick={() => scrollToSection('section-pricing')}
-              className="px-3 py-1.5 rounded-lg hover:bg-muted hover:text-foreground transition-colors min-h-0 font-medium"
-            >
-              {t('headerPricing')}
-            </button>
-            <button
-              onClick={() => scrollToSection('section-faq')}
-              className="px-3 py-1.5 rounded-lg hover:bg-muted hover:text-foreground transition-colors min-h-0 font-medium"
-            >
-              {t('footerFaq')}
-            </button>
-          </nav>
+          ))}
+        </nav>
 
-          {/* Login button */}
-          <Button onClick={handleLogin} size="sm" className="gap-2 shrink-0">
-            <LogIn className="h-4 w-4" />
-            <span className="hidden sm:inline">
-              {t('loginBtn') || 'Connexion'}
-            </span>
-          </Button>
-
+        {/* Actions */}
+        <div className="flex items-center gap-2">
           <InstallPWAButton />
+          <Button onClick={handleLogin} size="sm" className="gap-2 rounded-full px-5 font-semibold">
+            <LogIn className="h-3.5 w-3.5" />
+            <span>{t('loginBtn')}</span>
+          </Button>
         </div>
       </div>
     </header>
