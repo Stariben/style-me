@@ -45,11 +45,11 @@ Deno.serve(async (req) => {
     });
 
     // ----- 3. VÉRIFICATION DU QUOTA CÔTÉ SERVEUR -----
-    const freshUser = await base44.asServiceRole.entities.User.filter({ email: user.email });
-    if (!freshUser || freshUser.length === 0) {
+    const freshUser = await base44.asServiceRole.entities.User.get(user.id);
+    if (!freshUser) {
       return Response.json({ error: 'Utilisateur introuvable' }, { status: 404 });
     }
-    const currentUser = freshUser[0];
+    const currentUser = freshUser;
     const freeUsed = currentUser.free_analyses_used || 0;
     const paidCredits = currentUser.analysis_credits || 0;
     const canUse = freeUsed < FREE_ANALYSES_MAX || paidCredits > 0;
@@ -189,6 +189,6 @@ Describe very specifically: the person's facial features (skin undertone, eye co
     }
   } catch (error) {
     console.error('analyzeOutfit error:', error);
-    return Response.json({ error: 'Une erreur est survenue' }, { status: 500 });
+    return Response.json({ error: error.message || 'Une erreur est survenue' }, { status: 500 });
   }
 });
