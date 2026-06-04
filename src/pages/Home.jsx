@@ -13,6 +13,13 @@ import Header from '../components/Header';
 export default function Home() {
   const navigate = useNavigate();
 
+  // Redirect authenticated users directly to the tool
+  useEffect(() => {
+    base44.auth.isAuthenticated().then((authed) => {
+      if (authed) navigate('/analyze', { replace: true });
+    });
+  }, []);
+
   const handleStartAnalysis = async () => {
     const authed = await base44.auth.isAuthenticated();
     if (!authed) {
