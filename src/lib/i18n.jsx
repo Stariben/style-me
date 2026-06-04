@@ -102,6 +102,10 @@ export const translations = {
     contactSend: "Envoyer",
     photoFormatError: "Format non supporté. Utilisez JPG, PNG ou WEBP.",
     photoSizeError: (max) => `La photo ne doit pas dépasser ${max} Mo.`,
+    consentModalTitle: "Avant de commencer",
+    consentModalDesc: "Pour utiliser Style Me, vous devez accepter nos documents légaux.",
+    consentCheckboxPre: "J'ai lu et j'accepte les",
+    consentCheckboxMid: "et la",
     // Landing page
     herobadge: 'Conseiller mode IA dans ta poche',
     heroHeadline1: 'Analyse IA de tenues,',
@@ -302,6 +306,10 @@ export const translations = {
     contactSend: "Send",
     photoFormatError: "Unsupported format. Use JPG, PNG or WEBP.",
     photoSizeError: (max) => `Photo must not exceed ${max} MB.`,
+    consentModalTitle: "Before you begin",
+    consentModalDesc: "To use Style Me, you must accept our legal documents.",
+    consentCheckboxPre: "I have read and accept the",
+    consentCheckboxMid: "and the",
     // Landing page
     herobadge: 'AI stylist in your pocket',
     heroHeadline1: 'AI-powered outfit analysis,',

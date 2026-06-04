@@ -11,6 +11,7 @@ import PhotoUploader from '../components/PhotoUploader';
 import ResultCard from '../components/ResultCard';
 import AnalyzingOverlay from '../components/AnalyzingOverlay';
 import Paywall from '../components/Paywall';
+import TermsConsentModal from '../components/TermsConsentModal';
 
 const FREE_ANALYSES = 5;
 
@@ -141,6 +142,7 @@ export default function Analyze() {
         </div>
       )}
 
+      <TermsConsentModal userId={userData?.id} />
       <AnimatePresence>{isAnalyzing && <AnalyzingOverlay />}</AnimatePresence>
       <AnimatePresence>{showPaywall && <Paywall onClose={() => setShowPaywall(false)} />}</AnimatePresence>
 
