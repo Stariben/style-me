@@ -20,10 +20,11 @@ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import { LangProvider } from '@/lib/i18n';
 import LanguagePicker from '@/components/LanguagePicker';
 import { CameraProvider } from '@/lib/CameraContext';
+import TermsConsentModal from '@/components/TermsConsentModal';
 // Add page imports here
 
 const AuthenticatedApp = () => {
-  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
+  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin, isAuthenticated, user } = useAuth();
 
   // Show loading spinner while checking app public settings or auth
   if (isLoadingPublicSettings || isLoadingAuth) {
@@ -47,6 +48,7 @@ const AuthenticatedApp = () => {
   return (
     <NavigationProvider>
       <LanguagePicker />
+      {isAuthenticated && user && <TermsConsentModal userId={user.id} />}
       <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<PageTransition><Home /></PageTransition>} />
