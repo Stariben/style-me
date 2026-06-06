@@ -12,7 +12,7 @@ import ResultCard from '../components/ResultCard';
 import AnalyzingOverlay from '../components/AnalyzingOverlay';
 import Paywall from '../components/Paywall';
 
-const FREE_ANALYSES = 5;
+const FREE_ANALYSES = 3;
 
 export default function Analyze() {
   const { t, lang } = useLang();

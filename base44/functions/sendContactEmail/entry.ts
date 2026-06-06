@@ -1,4 +1,4 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
 
 // Configuration par type de requête
 const RATE_LIMITS = {
@@ -85,10 +85,14 @@ Deno.serve(async (req) => {
     });
 
     // 6. Envoyer l'email de confirmation à l'utilisateur
+    const confirmationBody = type === 'contact'
+      ? `Bonjour ${safeName},\n\nNous avons bien reçu votre message concernant : "${safeSubject}".\n\nNous vous répondrons dans les plus brefs délais.\n\nL'équipe StyleMatch`
+      : `Bonjour ${safeName},\n\nNous avons bien reçu votre demande de suppression de compte.\n\nConformément à notre politique de confidentialité, la suppression sera effectuée dans un délai de 30 jours.\n\nL'équipe StyleMatch`;
+
     await base44.integrations.Core.SendEmail({
       to: user.email,
-      subject: emailSubject,
-      body: emailBody,
+      subject: type === 'contact' ? `[StyleMatch] Votre message a bien été reçu` : `[StyleMatch] Demande de suppression reçue`,
+      body: confirmationBody,
       from_name: 'StyleMatch',
     });
 

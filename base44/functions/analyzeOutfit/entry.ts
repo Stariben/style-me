@@ -1,4 +1,4 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
 
 const FREE_ANALYSES_MAX = 3;
 
@@ -156,7 +156,7 @@ Describe very specifically: the person's facial features (skin undertone, eye co
           match_score: analysis.match_score,
           verdict: analysis.verdict,
           result_json: JSON.stringify(analysis),
-          created_by: user.email,
+          user_id: user.id,
         });
       } catch (histErr) {
         console.error('History save failed (non-blocking):', histErr);
