@@ -13,7 +13,6 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import TermsAndConditions from './pages/TermsAndConditions';import BottomNav from './components/BottomNav';
-import ConsentBanner from './components/ConsentBanner';
 import PageTransition from './components/PageTransition';
 import MobileHeader from './components/MobileHeader';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
@@ -48,7 +47,6 @@ const AuthenticatedApp = () => {
   return (
     <NavigationProvider>
       <LanguagePicker />
-      <ConsentBanner />
       <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<PageTransition><Home /></PageTransition>} />
