@@ -90,8 +90,7 @@ export default function HowItWorksSection({ onStartAnalysis }) {
           onClick={onStartAnalysis}
           className="inline-flex items-center gap-2.5 bg-primary text-primary-foreground font-bold text-base md:text-lg px-9 py-4 rounded-full hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-primary/30"
         >
-          {t('startNow')}
-          <ArrowRight className="h-4 w-4" />
+          {t('startNow').replace(' →', '')}
         </button>
       </motion.div>
     </section>
