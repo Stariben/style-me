@@ -1205,7 +1205,7 @@ export const translations = {
   },
 };
 
-const LANG_KEY = 'stylematch_lang';
+const LANG_KEY = 'styleme_lang';
 
 const LangContext = createContext(null);
 

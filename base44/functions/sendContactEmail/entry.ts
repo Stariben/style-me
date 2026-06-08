@@ -102,7 +102,7 @@ Deno.serve(async (req) => {
       admins
         .filter((a) => a.email !== user.email)
         .map((admin) =>
-          base44.asServiceRole.integrations.Core.SendEmail({
+          base44.integrations.Core.SendEmail({
             to: admin.email,
             subject: emailSubject,
             body: emailBody,

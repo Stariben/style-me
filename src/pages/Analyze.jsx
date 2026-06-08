@@ -25,6 +25,12 @@ export default function Analyze() {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const isPaymentSuccess = params.get('payment') === 'success';
+    if (isPaymentSuccess) {
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+
     const loadUser = async () => {
       const authed = await base44.auth.isAuthenticated();
       if (!authed) {
@@ -33,27 +39,21 @@ export default function Analyze() {
       }
       const user = await base44.auth.me();
       setUserData(user);
+
+      if (isPaymentSuccess) {
+        let attempts = 0;
+        const creditsBefore = user?.analysis_credits || 0;
+        const poll = async () => {
+          const u = await base44.auth.me();
+          setUserData(u);
+          if ((u?.analysis_credits || 0) > creditsBefore || attempts >= 10) return;
+          attempts++;
+          setTimeout(poll, 1500);
+        };
+        setTimeout(poll, 1500);
+      }
     };
     loadUser();
-
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('payment') === 'success') {
-      window.history.replaceState({}, '', window.location.pathname);
-      let attempts = 0;
-      let creditsBefore = null;
-      const poll = async () => {
-        const u = await base44.auth.me();
-        setUserData(u);
-        if (creditsBefore === null) {
-          creditsBefore = u?.analysis_credits || 0;
-        } else if ((u?.analysis_credits || 0) > creditsBefore || attempts >= 10) {
-          return;
-        }
-        attempts++;
-        setTimeout(poll, 1500);
-      };
-      setTimeout(poll, 1500);
-    }
   }, []);
 
   const freeUsed = userData?.free_analyses_used || 0;
@@ -108,7 +108,7 @@ export default function Analyze() {
     analyzeMutation.reset();
   }, [resetState, analyzeMutation]);
 
-  const { pullDistance, refreshing } = usePullToRefresh(handleRefresh);
+  const { pullDistance, refreshing, onTouchStart, onTouchMove, onTouchEnd } = usePullToRefresh(handleRefresh);
 
   const isAnalyzing = analyzeMutation.isPending;
   const canAnalyze = personImage && outfitImage && !isAnalyzing;
@@ -122,13 +122,19 @@ export default function Analyze() {
   };
 
   const handleReset = () => {
+    setPersonImage(null);
     setOutfitImage(null);
     setResult(null);
     setGeneratedImage(null);
   };
 
   return (
-    <div className="min-h-screen bg-background pt-14 pb-6">
+    <div
+      className="min-h-screen bg-background pt-14 pb-6"
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+    >
       {pullDistance > 0 && (
         <div className="flex items-center justify-center overflow-hidden transition-all" style={{ height: pullDistance }}>
           <RefreshCw className={`h-5 w-5 text-primary transition-transform ${refreshing ? 'animate-spin' : ''}`} />
