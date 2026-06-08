@@ -16,7 +16,7 @@ export default defineConfig({
       manifest: false, // On utilise notre propre /public/manifest.json
       workbox: {
         navigateFallback: '/index.html',
-        navigateFallbackDenylist: [/^\/api/, /^\/functions/],
+        navigateFallbackDenylist: [/^\/api/, /^\/functions/, /^\/login/, /^\/auth/, /^\/oauth/],
         globPatterns: ['**/*.{js,css,html,png,svg,ico,woff2}'],
         runtimeCaching: [
           {
