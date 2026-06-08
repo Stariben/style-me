@@ -2,9 +2,22 @@ import { Toaster } from "@/components/ui/toaster"
 import { AnimatePresence } from 'framer-motion';
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { NavigationProvider } from '@/lib/NavigationContext';
 import PageNotFound from './lib/PageNotFound';
+import { useEffect } from 'react';
+import { base44 } from '@/api/base44Client';
+
+function LoginRedirect() {
+  useEffect(() => {
+    base44.auth.redirectToLogin(window.location.origin + '/analyze');
+  }, []);
+  return (
+    <div className="fixed inset-0 flex items-center justify-center">
+      <div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin"></div>
+    </div>
+  );
+}
 import Home from './pages/Home';
 import Analyze from './pages/Analyze';
 import AccountSettings from './pages/AccountSettings';
@@ -59,6 +72,7 @@ const AuthenticatedApp = () => {
           <Route path="/about" element={<PageTransition><MobileHeader /><About /><BottomNav /></PageTransition>} />
           <Route path="/contact" element={<PageTransition><MobileHeader /><Contact /><BottomNav /></PageTransition>} />
           <Route path="/terms" element={<PageTransition><TermsAndConditions /></PageTransition>} />
+          <Route path="/login" element={<LoginRedirect />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </AnimatePresence>
