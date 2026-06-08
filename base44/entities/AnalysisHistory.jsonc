@@ -29,22 +29,11 @@
   },
   "required": [],
   "rls": {
-    "create": {
-      "$or": [
-        {
-          "data.created_by": "{{user.email}}"
-        },
-        {
-          "user_condition": {
-            "role": "admin"
-          }
-        }
-      ]
-    },
+    "create": {},
     "read": {
       "$or": [
         {
-          "data.created_by": "{{user.email}}"
+          "data.user_id": "{{user.id}}"
         },
         {
           "user_condition": {
@@ -61,7 +50,7 @@
     "delete": {
       "$or": [
         {
-          "data.created_by": "{{user.email}}"
+          "data.user_id": "{{user.id}}"
         },
         {
           "user_condition": {
