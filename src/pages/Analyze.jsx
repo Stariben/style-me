@@ -32,11 +32,6 @@ export default function Analyze() {
     }
 
     const loadUser = async () => {
-      const authed = await base44.auth.isAuthenticated();
-      if (!authed) {
-        base44.auth.redirectToLogin(window.location.href);
-        return;
-      }
       const user = await base44.auth.me();
       setUserData(user);
 

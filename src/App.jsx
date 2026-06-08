@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { AnimatePresence } from 'framer-motion';
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { NavigationProvider } from '@/lib/NavigationContext';
 import PageNotFound from './lib/PageNotFound';
 import Home from './pages/Home';
@@ -12,11 +12,17 @@ import History from './pages/History.jsx';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import TermsAndConditions from './pages/TermsAndConditions';import BottomNav from './components/BottomNav';
+import TermsAndConditions from './pages/TermsAndConditions';
+import BottomNav from './components/BottomNav';
 import PageTransition from './components/PageTransition';
 import MobileHeader from './components/MobileHeader';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
+import ProtectedRoute from '@/components/ProtectedRoute';
+import Login from '@/pages/Login';
+import Register from '@/pages/Register';
+import ForgotPassword from '@/pages/ForgotPassword';
+import ResetPassword from '@/pages/ResetPassword';
 import { LangProvider } from '@/lib/i18n';
 import LanguagePicker from '@/components/LanguagePicker';
 import { CameraProvider } from '@/lib/CameraContext';
@@ -51,14 +57,24 @@ const AuthenticatedApp = () => {
       {isAuthenticated && user && <TermsConsentModal userId={user.id} />}
       <AnimatePresence mode="wait" initial={false}>
         <Routes key={window.location.pathname}>
-          <Route path="/" element={<PageTransition><Home /></PageTransition>} />
-          <Route path="/analyze" element={<PageTransition><MobileHeader /><Analyze /><BottomNav /></PageTransition>} />
-          <Route path="/account" element={<PageTransition><MobileHeader /><AccountSettings /><BottomNav /></PageTransition>} />
-          <Route path="/history" element={<PageTransition><MobileHeader /><History /><BottomNav /></PageTransition>} />
-          <Route path="/privacy" element={<PageTransition><PrivacyPolicy /></PageTransition>} />
-          <Route path="/about" element={<PageTransition><MobileHeader /><About /><BottomNav /></PageTransition>} />
-          <Route path="/contact" element={<PageTransition><MobileHeader /><Contact /><BottomNav /></PageTransition>} />
-          <Route path="/terms" element={<PageTransition><TermsAndConditions /></PageTransition>} />
+          {/* Auth routes — public */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+
+          {/* Protected routes */}
+          <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
+            <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+            <Route path="/analyze" element={<PageTransition><MobileHeader /><Analyze /><BottomNav /></PageTransition>} />
+            <Route path="/account" element={<PageTransition><MobileHeader /><AccountSettings /><BottomNav /></PageTransition>} />
+            <Route path="/history" element={<PageTransition><MobileHeader /><History /><BottomNav /></PageTransition>} />
+            <Route path="/privacy" element={<PageTransition><PrivacyPolicy /></PageTransition>} />
+            <Route path="/about" element={<PageTransition><MobileHeader /><About /><BottomNav /></PageTransition>} />
+            <Route path="/contact" element={<PageTransition><MobileHeader /><Contact /><BottomNav /></PageTransition>} />
+            <Route path="/terms" element={<PageTransition><TermsAndConditions /></PageTransition>} />
+          </Route>
+
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </AnimatePresence>
