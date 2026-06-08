@@ -27,7 +27,7 @@ export default function Contact() {
 
           <div className="space-y-3">
             <a
-              href="mailto:contact@stylematch.app"
+              href="mailto:contact@styleme.app"
               className="flex items-center gap-4 p-5 rounded-2xl border border-border bg-card hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
             >
               <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
@@ -35,7 +35,7 @@ export default function Contact() {
               </div>
               <div>
                 <p className="font-semibold text-foreground text-sm">Email</p>
-                <p className="text-muted-foreground text-sm mt-0.5">contact@stylematch.app</p>
+                <p className="text-muted-foreground text-sm mt-0.5">contact@styleme.app</p>
               </div>
             </a>
 
