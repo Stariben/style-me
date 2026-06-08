@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,20 +14,13 @@ import TestimonialsSection from '../components/TestimonialsSection';
 export default function Home() {
   const navigate = useNavigate();
 
-  // Redirect authenticated users directly to the tool
-  useEffect(() => {
-    base44.auth.isAuthenticated().then((authed) => {
-      if (authed) navigate('/analyze', { replace: true });
-    });
-  }, []);
-
   const handleStartAnalysis = async () => {
     const authed = await base44.auth.isAuthenticated();
-    if (!authed) {
-      base44.auth.redirectToLogin(window.location.origin + '/analyze');
-      return;
+    if (authed) {
+      navigate('/analyze');
+    } else {
+      navigate('/login');
     }
-    navigate('/analyze');
   };
 
   return (
