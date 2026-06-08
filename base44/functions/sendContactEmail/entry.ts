@@ -70,11 +70,11 @@ Deno.serve(async (req) => {
 
     let emailSubject, emailBody;
     if (type === 'contact') {
-      emailSubject = `[StyleMatch Contact] ${safeSubject}`;
+      emailSubject = `[StyleMe Contact] ${safeSubject}`;
       emailBody = `Message de ${safeName} (${safeEmail}):\n\n${safeMessage}`;
     } else {
-      emailSubject = `[StyleMatch] Demande de suppression de compte`;
-      emailBody = `Bonjour,\n\nL'utilisateur suivant a demandé la suppression de son compte :\n\nNom : ${safeName}\nEmail : ${safeEmail}\n\nConformément à notre politique de confidentialité, la suppression sera effectuée dans un délai de 30 jours.\n\nStyleMatch`;
+      emailSubject = `[StyleMe] Demande de suppression de compte`;
+      emailBody = `Bonjour,\n\nL'utilisateur suivant a demandé la suppression de son compte :\n\nNom : ${safeName}\nEmail : ${safeEmail}\n\nConformément à notre politique de confidentialité, la suppression sera effectuée dans un délai de 30 jours.\n\nStyleMe`;
     }
 
     // 5. Enregistrer pour le rate limit
@@ -86,14 +86,14 @@ Deno.serve(async (req) => {
 
     // 6. Envoyer l'email de confirmation à l'utilisateur
     const confirmationBody = type === 'contact'
-      ? `Bonjour ${safeName},\n\nNous avons bien reçu votre message concernant : "${safeSubject}".\n\nNous vous répondrons dans les plus brefs délais.\n\nL'équipe StyleMatch`
-      : `Bonjour ${safeName},\n\nNous avons bien reçu votre demande de suppression de compte.\n\nConformément à notre politique de confidentialité, la suppression sera effectuée dans un délai de 30 jours.\n\nL'équipe StyleMatch`;
+      ? `Bonjour ${safeName},\n\nNous avons bien reçu votre message concernant : "${safeSubject}".\n\nNous vous répondrons dans les plus brefs délais.\n\nL'équipe StyleMe`
+      : `Bonjour ${safeName},\n\nNous avons bien reçu votre demande de suppression de compte.\n\nConformément à notre politique de confidentialité, la suppression sera effectuée dans un délai de 30 jours.\n\nL'équipe StyleMe`;
 
     await base44.integrations.Core.SendEmail({
       to: user.email,
-      subject: type === 'contact' ? `[StyleMatch] Votre message a bien été reçu` : `[StyleMatch] Demande de suppression reçue`,
+      subject: type === 'contact' ? `[StyleMe] Votre message a bien été reçu` : `[StyleMe] Demande de suppression reçue`,
       body: confirmationBody,
-      from_name: 'StyleMatch',
+      from_name: 'StyleMe',
     });
 
     // 7. Notifier les admins
@@ -106,7 +106,7 @@ Deno.serve(async (req) => {
             to: admin.email,
             subject: emailSubject,
             body: emailBody,
-            from_name: 'StyleMatch',
+            from_name: 'StyleMe',
           })
         )
     );
