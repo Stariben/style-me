@@ -38,7 +38,7 @@ export default function Analyze() {
 
     const params = new URLSearchParams(window.location.search);
     if (params.get('payment') === 'success') {
-      window.history.replaceState({}, '', '/analyze');
+      window.history.replaceState({}, '', window.location.pathname);
       let attempts = 0;
       let creditsBefore = null;
       const poll = async () => {
@@ -125,7 +125,6 @@ export default function Analyze() {
     setOutfitImage(null);
     setResult(null);
     setGeneratedImage(null);
-    analyzeMutation.reset();
   };
 
   return (

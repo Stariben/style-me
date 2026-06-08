@@ -36,9 +36,12 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
     }
 
     setIsUploading(true);
-    const { file_url } = await base44.integrations.Core.UploadFile({ file });
-    onImageUploaded(file_url);
-    setIsUploading(false);
+    try {
+      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      onImageUploaded(file_url);
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   const openCamera = () => { setShowCamera(true); setIsCameraOpen(true); };
@@ -47,9 +50,12 @@ export default function PhotoUploader({ type, imageUrl, onImageUploaded, onClear
   const handleCameraCapture = async (file) => {
     closeCamera();
     setIsUploading(true);
-    const { file_url } = await base44.integrations.Core.UploadFile({ file });
-    onImageUploaded(file_url);
-    setIsUploading(false);
+    try {
+      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      onImageUploaded(file_url);
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   const handleGalleryClick = () => {

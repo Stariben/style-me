@@ -38,8 +38,8 @@ export default function Paywall({ onClose }) {
       const origin = window.location.origin;
       const res = await base44.functions.invoke('stripeCheckout', {
         packId,
-        successUrl: `${origin}/?payment=success`,
-        cancelUrl: `${origin}/?payment=cancel`,
+        successUrl: `${origin}/analyze?payment=success`,
+        cancelUrl: `${origin}/analyze?payment=cancel`,
       });
       if (res.data?.url) {
         window.location.href = res.data.url;

@@ -47,6 +47,7 @@ Deno.serve(async (req) => {
     // ----- 3. VÉRIFICATION DU QUOTA CÔTÉ SERVEUR -----
     const freshUser = await base44.asServiceRole.entities.User.get(user.id);
     if (!freshUser) {
+      await base44.asServiceRole.entities.AnalysisLock.delete(lock.id);
       return Response.json({ error: 'Utilisateur introuvable' }, { status: 404 });
     }
     const currentUser = freshUser;
@@ -55,7 +56,7 @@ Deno.serve(async (req) => {
     const canUse = freeUsed < FREE_ANALYSES_MAX || paidCredits > 0;
 
     if (!canUse) {
-      await base44.asServiceRole.entities.AnalysisLock.delete(lock.id);
+      await base44.asServiceRole.entities.AnalysisLock.delete(lock.id).catch(() => {});
       return Response.json(
         { error: 'Quota épuisé. Achetez un pack pour continuer.', needsPayment: true },
         { status: 402 }
