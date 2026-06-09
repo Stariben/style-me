@@ -56,15 +56,12 @@ export default function Analyze() {
   // Allow if userData not yet loaded (server will enforce quota) or quota available
   const canUseApp = !userData || freeUsed < FREE_ANALYSES || paidCredits > 0;
 
-  const resetState = useCallback(() => {
+  const handleReset = useCallback(() => {
     setPersonImage(null);
     setOutfitImage(null);
     setResult(null);
     setGeneratedImage(null);
   }, []);
-
-  // handleReset alias kept for ResultCard prop
-  const handleReset = resetState;
 
   const analyzeMutation = useMutation({
     onMutate: () => {
@@ -102,9 +99,9 @@ export default function Analyze() {
   });
 
   const handleRefresh = useCallback(() => {
-    resetState();
+    handleReset();
     analyzeMutation.reset();
-  }, [resetState, analyzeMutation]);
+  }, [handleReset, analyzeMutation]);
 
   const { pullDistance, refreshing, onTouchStart, onTouchMove, onTouchEnd } = usePullToRefresh(handleRefresh);
 
@@ -129,11 +126,6 @@ export default function Analyze() {
       {pullDistance > 0 && (
         <div className="flex items-center justify-center overflow-hidden transition-all" style={{ height: pullDistance }}>
           <RefreshCw className={`h-5 w-5 text-primary transition-transform ${refreshing ? 'animate-spin' : ''}`} />
-        </div>
-      )}
-      {refreshing && (
-        <div className="flex items-center justify-center h-10">
-          <RefreshCw className="h-5 w-5 text-primary animate-spin" />
         </div>
       )}
 

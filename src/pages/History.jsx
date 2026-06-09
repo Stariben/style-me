@@ -47,17 +47,11 @@ function HistoryItemModal({ item, onClose }) {
   );
 }
 
-function CompareView({ itemA, itemB, onClose }) {
+function CompareView({ itemA, itemB, onClose, getScoreColor }) {
   const { t } = useLang();
   let resultA = {}, resultB = {};
   try { resultA = JSON.parse(itemA.result_json || '{}'); } catch (_) {}
   try { resultB = JSON.parse(itemB.result_json || '{}'); } catch (_) {}
-
-  const getScoreColor = (score) => {
-    if (score >= 8) return 'text-green-500';
-    if (score >= 5) return 'text-amber-500';
-    return 'text-red-400';
-  };
 
   const ColCard = ({ item, result }) => (
     <div className="flex-1 min-w-0 flex flex-col gap-3">
@@ -345,7 +339,7 @@ export default function History() {
 
       <AnimatePresence>
         {selected && <HistoryItemModal item={selected} onClose={() => setSelected(null)} />}
-        {comparing && <CompareView itemA={comparing[0]} itemB={comparing[1]} onClose={() => setComparing(null)} />}
+        {comparing && <CompareView itemA={comparing[0]} itemB={comparing[1]} onClose={() => setComparing(null)} getScoreColor={getScoreColor} />}
       </AnimatePresence>
     </div>
   );

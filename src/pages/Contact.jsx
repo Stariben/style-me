@@ -2,10 +2,17 @@ import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, Mail, MessageCircle, Clock, Headphones } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
 import { motion } from 'framer-motion';
+import { base44 } from '@/api/base44Client';
 
 export default function Contact() {
   const navigate = useNavigate();
   const { t } = useLang();
+
+  const handleAccountNav = async () => {
+    const authed = await base44.auth.isAuthenticated();
+    if (authed) navigate('/account');
+    else base44.auth.redirectToLogin('/account');
+  };
 
   return (
     <div className="min-h-screen bg-background pb-12">
@@ -56,7 +63,7 @@ export default function Contact() {
           </motion.a>
 
           <motion.button
-            onClick={() => navigate('/account')}
+            onClick={handleAccountNav}
             initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
