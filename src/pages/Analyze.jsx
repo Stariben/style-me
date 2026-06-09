@@ -57,7 +57,6 @@ export default function Analyze() {
   const canUseApp = !userData || freeUsed < FREE_ANALYSES || paidCredits > 0;
 
   const handleReset = useCallback(() => {
-    setPersonImage(null);
     setOutfitImage(null);
     setResult(null);
     setGeneratedImage(null);
@@ -218,7 +217,7 @@ export default function Analyze() {
         </motion.div>
 
         {/* Results */}
-        <AnimatePresence initial={false}>
+        <AnimatePresence>
           {result && <ResultCard key="result-card" result={result} generatedImage={generatedImage} onReset={handleReset} />}
         </AnimatePresence>
       </div>
