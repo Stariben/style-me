@@ -103,7 +103,7 @@ export default function Analyze() {
     analyzeMutation.reset();
   }, [handleReset, analyzeMutation]);
 
-  const { pullDistance, refreshing, onTouchStart, onTouchMove, onTouchEnd } = usePullToRefresh(handleRefresh);
+  const { pullDistance, onTouchStart, onTouchMove, onTouchEnd } = usePullToRefresh(handleRefresh);
 
   const isAnalyzing = analyzeMutation.isPending;
   const canAnalyze = personImage && outfitImage && !isAnalyzing;
@@ -125,7 +125,7 @@ export default function Analyze() {
     >
       {pullDistance > 0 && (
         <div className="flex items-center justify-center overflow-hidden transition-all" style={{ height: pullDistance }}>
-          <RefreshCw className={`h-5 w-5 text-primary transition-transform ${refreshing ? 'animate-spin' : ''}`} />
+          <RefreshCw className="h-5 w-5 text-primary transition-transform" />
         </div>
       )}
 

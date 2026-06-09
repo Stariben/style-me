@@ -11,7 +11,7 @@ export default function MobileHeader() {
   if (!canGoBack) return null;
 
   return (
-    <div className="flex items-center gap-2 px-4 pt-safe pt-4 pb-2 bg-background border-b border-border sticky top-0 z-40">
+    <div className="flex items-center gap-2 px-4 pt-4 pb-2 bg-background border-b border-border sticky top-0 z-40">
       <button
         onClick={() => navigate(-1)}
         className="flex items-center justify-center h-11 w-11 -ml-2 rounded-xl hover:bg-muted transition-colors"

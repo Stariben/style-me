@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useRef } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { useLocation, useNavigationType } from 'react-router-dom';
 
 const TAB_ROOTS = ['/', '/account', '/history', '/analyze'];
@@ -9,7 +9,6 @@ export function NavigationProvider({ children }) {
   const location = useLocation();
   const navType = useNavigationType();
   const [depth, setDepth] = useState(0);
-  const prevPathname = useRef(location.pathname);
 
   useEffect(() => {
     const isTabRoot = TAB_ROOTS.includes(location.pathname);
@@ -27,7 +26,6 @@ export function NavigationProvider({ children }) {
       if (isTabRoot) setDepth(0);
     }
 
-    prevPathname.current = location.pathname;
   }, [location.key]);
 
   return (
