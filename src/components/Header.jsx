@@ -125,7 +125,7 @@ export default function Header() {
         {/* Brand */}
         <div className="flex items-center gap-2.5">
           <div className="h-12 w-12 rounded-2xl overflow-hidden shrink-0 shadow-sm">
-            <img src="/icons/icon-192.png" alt="Style Me" className="w-full h-full object-cover" />
+            <img src="/icons/icon-192.png" alt="StyleMe" className="w-full h-full object-cover" />
           </div>
           <span className="text-xl font-black tracking-tight text-foreground">StyleMe</span>
         </div>
