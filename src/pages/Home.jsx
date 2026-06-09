@@ -1,5 +1,4 @@
 import { base44 } from '@/api/base44Client';
-import { useNavigate } from 'react-router-dom';
 
 import HeroSection from '../components/HeroSection';
 import WhySection from '../components/WhySection';
@@ -12,14 +11,12 @@ import Header from '../components/Header';
 import TestimonialsSection from '../components/TestimonialsSection';
 
 export default function Home() {
-  const navigate = useNavigate();
-
   const handleStartAnalysis = async () => {
     const authed = await base44.auth.isAuthenticated();
     if (authed) {
-      navigate('/analyze');
+      window.location.href = '/analyze';
     } else {
-      navigate('/login');
+      base44.auth.redirectToLogin('/analyze');
     }
   };
 

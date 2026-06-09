@@ -71,7 +71,7 @@ export default function TestimonialsSection() {
               <img src={item.avatar} alt="" className="h-9 w-9 rounded-full object-cover" />
               <div>
                 <p className="text-sm font-semibold text-foreground">{t(item.nameKey)}</p>
-                <p className="text-[11px] text-muted-foreground">Verified user ✓</p>
+                <p className="text-[11px] text-muted-foreground">✓ Verified</p>
               </div>
             </div>
           </motion.div>

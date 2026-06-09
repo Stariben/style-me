@@ -26,10 +26,10 @@ export default function FAQSection() {
         className="text-center mb-9 max-w-2xl mx-auto"
       >
         <h2 className="text-[1.7rem] md:text-[2.6rem] font-black tracking-tight text-foreground">
-          {t('faqTitle') || 'Questions fréquentes'}
+          {t('faqTitle')}
         </h2>
         <p className="text-sm md:text-lg text-muted-foreground mt-2">
-          {t('faqSubtitle') || 'Tout ce que vous devez savoir.'}
+          {t('faqSubtitle')}
         </p>
       </motion.div>
 
