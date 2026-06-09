@@ -19,12 +19,12 @@ export default function Footer() {
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
               <div className="h-11 w-11 rounded-2xl overflow-hidden shadow-sm">
-                <img src="/icons/icon-192.png" alt="Style Me" className="w-full h-full object-cover" />
-              </div>
-              <span className="text-background font-black text-xl tracking-tight">Style Me</span>
+                <img src="/icons/icon-192.png" alt="StyleMe" className="w-full h-full object-cover" />
+                </div>
+                <span className="text-background font-black text-xl tracking-tight">StyleMe</span>
             </div>
             <p className="text-sm text-background/40 max-w-[200px] leading-relaxed">
-              {t('whySubtitle') || 'Your style, elevated effortlessly.'}
+              {t('whySubtitle')}
             </p>
           </div>
 

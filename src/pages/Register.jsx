@@ -117,7 +117,7 @@ export default function Register() {
       await base44.auth.register({ email, password });
       setShowOtp(true);
     } catch (err) {
-      setError(err.message || s.submit);
+      setError(err.message || s.passwordMismatch);
     } finally {
       setLoading(false);
     }

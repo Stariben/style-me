@@ -29,7 +29,7 @@ export default function CTASection({ onStartAnalysis }) {
           <div className="relative z-10">
             <div className="inline-flex items-center gap-2 bg-white/10 text-white/80 text-xs font-semibold px-4 py-1.5 rounded-full mb-5 tracking-widest uppercase">
               <Sparkles className="h-3 w-3" />
-              Style Me AI
+              StyleMe AI
             </div>
             <h2 className="text-[2.2rem] md:text-[3.5rem] font-black text-white leading-tight mb-4">
               {t('ctaTitle')}
