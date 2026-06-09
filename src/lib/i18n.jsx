@@ -14,7 +14,7 @@ export const translations = {
     uploadBothPhotos: "Téléchargez les deux photos pour commencer",
     takePhoto: "Photo",
     gallery: "Galerie",
-    chooseFromGallery: "Choisir dans la galerie",
+
     // Account
     accountSettings: "Paramètres du compte",
     manageAccount: "Gérer les préférences de votre compte",
@@ -128,8 +128,7 @@ export const translations = {
     featureVisualTryOnDesc: 'Voyez-vous instantanément habillé avec la tenue. Fini les doutes avant d\'acheter.',
     featurePrivacyTitle: 'Confidentialité',
     featurePrivacyDesc: 'Confidentialité avant tout. Vos photos sont traitées en temps réel. Vous gérez vos données, sans tracking, sans compromis, sans revente.',
-    featureShoppingTitle: 'Liens Shopping',
-    featureShoppingDesc: 'Chaque analyse identifie les pièces clés — trouvez-les et achetez-les facilement.',
+
     featureStyleTitle: 'Style Personnalisé',
     featureStyleDesc: 'Des conseils adaptés à votre morphologie et votre teint pour un look parfait.',
     featureSaveTitle: 'Historique Complet',
@@ -239,7 +238,7 @@ export const translations = {
     uploadBothPhotos: "Upload both photos to get started",
     takePhoto: "Photo",
     gallery: "Gallery",
-    chooseFromGallery: "Choose from Gallery",
+
     accountSettings: "Account Settings",
     manageAccount: "Manage your account preferences",
     privacyPolicy: "Privacy Policy",
@@ -347,8 +346,7 @@ export const translations = {
     featureVisualTryOnDesc: 'Upload a photo of you, instantly see yourself dressed in the outfit. No more wondering if it fits.',
     featurePrivacyTitle: 'Your Privacy',
     featurePrivacyDesc: 'Privacy first. Your photos are processed in real-time. You manage your own data — no tracking, no compromise, no selling.',
-    featureShoppingTitle: 'Instant Shopping',
-    featureShoppingDesc: 'Every analysis identifies key pieces — find them and shop them instantly.',
+
     featureStyleTitle: 'Personal Style',
     featureStyleDesc: 'Advice tailored to your body type and complexion for the perfect look.',
     featureSaveTitle: 'Full History',
@@ -457,7 +455,7 @@ export const translations = {
     uploadBothPhotos: "Sube ambas fotos para comenzar",
     takePhoto: "Foto",
     gallery: "Galería",
-    chooseFromGallery: "Elegir de galería",
+
     accountSettings: "Configuración de cuenta",
     manageAccount: "Gestiona tus preferencias de cuenta",
     privacyPolicy: "Política de privacidad",
@@ -561,8 +559,7 @@ export const translations = {
     featureVisualTryOnDesc: 'Sube tu foto y ve al instante cómo luces con el conjunto. Sin más dudas antes de comprar.',
     featurePrivacyTitle: 'Tu Privacidad',
     featurePrivacyDesc: 'Privacidad ante todo. Tus fotos se procesan en tiempo real. Tú gestionas tus datos — sin rastreo, sin compromiso, sin reventa.',
-    featureShoppingTitle: 'Compra Instantánea',
-    featureShoppingDesc: 'Cada análisis identifica las piezas clave — encuéntralas y cómpralas fácilmente.',
+
     featureStyleTitle: 'Estilo Personal',
     featureStyleDesc: 'Consejos adaptados a tu morfología y tono de piel para un look perfecto.',
     featureSaveTitle: 'Historial Completo',
@@ -654,7 +651,7 @@ export const translations = {
     uploadBothPhotos: "Загрузите оба фото, чтобы начать",
     takePhoto: "Фото",
     gallery: "Галерея",
-    chooseFromGallery: "Выбрать из галереи",
+
     accountSettings: "Настройки аккаунта",
     manageAccount: "Управление настройками аккаунта",
     privacyPolicy: "Политика конфиденциальности",
@@ -758,8 +755,7 @@ export const translations = {
     featureVisualTryOnDesc: 'Загрузите фото и мгновенно увидите себя в новом наряде. Никаких сомнений перед покупкой.',
     featurePrivacyTitle: 'Конфиденциальность',
     featurePrivacyDesc: 'Конфиденциальность прежде всего. Ваши фото обрабатываются в реальном времени. Вы управляете своими данными — без отслеживания, без компромиссов, без продажи.',
-    featureShoppingTitle: 'Мгновенные покупки',
-    featureShoppingDesc: 'Каждый анализ определяет ключевые вещи — найдите и купите их легко.',
+
     featureStyleTitle: 'Персональный стиль',
     featureStyleDesc: 'Советы, адаптированные к вашей фигуре и тону кожи для идеального образа.',
     featureSaveTitle: 'Полная история',
@@ -851,7 +847,7 @@ export const translations = {
     uploadBothPhotos: "请上传两张照片以开始",
     takePhoto: "拍照",
     gallery: "相册",
-    chooseFromGallery: "从相册选择",
+
     accountSettings: "账户设置",
     manageAccount: "管理您的账户偏好",
     privacyPolicy: "隐私政策",
@@ -955,8 +951,7 @@ export const translations = {
     featureVisualTryOnDesc: '上传你的照片，立即看到自己穿上服装的效果。购物前不再有疑虑。',
     featurePrivacyTitle: '隐私保护',
     featurePrivacyDesc: '隐私优先。您的照片实时处理，您自主管理数据——无跟踪、无妥协、不出售。',
-    featureShoppingTitle: '即时购物',
-    featureShoppingDesc: '每次分析都能识别关键单品——轻松找到并购买。',
+
     featureStyleTitle: '个性化风格',
     featureStyleDesc: '根据你的体型和肤色量身定制建议，打造完美造型。',
     featureSaveTitle: '完整历史',
@@ -1048,7 +1043,7 @@ export const translations = {
     uploadBothPhotos: "Envie as duas fotos para começar",
     takePhoto: "Foto",
     gallery: "Galeria",
-    chooseFromGallery: "Escolher da galeria",
+
     accountSettings: "Configurações da conta",
     manageAccount: "Gerencie as preferências da sua conta",
     privacyPolicy: "Política de privacidade",
@@ -1152,8 +1147,7 @@ export const translations = {
     featureVisualTryOnDesc: 'Envie sua foto e veja instantaneamente como você fica com a roupa. Sem mais dúvidas antes de comprar.',
     featurePrivacyTitle: 'Sua Privacidade',
     featurePrivacyDesc: 'Privacidade em primeiro lugar. Suas fotos são processadas em tempo real. Você gerencia seus dados — sem rastreamento, sem compromisso, sem revenda.',
-    featureShoppingTitle: 'Compras Instantâneas',
-    featureShoppingDesc: 'Cada análise identifica as peças-chave — encontre-as e compre-as facilmente.',
+
     featureStyleTitle: 'Estilo Pessoal',
     featureStyleDesc: 'Conselhos adaptados ao seu tipo de corpo e tom de pele para um visual perfeito.',
     featureSaveTitle: 'Histórico Completo',
