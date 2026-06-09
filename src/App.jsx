@@ -30,7 +30,7 @@ import TermsConsentModal from '@/components/TermsConsentModal';
 // Add page imports here
 
 const AuthenticatedApp = () => {
-  const { isLoadingAuth, isLoadingPublicSettings, authError, isAuthenticated, user } = useAuth();
+  const { isLoadingPublicSettings, authError, isAuthenticated, user } = useAuth();
 
   // Only block on public settings load, not auth (so public pages render immediately)
   if (isLoadingPublicSettings) {
