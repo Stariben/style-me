@@ -39,13 +39,13 @@ export default function Analyze() {
         let attempts = 0;
         const creditsBefore = user?.analysis_credits || 0;
         const poll = async () => {
+          attempts++;
           const u = await base44.auth.me();
           setUserData(u);
-          if ((u?.analysis_credits || 0) > creditsBefore || attempts >= 10) return;
-          attempts++;
-          setTimeout(poll, 1500);
+          if ((u?.analysis_credits || 0) > creditsBefore) return; // credits updated ✓
+          if (attempts < 12) setTimeout(poll, 2000); // keep polling up to ~24s
         };
-        setTimeout(poll, 1500);
+        setTimeout(poll, 2000);
       }
     };
     loadUser();
