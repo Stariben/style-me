@@ -2,6 +2,10 @@
   "name": "AnalysisHistory",
   "type": "object",
   "properties": {
+    "user_id": {
+      "type": "string",
+      "title": "User ID"
+    },
     "person_image": {
       "type": "string",
       "title": "Person Image URL"
