@@ -8,9 +8,9 @@ export default function About() {
   const { t } = useLang();
 
   const highlights = [
-    { icon: Zap, label: t('aboutHighlight1') || 'Analyse IA en quelques secondes' },
-    { icon: Heart, label: t('aboutHighlight2') || 'Conseils de style personnalisés' },
-    { icon: Users, label: t('aboutHighlight3') || 'Des milliers d\'utilisateurs satisfaits' },
+    { icon: Zap, label: t('aboutHighlight1') },
+    { icon: Heart, label: t('aboutHighlight2') },
+    { icon: Users, label: t('aboutHighlight3') },
   ];
 
   return (
@@ -37,10 +37,10 @@ export default function About() {
         {/* Brand banner */}
         <div className="mb-8 p-5 bg-primary/5 border border-primary/20 rounded-2xl flex items-start gap-3">
           <div className="h-10 w-10 rounded-xl overflow-hidden shrink-0">
-            <img src="/icons/icon-192.png" alt="Style Me" className="w-full h-full object-cover" />
+            <img src="/icons/icon-192.png" alt="StyleMe" className="w-full h-full object-cover" />
           </div>
           <p className="text-sm text-foreground leading-relaxed pt-1">
-            <span className="font-bold">Style Me — </span>
+            <span className="font-bold">StyleMe — </span>
             {t('aboutBannerText') || 'Votre conseiller mode IA personnel. Analysez vos tenues en quelques secondes.'}
           </p>
         </div>
