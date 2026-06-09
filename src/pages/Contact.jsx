@@ -75,7 +75,7 @@ export default function Contact() {
             </div>
             <div>
               <p className="font-semibold text-foreground text-sm">{t('contactUs') || 'Support'}</p>
-              <p className="text-muted-foreground text-sm mt-0.5">{t('manageAccount') || 'Formulaire de contact'}</p>
+              <p className="text-muted-foreground text-sm mt-0.5">{t('contactUs')}</p>
             </div>
           </motion.button>
         </div>

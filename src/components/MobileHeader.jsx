@@ -3,7 +3,7 @@ import { ChevronLeft } from 'lucide-react';
 import { useNavigation } from '@/lib/NavigationContext';
 import useSwipeBack from '@/hooks/useSwipeBack';
 
-export default function MobileHeader({ title }) {
+export default function MobileHeader() {
   const navigate = useNavigate();
   const { canGoBack } = useNavigation();
   useSwipeBack();
@@ -20,7 +20,7 @@ export default function MobileHeader({ title }) {
       >
         <ChevronLeft className="h-5 w-5 text-foreground" />
       </button>
-      {title && <span className="font-semibold text-base">{title}</span>}
+
     </div>
   );
 }

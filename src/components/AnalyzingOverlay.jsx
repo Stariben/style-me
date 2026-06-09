@@ -30,7 +30,7 @@ export default function AnalyzingOverlay() {
         <Sparkles className="h-8 w-8 text-primary" />
       </motion.div>
 
-      <div className="space-y-2 text-center">
+      <div className="relative h-6 w-64 text-center">
         {messages.map((msg, i) => (
           <motion.p
             key={i}
@@ -42,8 +42,7 @@ export default function AnalyzingOverlay() {
               repeat: Infinity,
               repeatDelay: (messages.length - 1) * 3,
             }}
-            className="text-sm font-medium text-muted-foreground absolute"
-            style={{ position: i === 0 ? 'relative' : 'absolute' }}
+            className="text-sm font-medium text-muted-foreground absolute inset-x-0"
           >
             {msg}
           </motion.p>
