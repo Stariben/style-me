@@ -45,12 +45,11 @@ Deno.serve(async (req) => {
     });
 
     // ----- 3. VÉRIFICATION DU QUOTA CÔTÉ SERVEUR -----
-    const freshUser = await base44.asServiceRole.entities.User.get(user.id);
-    if (!freshUser) {
+    const currentUser = await base44.asServiceRole.entities.User.get(user.id);
+    if (!currentUser) {
       await base44.asServiceRole.entities.AnalysisLock.delete(lock.id);
       return Response.json({ error: 'Utilisateur introuvable' }, { status: 404 });
     }
-    const currentUser = freshUser;
     const freeUsed = currentUser.free_analyses_used || 0;
     const paidCredits = currentUser.analysis_credits || 0;
     const canUse = freeUsed < FREE_ANALYSES_MAX || paidCredits > 0;
