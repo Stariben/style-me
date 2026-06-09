@@ -66,15 +66,17 @@ const AuthenticatedApp = () => {
           {/* Home — public landing page */}
           <Route path="/" element={<PageTransition><Home /></PageTransition>} />
 
+          {/* Public support pages */}
+          <Route path="/privacy" element={<PageTransition><PrivacyPolicy /></PageTransition>} />
+          <Route path="/terms" element={<PageTransition><TermsAndConditions /></PageTransition>} />
+          <Route path="/about" element={<PageTransition><MobileHeader /><About /><BottomNav /></PageTransition>} />
+          <Route path="/contact" element={<PageTransition><MobileHeader /><Contact /><BottomNav /></PageTransition>} />
+
           {/* Protected routes */}
           <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
             <Route path="/analyze" element={<PageTransition><MobileHeader /><Analyze /><BottomNav /></PageTransition>} />
             <Route path="/account" element={<PageTransition><MobileHeader /><AccountSettings /><BottomNav /></PageTransition>} />
             <Route path="/history" element={<PageTransition><MobileHeader /><History /><BottomNav /></PageTransition>} />
-            <Route path="/privacy" element={<PageTransition><PrivacyPolicy /></PageTransition>} />
-            <Route path="/about" element={<PageTransition><MobileHeader /><About /><BottomNav /></PageTransition>} />
-            <Route path="/contact" element={<PageTransition><MobileHeader /><Contact /><BottomNav /></PageTransition>} />
-            <Route path="/terms" element={<PageTransition><TermsAndConditions /></PageTransition>} />
           </Route>
 
           <Route path="*" element={<PageNotFound />} />
