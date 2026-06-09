@@ -54,7 +54,7 @@ const AuthenticatedApp = () => {
   return (
     <NavigationProvider>
       <LanguagePicker />
-      {isAuthenticated && user && <TermsConsentModal userId={user.id} />}
+      {isAuthenticated && user && window.location.pathname !== '/' && <TermsConsentModal userId={user.id} />}
       <AnimatePresence mode="wait" initial={false}>
         <Routes key={window.location.pathname}>
           {/* Auth routes — public */}
