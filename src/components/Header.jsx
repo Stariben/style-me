@@ -64,9 +64,13 @@ export function InstallPWAButton() {
       setDeferredPrompt(e);
       setShowAndroidButton(true);
     };
+    const installedHandler = () => setShowAndroidButton(false);
     window.addEventListener('beforeinstallprompt', handler);
-    window.addEventListener('appinstalled', () => setShowAndroidButton(false));
-    return () => window.removeEventListener('beforeinstallprompt', handler);
+    window.addEventListener('appinstalled', installedHandler);
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handler);
+      window.removeEventListener('appinstalled', installedHandler);
+    };
   }, []);
 
   const handleAndroidInstall = async () => {
@@ -115,11 +119,8 @@ export default function Header() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-  
-const navigate = useNavigate();
-const handleLogin = () => {
-  navigate('/login');
-};
+  const navigate = useNavigate();
+  const handleLogin = () => navigate('/login');
 
   return (
     <header className={`sticky top-0 z-40 px-5 py-3 transition-all duration-300 ${scrolled ? 'bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-sm' : 'bg-transparent'}`}>

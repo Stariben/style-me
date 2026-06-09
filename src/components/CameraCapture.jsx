@@ -23,7 +23,9 @@ export default function CameraCapture({ facingMode = 'environment', onCapture, o
       streamRef.current = stream;
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
-        videoRef.current.onloadedmetadata = () => setReady(true);
+        videoRef.current.onloadedmetadata = () => {
+          if (videoRef.current) setReady(true);
+        };
       }
     } catch (err) {
       setError('Camera access denied. Please allow camera access and try again.');

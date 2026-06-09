@@ -4,7 +4,6 @@ const THRESHOLD = 72;
 
 export default function usePullToRefresh(onRefresh) {
   const [pullDistance, setPullDistance] = useState(0);
-  const [refreshing, setRefreshing] = useState(false);
   const startY = useRef(null);
   const pulling = useRef(false);
 
@@ -27,14 +26,12 @@ export default function usePullToRefresh(onRefresh) {
     if (!pulling.current) return;
     pulling.current = false;
     if (pullDistance >= THRESHOLD) {
-      setRefreshing(true);
       setPullDistance(THRESHOLD);
       await onRefresh();
-      setRefreshing(false);
     }
     setPullDistance(0);
     startY.current = null;
   }, [pullDistance, onRefresh]);
 
-  return { pullDistance, refreshing, onTouchStart, onTouchMove, onTouchEnd, threshold: THRESHOLD };
+  return { pullDistance, onTouchStart, onTouchMove, onTouchEnd, threshold: THRESHOLD };
 }

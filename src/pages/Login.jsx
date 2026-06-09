@@ -63,9 +63,9 @@ export default function Login() {
         {/* App icon + branding */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl overflow-hidden shadow-lg shadow-primary/30 mb-4">
-            <img src="/icons/icon-192.png" alt="Style Me" className="w-full h-full object-cover" />
+            <img src="/icons/icon-192.png" alt="StyleMe" className="w-full h-full object-cover" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight">Style Me</h1>
+          <h1 className="text-2xl font-bold tracking-tight">StyleMe</h1>
           <p className="text-muted-foreground text-sm mt-1">{s.subtitle}</p>
         </div>
 
