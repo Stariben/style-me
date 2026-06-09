@@ -123,11 +123,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const navigateToLogin = () => {
-    // Use the SDK's redirectToLogin method
-    base44.auth.redirectToLogin(window.location.href);
-  };
-
   return (
     <AuthContext.Provider value={{ 
       user, 
@@ -135,9 +130,7 @@ export const AuthProvider = ({ children }) => {
       isLoadingAuth,
       isLoadingPublicSettings,
       authError,
-      appPublicSettings,
       logout,
-      navigateToLogin,
       checkAppState
     }}>
       {children}
