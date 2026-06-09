@@ -213,11 +213,11 @@ export default function Register() {
       }
     >
       <div className="space-y-3 mb-6">
-        <Button variant="outline" className="w-full h-12 text-sm font-medium" onClick={() => base44.auth.loginWithProvider("google", "/")}>
+        <Button variant="outline" className="w-full h-12 text-sm font-medium" onClick={() => base44.auth.loginWithProvider("google", "/analyze")}>
           <GoogleIcon className="w-5 h-5 mr-2" />
           {s.google}
         </Button>
-        <Button variant="outline" className="w-full h-12 text-sm font-medium" onClick={() => base44.auth.loginWithProvider("apple", "/")}>
+        <Button variant="outline" className="w-full h-12 text-sm font-medium" onClick={() => base44.auth.loginWithProvider("apple", "/analyze")}>
           <AppleIcon className="w-5 h-5 mr-2" />
           {s.apple}
         </Button>

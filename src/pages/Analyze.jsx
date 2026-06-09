@@ -63,6 +63,9 @@ export default function Analyze() {
     setGeneratedImage(null);
   }, []);
 
+  // handleReset alias kept for ResultCard prop
+  const handleReset = resetState;
+
   const analyzeMutation = useMutation({
     onMutate: () => {
       setResult(null);
@@ -114,13 +117,6 @@ export default function Analyze() {
       return;
     }
     analyzeMutation.mutate({ personImg: personImage, outfitImg: outfitImage });
-  };
-
-  const handleReset = () => {
-    setPersonImage(null);
-    setOutfitImage(null);
-    setResult(null);
-    setGeneratedImage(null);
   };
 
   return (

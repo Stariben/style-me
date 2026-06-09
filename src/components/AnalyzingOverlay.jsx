@@ -1,14 +1,20 @@
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
+import { useLang } from '@/lib/i18n';
 
-const messages = [
-  'Analyzing your look...',
-  'Checking color harmony...',
-  'Evaluating style match...',
-  'Preparing your results...',
-];
+const MESSAGES = {
+  fr: ['Analyse de votre look...', 'Vérification des couleurs...', 'Évaluation du style...', 'Préparation des résultats...'],
+  en: ['Analyzing your look...', 'Checking color harmony...', 'Evaluating style match...', 'Preparing your results...'],
+  es: ['Analizando tu look...', 'Verificando colores...', 'Evaluando el estilo...', 'Preparando tus resultados...'],
+  ru: ['Анализ вашего образа...', 'Проверка цветовой гармонии...', 'Оценка стиля...', 'Подготовка результатов...'],
+  zh: ['分析你的造型...', '检查色彩协调...', '评估风格匹配...', '准备你的结果...'],
+  pt: ['Analisando seu look...', 'Verificando harmonia de cores...', 'Avaliando o estilo...', 'Preparando seus resultados...'],
+};
 
 export default function AnalyzingOverlay() {
+  const { lang } = useLang();
+  const messages = MESSAGES[lang] || MESSAGES.fr;
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
