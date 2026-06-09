@@ -3,6 +3,7 @@ import { Download, LogIn, Share, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { useLang } from '@/lib/i18n';
+import { useNavigate } from 'react-router-dom';
 
 function isIOS() {
   return /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
@@ -114,10 +115,11 @@ export default function Header() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
-  const handleLogin = () => {
-    base44.auth.redirectToLogin(window.location.href);
-  };
+  
+const navigate = useNavigate();
+const handleLogin = () => {
+  navigate('/login');
+};
 
   return (
     <header className={`sticky top-0 z-40 px-5 py-3 transition-all duration-300 ${scrolled ? 'bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-sm' : 'bg-transparent'}`}>
