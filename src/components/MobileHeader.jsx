@@ -15,7 +15,6 @@ export default function MobileHeader() {
       <button
         onClick={() => navigate(-1)}
         className="flex items-center justify-center h-11 w-11 -ml-2 rounded-xl hover:bg-muted transition-colors"
-        style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
         aria-label="Go back"
       >
         <ChevronLeft className="h-5 w-5 text-foreground" />

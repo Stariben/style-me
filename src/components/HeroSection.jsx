@@ -26,7 +26,7 @@ export default function HeroSection({ onStartAnalysis }) {
   return (
     <section className="relative bg-background px-5 pt-10 pb-16 md:pt-20 md:pb-24 overflow-hidden">
       {/* Background glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-primary/8 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="relative max-w-3xl mx-auto text-center">
         {/* Badge */}
