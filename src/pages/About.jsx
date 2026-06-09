@@ -25,7 +25,7 @@ export default function About() {
         </button>
         <div className="flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-primary" />
-          <span className="font-bold text-sm">{t('aboutTitle') || 'À propos'}</span>
+          <span className="font-bold text-sm">{t('aboutTitle')}</span>
         </div>
       </div>
 
@@ -41,7 +41,7 @@ export default function About() {
           </div>
           <p className="text-sm text-foreground leading-relaxed pt-1">
             <span className="font-bold">StyleMe — </span>
-            {t('aboutBannerText') || 'Votre conseiller mode IA personnel. Analysez vos tenues en quelques secondes.'}
+            {t('aboutBannerText')}
           </p>
         </div>
 

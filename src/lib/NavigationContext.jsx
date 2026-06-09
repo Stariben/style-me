@@ -26,7 +26,7 @@ export function NavigationProvider({ children }) {
       if (isTabRoot) setDepth(0);
     }
 
-  }, [location.key]);
+  }, [location.key, navType]);
 
   return (
     <NavigationContext.Provider value={{ canGoBack: depth > 0 }}>

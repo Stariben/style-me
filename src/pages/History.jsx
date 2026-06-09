@@ -323,7 +323,7 @@ export default function History() {
                 </div>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-semibold truncate">{item.verdict || 'Outfit Analysis'}</p>
+                <p className="font-semibold truncate">{item.verdict || '—'}</p>
                 <p className="text-xs text-muted-foreground mt-0.5">
                   {new Date(item.created_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                 </p>

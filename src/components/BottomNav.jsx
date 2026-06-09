@@ -33,8 +33,7 @@ export default function BottomNav() {
           <button
             key={path}
             onClick={() => navigate(path, { replace: active })}
-            className="flex-1 flex flex-col items-center justify-center py-3 gap-1 transition-colors select-none"
-            style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
+            className="flex-1 flex flex-col items-center justify-center py-3 gap-1 transition-colors"
           >
             <Icon className={`h-5 w-5 transition-colors ${active ? 'text-primary' : 'text-muted-foreground'}`} />
             <span className={`text-[10px] font-medium transition-colors ${active ? 'text-primary' : 'text-muted-foreground'}`}>

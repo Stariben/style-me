@@ -47,10 +47,10 @@ export default function TermsConsentModal({ userId }) {
             </div>
 
             <h2 className="text-xl font-bold text-center mb-2">
-              {t('consentModalTitle') || 'Avant de commencer'}
+              {t('consentModalTitle')}
             </h2>
             <p className="text-sm text-muted-foreground text-center mb-6 leading-relaxed">
-              {t('consentModalDesc') || 'Pour utiliser Style Me, vous devez accepter nos documents légaux.'}
+              {t('consentModalDesc')}
             </p>
 
             {/* Checkbox */}
@@ -68,21 +68,21 @@ export default function TermsConsentModal({ userId }) {
                 )}
               </div>
               <span className="text-sm text-foreground leading-relaxed" onClick={() => setChecked((v) => !v)}>
-                {t('consentCheckboxPre') || "J'ai lu et j'accepte les"}{' '}
+                {t('consentCheckboxPre')}{' '}
                 <Link
                   to="/terms"
                   className="text-primary underline underline-offset-2 font-medium"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  {t('termsTitle') || "Conditions d'utilisation"}
+                  {t('termsTitle')}
                 </Link>{' '}
-                {t('consentCheckboxMid') || 'et la'}{' '}
+                {t('consentCheckboxMid')}{' '}
                 <Link
                   to="/privacy"
                   className="text-primary underline underline-offset-2 font-medium"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  {t('privacyPolicy') || 'Politique de confidentialité'}
+                  {t('privacyPolicy')}
                 </Link>
               </span>
             </label>
@@ -92,7 +92,7 @@ export default function TermsConsentModal({ userId }) {
               disabled={!checked}
               className="w-full h-12 rounded-2xl text-base font-semibold"
             >
-              {t('consentAccept') || 'Accepter et continuer'}
+              {t('consentAccept')}
             </Button>
           </motion.div>
         </motion.div>

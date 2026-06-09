@@ -132,11 +132,7 @@ export default function Analyze() {
       <AnimatePresence>{isAnalyzing && <AnalyzingOverlay />}</AnimatePresence>
       <AnimatePresence>{showPaywall && <Paywall onClose={() => setShowPaywall(false)} />}</AnimatePresence>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-      >
+      <div>
         {/* Hero text */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -225,7 +221,7 @@ export default function Analyze() {
         <AnimatePresence initial={false}>
           {result && <ResultCard key="result-card" result={result} generatedImage={generatedImage} onReset={handleReset} />}
         </AnimatePresence>
-      </motion.div>
+      </div>
     </div>
   );
 }

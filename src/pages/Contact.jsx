@@ -26,7 +26,7 @@ export default function Contact() {
         </button>
         <div className="flex items-center gap-2">
           <Headphones className="h-4 w-4 text-primary" />
-          <span className="font-bold text-sm">{t('contactUs') || 'Contact'}</span>
+          <span className="font-bold text-sm">{t('contactUs')}</span>
         </div>
       </div>
 
@@ -39,8 +39,8 @@ export default function Contact() {
         <div className="mb-8 p-5 bg-primary/5 border border-primary/20 rounded-2xl flex items-start gap-3">
           <Headphones className="h-5 w-5 text-primary shrink-0 mt-0.5" />
           <p className="text-sm text-foreground leading-relaxed">
-            <span className="font-bold">{t('contactUs') || 'Nous contacter'} — </span>
-            {t('contactBannerText') || 'Notre équipe est disponible pour répondre à toutes vos questions.'}
+            <span className="font-bold">{t('contactUs')} — </span>
+            {t('contactBannerText')}
           </p>
         </div>
 

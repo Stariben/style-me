@@ -20,7 +20,6 @@ export default function MobileHeader() {
       >
         <ChevronLeft className="h-5 w-5 text-foreground" />
       </button>
-
     </div>
   );
 }
