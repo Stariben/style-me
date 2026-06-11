@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Download, LogIn, Share, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
-import { useLang } from '@/lib/i18n';
+import { useLang, translations } from '@/lib/i18n';
 import { useNavigate } from 'react-router-dom';
 
 function isIOS() {
@@ -13,37 +13,49 @@ function isInStandaloneMode() {
   return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true || window.navigator.standalone === 1;
 }
 
-function IOSInstallModal({ onClose }) {
+const iosInstallStrings = {
+  fr: { title: "Installer StyleMe", subtitle: "Ajoutez l'app sur votre écran d'accueil", step1: <><strong>Partager</strong> <Share className="inline h-4 w-4 text-blue-500" /> en bas de Safari</>, step2: <>Faites défiler et appuyez sur <strong>« Sur l'écran d'accueil »</strong></>, step3: <>Appuyez sur <strong>Ajouter</strong> en haut à droite</> },
+  en: { title: "Install StyleMe", subtitle: "Add the app to your home screen", step1: <>Tap <strong>Share</strong> <Share className="inline h-4 w-4 text-blue-500" /> at the bottom of Safari</>, step2: <>Scroll and tap <strong>"Add to Home Screen"</strong></>, step3: <>Tap <strong>Add</strong> in the top right</> },
+  es: { title: "Instalar StyleMe", subtitle: "Añade la app a tu pantalla de inicio", step1: <>Pulsa <strong>Compartir</strong> <Share className="inline h-4 w-4 text-blue-500" /> en la parte inferior de Safari</>, step2: <>Desplázate y pulsa <strong>"En la pantalla de inicio"</strong></>, step3: <>Pulsa <strong>Añadir</strong> en la esquina superior derecha</> },
+  ru: { title: "Установить StyleMe", subtitle: "Добавьте приложение на главный экран", step1: <>Нажмите <strong>Поделиться</strong> <Share className="inline h-4 w-4 text-blue-500" /> внизу Safari</>, step2: <>Прокрутите и нажмите <strong>«На экран «Домой»»</strong></>, step3: <>Нажмите <strong>Добавить</strong> в правом верхнем углу</> },
+  zh: { title: "安装 StyleMe", subtitle: "将应用添加到主屏幕", step1: <>点击 Safari 底部的<strong>分享</strong> <Share className="inline h-4 w-4 text-blue-500" /></>, step2: <>滚动并点击<strong>「添加到主屏幕」</strong></>, step3: <>点击右上角的<strong>添加</strong></> },
+  pt: { title: "Instalar StyleMe", subtitle: "Adicione o app à sua tela inicial", step1: <>Toque em <strong>Compartilhar</strong> <Share className="inline h-4 w-4 text-blue-500" /> na parte inferior do Safari</>, step2: <>Role e toque em <strong>"Adicionar à Tela de Início"</strong></>, step3: <>Toque em <strong>Adicionar</strong> no canto superior direito</> },
+};
+
+function IOSInstallModal({ onClose, lang }) {
+  const s = iosInstallStrings[lang] || iosInstallStrings['fr'];
   return (
     <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end justify-center p-4" onClick={onClose}>
       <div
-        className="bg-card rounded-3xl w-full max-w-sm p-6 shadow-2xl relative mb-2"
+        className="bg-card rounded-3xl w-full max-w-sm shadow-2xl relative mb-2 max-h-[85vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <button onClick={onClose} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
+        <button onClick={onClose} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground z-10">
           <X className="h-5 w-5" />
         </button>
-        <div className="text-center mb-5">
-          <div className="w-14 h-14 rounded-2xl overflow-hidden mx-auto mb-3 shadow-md">
-            <img src="/icons/icon-192.png" alt="StyleMe" className="w-full h-full object-cover" />
+        <div className="overflow-y-auto p-6">
+          <div className="text-center mb-5">
+            <div className="w-14 h-14 rounded-2xl overflow-hidden mx-auto mb-3 shadow-md">
+              <img src="/icons/icon-192.png" alt="StyleMe" className="w-full h-full object-cover" />
+            </div>
+            <h2 className="text-lg font-bold">{s.title}</h2>
+            <p className="text-sm text-muted-foreground mt-1">{s.subtitle}</p>
           </div>
-          <h2 className="text-lg font-bold">Installer StyleMe</h2>
-          <p className="text-sm text-muted-foreground mt-1">Ajoutez l'app sur votre écran d'accueil</p>
+          <ol className="space-y-3 text-sm">
+            <li className="flex items-start gap-3">
+              <span className="h-6 w-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+              <span>{s.step1}</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="h-6 w-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+              <span>{s.step2}</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="h-6 w-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+              <span>{s.step3}</span>
+            </li>
+          </ol>
         </div>
-        <ol className="space-y-3 text-sm">
-          <li className="flex items-start gap-3">
-            <span className="h-6 w-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
-            <span>Appuyez sur <strong>Partager</strong> <Share className="inline h-4 w-4 text-blue-500" /> en bas de Safari</span>
-          </li>
-          <li className="flex items-start gap-3">
-            <span className="h-6 w-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
-            <span>Faites défiler et appuyez sur <strong>«&nbsp;Sur l'écran d'accueil&nbsp;»</strong></span>
-          </li>
-          <li className="flex items-start gap-3">
-            <span className="h-6 w-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
-            <span>Appuyez sur <strong>Ajouter</strong> en haut à droite</span>
-          </li>
-        </ol>
       </div>
     </div>
   );
@@ -53,6 +65,7 @@ export function InstallPWAButton() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [showAndroidButton, setShowAndroidButton] = useState(false);
   const [showIOSModal, setShowIOSModal] = useState(false);
+  const { lang } = useLang();
 
   const ios = typeof navigator !== 'undefined' && isIOS();
   const standalone = typeof window !== 'undefined' && isInStandaloneMode();
@@ -90,7 +103,7 @@ export function InstallPWAButton() {
           <Download className="h-4 w-4" />
           <span className="hidden sm:inline">Installer</span>
         </Button>
-        {showIOSModal && <IOSInstallModal onClose={() => setShowIOSModal(false)} />}
+        {showIOSModal && <IOSInstallModal onClose={() => setShowIOSModal(false)} lang={lang || 'fr'} />}
       </>
     );
   }
