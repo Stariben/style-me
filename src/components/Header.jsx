@@ -10,7 +10,7 @@ function isIOS() {
 }
 
 function isInStandaloneMode() {
-  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true || window.navigator.standalone === 1;
 }
 
 function IOSInstallModal({ onClose }) {
