@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Download, LogIn, Share, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
@@ -24,8 +25,8 @@ const iosInstallStrings = {
 
 function IOSInstallModal({ onClose, lang }) {
   const s = iosInstallStrings[lang] || iosInstallStrings['fr'];
-  return (
-    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end justify-center p-4" onClick={onClose}>
+  return createPortal(
+    <div className="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-sm flex items-end justify-center p-4" onClick={onClose}>
       <div
         className="bg-card rounded-3xl w-full max-w-sm shadow-2xl relative mb-2 max-h-[85vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
@@ -57,7 +58,8 @@ function IOSInstallModal({ onClose, lang }) {
           </ol>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
