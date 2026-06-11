@@ -7,7 +7,9 @@ import { useLang, translations } from '@/lib/i18n';
 import { useNavigate } from 'react-router-dom';
 
 function isIOS() {
-  return /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+  const ua = navigator.userAgent || navigator.vendor || '';
+  return /iphone|ipad|ipod/i.test(ua) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 }
 
 function isInStandaloneMode() {
@@ -72,6 +74,14 @@ export function InstallPWAButton() {
   const ios = typeof navigator !== 'undefined' && isIOS();
   const standalone = typeof window !== 'undefined' && isInStandaloneMode();
 
+  // Debug: log to help diagnose
+  useEffect(() => {
+    if (typeof navigator !== 'undefined') {
+      console.log('[PWA] userAgent:', navigator.userAgent);
+      console.log('[PWA] isIOS:', ios, '| standalone:', standalone);
+    }
+  }, []);
+
   useEffect(() => {
     if (ios || standalone) return;
     const handler = (e) => {
@@ -98,12 +108,18 @@ export function InstallPWAButton() {
 
   if (standalone) return null;
 
+  // Show iOS modal button for iOS devices (including iPadOS)
   if (ios) {
     return (
       <>
-        <Button onClick={() => setShowIOSModal(true)} variant="outline" size="sm" className="gap-2 rounded-full">
+        <Button
+          onClick={() => setShowIOSModal(true)}
+          variant="outline"
+          size="sm"
+          className="gap-2 rounded-full"
+        >
           <Download className="h-4 w-4" />
-          <span className="hidden sm:inline">Installer</span>
+          <span>Installer</span>
         </Button>
         {showIOSModal && <IOSInstallModal onClose={() => setShowIOSModal(false)} lang={lang || 'fr'} />}
       </>
