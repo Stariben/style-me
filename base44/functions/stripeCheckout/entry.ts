@@ -17,6 +17,13 @@ Deno.serve(async (req) => {
     const pack = PACKS[packId];
     if (!pack) return Response.json({ error: 'Pack invalide' }, { status: 400 });
 
+    // Anti Open-Redirect: only allow same-origin HTTPS URLs
+    const allowedOrigin = `https://${new URL(req.url).host}`;
+    const isAllowed = (u) => typeof u === 'string' && u.startsWith(allowedOrigin);
+    if (!isAllowed(successUrl) || !isAllowed(cancelUrl)) {
+      return Response.json({ error: 'URLs de redirection invalides' }, { status: 400 });
+    }
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [{ price: pack.priceId, quantity: 1 }],
@@ -35,6 +42,6 @@ Deno.serve(async (req) => {
     return Response.json({ url: session.url });
   } catch (error) {
     console.error('Stripe checkout error:', error);
-    return Response.json({ error: error.message }, { status: 500 });
+    return Response.json({ error: 'Erreur lors de la création du paiement' }, { status: 500 });
   }
 });

@@ -33,9 +33,15 @@ export default function AccountSettings() {
 
   const handleDeleteAccount = async () => {
     setIsDeleting(true);
-    await base44.functions.invoke('sendContactEmail', { type: 'delete', subject: '', message: '' });
-    setDeleted(true);
-    setIsDeleting(false);
+    try {
+      await base44.functions.invoke('sendContactEmail', { type: 'delete', subject: '', message: '' });
+      setDeleted(true);
+    } catch (err) {
+      console.error('Delete request failed:', err);
+      alert(t('contactError') || 'Erreur, réessayez plus tard');
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   const handleLogout = () => base44.auth.logout('/');
@@ -43,15 +49,21 @@ export default function AccountSettings() {
   const handleContactSubmit = async () => {
     if (!contactForm.subject.trim() || !contactForm.message.trim()) return;
     setSendingContact(true);
-    await base44.functions.invoke('sendContactEmail', {
-      type: 'contact',
-      subject: contactForm.subject,
-      message: contactForm.message,
-    });
-    setContactForm({ subject: '', message: '' });
-    setSendingContact(false);
-    setContactSent(true);
-    setTimeout(() => { setContactSent(false); setShowContactForm(false); }, 2500);
+    try {
+      await base44.functions.invoke('sendContactEmail', {
+        type: 'contact',
+        subject: contactForm.subject,
+        message: contactForm.message,
+      });
+      setContactForm({ subject: '', message: '' });
+      setContactSent(true);
+      setTimeout(() => { setContactSent(false); setShowContactForm(false); }, 2500);
+    } catch (err) {
+      console.error('Contact send failed:', err);
+      alert(t('contactError') || 'Erreur, réessayez plus tard');
+    } finally {
+      setSendingContact(false);
+    }
   };
 
   if (deleted) {

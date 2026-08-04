@@ -189,6 +189,6 @@ Describe very specifically: the person's facial features (skin undertone, eye co
     }
   } catch (error) {
     console.error('analyzeOutfit error:', error);
-    return Response.json({ error: error.message || 'Une erreur est survenue' }, { status: 500 });
+    return Response.json({ error: 'Une erreur est survenue' }, { status: 500 });
   }
 });
