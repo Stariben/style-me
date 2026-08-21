@@ -1,18 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, Mail, MessageCircle, Clock, Headphones } from 'lucide-react';
+import { ChevronLeft, Mail, Clock, Headphones } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
 import { motion } from 'framer-motion';
-import { base44 } from '@/api/base44Client';
 
 export default function Contact() {
   const navigate = useNavigate();
   const { t } = useLang();
-
-  const handleAccountNav = async () => {
-    const authed = await base44.auth.isAuthenticated();
-    if (authed) navigate('/account');
-    else base44.auth.redirectToLogin('/account');
-  };
 
   return (
     <div className="min-h-screen bg-background pb-12">
@@ -62,22 +55,6 @@ export default function Contact() {
             </div>
           </motion.a>
 
-          <motion.button
-            onClick={handleAccountNav}
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="w-full flex items-center gap-4 p-5 rounded-2xl border border-border bg-card hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 text-left"
-          >
-            <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <MessageCircle className="h-5 w-5 text-primary" />
-            </div>
-            <div>
-              <p className="font-semibold text-foreground text-sm">{t('contactUs') || 'Support'}</p>
-              <p className="text-muted-foreground text-sm mt-0.5">{t('contactUs')}</p>
-            </div>
-          </motion.button>
         </div>
 
         <div className="flex items-center gap-2 text-xs text-muted-foreground justify-center mb-8">

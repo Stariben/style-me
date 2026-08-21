@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { Download, LogIn, Share, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
-import { useLang, translations } from '@/lib/i18n';
+import { useLang } from '@/lib/i18n';
 import { useNavigate } from 'react-router-dom';
 
 function isIOS() {
@@ -73,14 +73,6 @@ export function InstallPWAButton() {
 
   const ios = typeof navigator !== 'undefined' && isIOS();
   const standalone = typeof window !== 'undefined' && isInStandaloneMode();
-
-  // Debug: log to help diagnose
-  useEffect(() => {
-    if (typeof navigator !== 'undefined') {
-      console.log('[PWA] userAgent:', navigator.userAgent);
-      console.log('[PWA] isIOS:', ios, '| standalone:', standalone);
-    }
-  }, []);
 
   useEffect(() => {
     if (ios || standalone) return;
